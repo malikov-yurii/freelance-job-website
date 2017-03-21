@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS freelancer_portfolio_projects;
 DROP TABLE IF EXISTS project_applied_freelancers;
 DROP TABLE IF EXISTS project_required_skills;
 DROP TABLE IF EXISTS projects;
@@ -47,6 +46,7 @@ CREATE TABLE projects
   name          VARCHAR,
   status        VARCHAR,
   description   VARCHAR,
+  payment   DECIMAL(12,2),
   client_id     INTEGER,
   freelancer_id INTEGER,
   FOREIGN KEY (client_id) REFERENCES users (id),
@@ -69,13 +69,4 @@ CREATE TABLE project_applied_freelancers
   CONSTRAINT project_id_freelancer_id_idx UNIQUE (project_id, freelancer_id),
   FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE,
   FOREIGN KEY (freelancer_id) REFERENCES users (id)
-);
-
-CREATE TABLE freelancer_portfolio_projects
-(
-  freelancer_id INTEGER NOT NULL,
-  project_id    INTEGER NOT NULL,
-  CONSTRAINT freelancer_id_project_id_idx UNIQUE (freelancer_id, project_id),
-  FOREIGN KEY (freelancer_id) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (project_id) REFERENCES skills (id)
 );
