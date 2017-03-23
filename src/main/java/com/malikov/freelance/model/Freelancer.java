@@ -1,20 +1,29 @@
 package com.malikov.freelance.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.data.repository.cdi.Eager;
+
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-//@NamedQueries({
-//        @NamedQuery(name = Freelancer.DELETE, query = "DELETE FROM Freelancer c WHERE c.id=:id"),
+@NamedQueries({
+        @NamedQuery(name = Freelancer.GET, query = "SELECT f FROM Freelancer f WHERE (f.id=:id AND 'FREELANCER' in elements(f.roles))"),
+//        @NamedQuery(name = Freelancer.GET, query = "SELECT c FROM Freelancer c LEFT JOIN c.roles as r WHERE r.name = 'CLIENT' AND c.id=:id"),
+        @NamedQuery(name = Freelancer.DELETE, query = "DELETE FROM Freelancer f WHERE (f.id=:id AND 'FREELANCER' in elements(f.roles))"),
 //        @NamedQuery(name = Freelancer.BY_NAME, query = "SELECT c FROM Freelancer c WHERE c.name=:name"),
 //        @NamedQuery(name = Freelancer.BY_LAST_NAME, query = "SELECT c FROM Freelancer c WHERE c.lastName=:lastName"),
 //        @NamedQuery(name = Freelancer.BY_FIRST_NAME_MASK, query = "SELECT c FROM Freelancer c WHERE lower(c.name) LIKE lower(:firstNameMask)"),
 //        @NamedQuery(name = Freelancer.BY_LAST_NAME_MASK, query = "SELECT c FROM Freelancer c WHERE lower(c.lastName) LIKE lower(:lastNameMask)"),
 //        @NamedQuery(name = Freelancer.BY_EMAIL, query = "SELECT c FROM Freelancer c WHERE c.email=:email"),
-//        @NamedQuery(name = Freelancer.ALL_SORTED, query = "SELECT f FROM Freelancer f JOIN f.roles as rls WHERE rls = 'FREELANCER' ORDER BY f.id"),
-//})
-//@Entity
+        @NamedQuery(name = Freelancer.ALL_SORTED, query = "SELECT f FROM Freelancer f WHERE ('FREELANCER' in elements(f.roles)) ORDER BY f.id"),
+})
+@Entity
+@Table(name = "users")
 public class Freelancer extends BaseUser {
 
+    public static final String GET = "Freelancer.get";
     public static final String DELETE = "Freelancer.delete";
 //    public static final String BY_NAME = "Freelancer.getByName";
 //    public static final String BY_LAST_NAME = "Freelancer.getByLastName";
@@ -23,15 +32,23 @@ public class Freelancer extends BaseUser {
 //    public static final String BY_EMAIL = "Freelancer.getByEmail";
     public static final String ALL_SORTED = "Freelancer.getAllSorted";
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "freelancer_skills",
-//            joinColumns = {@JoinColumn(name = "freelancer_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "skill_id")}
-//    )
+
+    @ManyToMany
+    @Fetch(FetchMode.JOIN)
+    @JoinTable(
+            name = "freelancer_skills",
+            joinColumns = {@JoinColumn(name = "freelancer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "skill_id")}
+    )
     private Set<Skill> skills;
 
     public Freelancer(){}
+
+    public Freelancer(Freelancer freelancer){
+        super(freelancer.getId(), freelancer.getLogin(), freelancer.getPassword(), freelancer.getFirstName(),
+                freelancer.getLastName(), freelancer.getEmail(), freelancer.getRoles());
+        this.skills = freelancer.getSkills();
+    }
 
     public Freelancer(Set<Skill> skills) {
         this.skills = skills;
