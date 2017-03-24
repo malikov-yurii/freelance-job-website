@@ -48,9 +48,9 @@ CREATE TABLE projects
   description   VARCHAR,
   payment   DECIMAL(12,2),
   client_id     INTEGER,
-  freelancer_id INTEGER,
-  FOREIGN KEY (client_id) REFERENCES users (id),
-  FOREIGN KEY (freelancer_id) REFERENCES users (id)
+  freelancer_id INTEGER
+--   ,FOREIGN KEY (client_id) REFERENCES users (id)
+--   ,FOREIGN KEY (freelancer_id) REFERENCES users (id)
 );
 
 CREATE TABLE project_required_skills

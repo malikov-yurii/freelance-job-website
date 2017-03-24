@@ -24,8 +24,8 @@ public class UserServiceTest extends AbstractServiceTest {
         USER_MATCHER.assertCollectionEquals(
                 Arrays.asList(
                         YURII_FREELANCER_1, DENIS_FREELANCER_2, EGOR_FREELANCER_3, IVAN_FREELANCER_4,
-                        VAHTANG_ADMIN_1, GOGA_ADMIN_2, SIMA_CLIENT_1,
-                        ROZA_CLIENT_2, ISAAK_CLIENT_3, created),
+                        VAHTANG_ADMIN_1, GOGA_ADMIN_2, CLIENT_1_SIMA,
+                        CLIENT_2_ROZA, CLIENT_3_ISAAK, created),
                 new ArrayList<>(service.getAll()));
     }
 
@@ -53,8 +53,8 @@ public class UserServiceTest extends AbstractServiceTest {
     public void testGetAll() throws Exception {
         USER_MATCHER.assertCollectionEquals(Arrays.asList(
                 YURII_FREELANCER_1, DENIS_FREELANCER_2, EGOR_FREELANCER_3,  IVAN_FREELANCER_4,
-                VAHTANG_ADMIN_1, GOGA_ADMIN_2, SIMA_CLIENT_1,
-                ROZA_CLIENT_2, ISAAK_CLIENT_3), new ArrayList<>(service.getAll()));
+                VAHTANG_ADMIN_1, GOGA_ADMIN_2, CLIENT_1_SIMA,
+                CLIENT_2_ROZA, CLIENT_3_ISAAK), new ArrayList<>(service.getAll()));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class UserServiceTest extends AbstractServiceTest {
         service.delete(EGOR_FREELANCER_3.getId());
         USER_MATCHER.assertCollectionEquals(Arrays.asList(
                 YURII_FREELANCER_1, DENIS_FREELANCER_2,  IVAN_FREELANCER_4,
-                VAHTANG_ADMIN_1, GOGA_ADMIN_2, SIMA_CLIENT_1,
-                ROZA_CLIENT_2, ISAAK_CLIENT_3), new ArrayList<>(service.getAll()));
+                VAHTANG_ADMIN_1, GOGA_ADMIN_2, CLIENT_1_SIMA,
+                CLIENT_2_ROZA, CLIENT_3_ISAAK), new ArrayList<>(service.getAll()));
     }
 }

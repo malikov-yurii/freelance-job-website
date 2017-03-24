@@ -1,4 +1,4 @@
-TRUNCATE TABLE freelancer_portfolio_projects, project_applied_freelancers,
+TRUNCATE TABLE project_applied_freelancers,
 project_required_skills, projects, freelancer_skills, skills, user_roles, users CASCADE;
 
 ALTER SEQUENCE projects_id_seq RESTART WITH 1;
@@ -15,12 +15,12 @@ INSERT INTO users (login, password, first_name, last_name, email) VALUES
   ('freelancer4', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Ivan', 'Ivanov',
    'ivanov.ivan@gmail.com'), -- password = '1111'
   ('admin1', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Vahtang', 'Vahtangov',
-   'vahtangov.vahtang@gmai.com'), -- password = '1111'
-  ('admin2', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Goga', 'Gogov', 'gogov.goga@gmai.com'),
-  ('client1', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Sima', 'Simov', 'simov.sima@gmai.com'),
-  ('client2', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Roza', 'Rozova', 'rozova.roza@gmai.com'),
+   'vahtangov.vahtang@gmail.com'), -- password = '1111'
+  ('admin2', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Goga', 'Gogov', 'gogov.goga@gmail.com'),
+  ('client1', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Sima', 'Simov', 'simov.sima@gmail.com'),
+  ('client2', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Roza', 'Rozova', 'rozova.roza@gmail.com'),
   ('client3', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Isaak', 'Isaakov',
-   'isaakov.isaak@gmai.com');
+   'isaakov.isaak@gmail.com');
 
 
 INSERT INTO user_roles (role, user_id) VALUES
@@ -61,6 +61,7 @@ INSERT INTO freelancer_skills (freelancer_id, skill_id) VALUES
   (1, 5),
   (1, 6),
   (1, 7),
+  (1, 8),
   (2, 1),
   (2, 2),
   (2, 3),
@@ -68,7 +69,7 @@ INSERT INTO freelancer_skills (freelancer_id, skill_id) VALUES
   (3, 5),
   (3, 6),
   (3, 7),
-  (4, 2),
+  (4, 1),
   (4, 2),
   (4, 3),
   (4, 4),
@@ -76,22 +77,21 @@ INSERT INTO freelancer_skills (freelancer_id, skill_id) VALUES
 
 INSERT INTO projects (name, status, description, payment, client_id, freelancer_id) VALUES
   ('Online shop of adult toys', 'NEW',
-   'I need online shop to be developed very fast (maybe in 1-2 days not more than that)', 25.00, 7, NULL),
+   'I need online shop to be developed very fast (maybe in 1-2 days not more than that)', 25, 7, NULL),
   ('New search system', 'LOOKING_FOR_FREELANCER',
    'I have idea. You should hack Google or Yandex. And to user its source code for our new search system. We''ll spit benefits 50/50',
-   3000.00, 8, NULL),
-  ('Shopping cart', 'FREELANCER_ASSINED', 'Add shopping cart to my online shop', 50.00, 9, 2),
-  ('Filtering of products', 'IN_PROGRESS', 'Add convenient feature for my CRM to filter products in table', 250.00, 9,
-   1),
-  ('CRM', 'FINISHED', 'Built CRM for to manage my business (store information about products and customers)', 3000.00,
-   9, NULL),
-  ('Visit card website', 'LOOKING_FOR_FREELANCER', 'Need personal website for my dog Buddy', 75.00, 9, NULL),
+   3000, 8, NULL),
+  ('Shopping card', 'FREELANCER_ASSINED', 'Add shopping card to my online shop', 50, 9, 2),
+  ('Filter for products', 'IN_PROGRESS', 'Add convenient feature for my CRM to filter products in table', 250, 9, 1),
+  ('CRM', 'FINISHED', 'Built CRM for to manage my business (store information about products and customers)', 3555,
+   9, 1),
+  ('Visit card website', 'LOOKING_FOR_FREELANCER', 'Need personal website for my dog Buddy', 75, 9, NULL),
   ('One page website', 'LOOKING_FOR_FREELANCER', 'Need single page website to sell my dog''s hilarious video tape',
-   125.00, 9, NULL),
+   125, 9, NULL),
   ('Simple website for photos', 'FINISHED', 'Construct simple website where i would be able to show photos of my projects to peope.',
-   135.00, 9, 1),
+   135, 9, 1),
   ('Photo-slider', 'FINISHED', 'Photo-slider module for simple website',
-   55.00, 9, 1)
+   55, 9, 1)
 ;
 
 INSERT INTO project_required_skills (project_id, skill_id) VALUES

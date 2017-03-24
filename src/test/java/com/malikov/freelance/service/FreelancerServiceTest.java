@@ -24,36 +24,36 @@ public class FreelancerServiceTest extends AbstractServiceTest{
         Freelancer created = service.save(newFreelancer);
         FREELANCER_MATCHER.assertCollectionEquals(
                 Arrays.asList(
-                        YURII_FREELANCER_1, DENIS_FREELANCER_2, EGOR_FREELANCER_3, IVAN_FREELANCER_4, created),
+                        FREELANCER_1_YURII, FREELANCER_2_DENIS, FREELANCER_3_EGOR, FREELANCER_4_IVAN, created),
                 service.getAll());
     }
 
     @Test
     public void update() throws Exception {
-        Freelancer updated = new Freelancer(EGOR_FREELANCER_3);
+        Freelancer updated = new Freelancer(FREELANCER_3_EGOR);
         updated.setFirstName("Egor_Updated");
         service.update(updated);
-        FREELANCER_MATCHER.assertEquals(updated, service.get(EGOR_FREELANCER_3.getId()));
+        FREELANCER_MATCHER.assertEquals(updated, service.get(FREELANCER_3_EGOR.getId()));
     }
 
     @Test
     public void get() throws Exception {
-        Freelancer client = service.get(DENIS_FREELANCER_2.getId());
-        FREELANCER_MATCHER.assertEquals(DENIS_FREELANCER_2, client);
+        Freelancer client = service.get(FREELANCER_2_DENIS.getId());
+        FREELANCER_MATCHER.assertEquals(FREELANCER_2_DENIS, client);
     }
 
     @Test
     public void getAll() throws Exception {
         FREELANCER_MATCHER.assertCollectionEquals(Arrays.asList(
-                YURII_FREELANCER_1, DENIS_FREELANCER_2, EGOR_FREELANCER_3, IVAN_FREELANCER_4),
+                FREELANCER_1_YURII, FREELANCER_2_DENIS, FREELANCER_3_EGOR, FREELANCER_4_IVAN),
                 service.getAll());
     }
 
     @Test
     public void delete() throws Exception {
-        service.delete(EGOR_FREELANCER_3.getId());
+        service.delete(FREELANCER_3_EGOR.getId());
         FREELANCER_MATCHER.assertCollectionEquals(Arrays.asList(
-                YURII_FREELANCER_1, DENIS_FREELANCER_2, IVAN_FREELANCER_4),
+                FREELANCER_1_YURII, FREELANCER_2_DENIS, FREELANCER_4_IVAN),
                 service.getAll());
     }
 }
