@@ -1,63 +1,74 @@
 package com.malikov.freelance.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-//@NamedQueries({
-//        @NamedQuery(name = Project.DELETE, query = "DELETE FROM Project p WHERE p.id=:id"),
+@NamedQueries({
+        @NamedQuery(name = Project.DELETE, query = "DELETE FROM Project p WHERE p.id=:id"),
 //        @NamedQuery(name = Project.BY_CLIENT, query = "SELECT p FROM Project p WHERE p.client.id=:clientId"),
 //        @NamedQuery(name = Project.BY_FREELANCER, query = "SELECT p FROM Project p WHERE p.freelancer.id=:freelancerId"),
-//        @NamedQuery(name = Project.ALL_SORTED, query = "SELECT p FROM Project p ORDER BY p.id"),
-//})
-//@Entity
-//@Table(name = "projects")
+        @NamedQuery(name = Project.ALL_SORTED, query = "SELECT p FROM Project p ORDER BY p.id"),
+})
+@Entity
+@Table(name = "projects")
 public class Project extends BaseEntity {
 
     public static final String DELETE = "Project.delete";
     public static final String ALL_SORTED = "Project.getAllSorted";
-    //    public static final String BY_CLIENT= "Project.getByClient";
+//        public static final String BY_CLIENT= "Project.getByClient";
 //    public static final String BY_FREELANCER = "Project.getByFreelancer";
 
 
-//    @Column(name = "name")
+    @Column(name = "name")
     private String name;
 
-//    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private Status status;
 
-//    @Column(name = "description")
+    @Column(name = "description")
     private String description;
 
-//    @Column(name = "payment", columnDefinition = "decimal", precision = 12, scale = 2)
+    @Column(name = "payment", columnDefinition = "decimal", precision = 12, scale = 2)
     private BigDecimal payment;
 
-//    @OneToOne
-//    @JoinColumn(name = "client_id")
+    @OneToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
-//    @OneToOne
-//    @JoinColumn(name = "freelancer_id")
+    @OneToOne
+    @JoinColumn(name = "freelancer_id")
     private Freelancer freelancer;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "project_applied_freelancers",
-//            joinColumns = {@JoinColumn(name = "project_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "freelancer_id")
-//            })
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+            name = "project_applied_freelancers",
+            joinColumns = {@JoinColumn(name = "project_id")},
+            inverseJoinColumns = {@JoinColumn(name = "freelancer_id")
+            })
     private List<Freelancer> appliedFreelancers;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "project_required_skills",
-//            joinColumns = @JoinColumn(name = "project_id"),
-//            inverseJoinColumns = @JoinColumn(name = "skill_id")
-//    )
-    private Set<Skill> requiredSkills;
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+            name = "project_required_skills",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private List<Skill> requiredSkills;
 
-    public Project(String name, Status status, String description, BigDecimal payment, Client client, Freelancer freelancer, List<Freelancer> appliedFreelancers, Set<Skill> requiredSkills) {
+    public Project(){}
+
+    public Project(String name, Status status, String description, BigDecimal payment, Client client,
+                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
         this.name = name;
         this.status = status;
         this.description = description;
@@ -68,7 +79,8 @@ public class Project extends BaseEntity {
         this.requiredSkills = requiredSkills;
     }
 
-    public Project(Integer id, String name, Status status, String description, BigDecimal payment, Client client, Freelancer freelancer, List<Freelancer> appliedFreelancers, Set<Skill> requiredSkills) {
+    public Project(Integer id, String name, Status status, String description, BigDecimal payment, Client client,
+                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
         super(id);
         this.name = name;
         this.status = status;
@@ -78,6 +90,11 @@ public class Project extends BaseEntity {
         this.freelancer = freelancer;
         this.appliedFreelancers = appliedFreelancers;
         this.requiredSkills = requiredSkills;
+    }
+
+    public Project(Project project){
+        this(project.getId(), project.getName(), project.getStatus(), project.getDescription(), project.getPayment(),
+                project.getClient(), project.getFreelancer(), project.getAppliedFreelancers(), project.getRequiredSkills());
     }
 
     public String getName() {
@@ -136,11 +153,11 @@ public class Project extends BaseEntity {
         this.appliedFreelancers = appliedFreelancers;
     }
 
-    public Set<Skill> getRequiredSkills() {
+    public List<Skill> getRequiredSkills() {
         return requiredSkills;
     }
 
-    public void setRequiredSkills(Set<Skill> requiredSkills) {
+    public void setRequiredSkills(List<Skill> requiredSkills) {
         this.requiredSkills = requiredSkills;
     }
 
@@ -168,13 +185,14 @@ public class Project extends BaseEntity {
     @Override
     public String toString() {
         return "Project{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
                 ", payment=" + payment +
                 ", client=" + client +
                 ", freelancer=" + freelancer +
-                ", appliedFreelancers=" + appliedFreelancers +
+                ", appliedFreelancers=" + getAppliedFreelancers() +
                 ", requiredSkills=" + requiredSkills +
                 '}';
     }
