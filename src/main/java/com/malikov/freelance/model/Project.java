@@ -43,6 +43,10 @@ public class Project extends BaseEntity {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    //We need this column in case client was deleted form db, but we still need his last name for project history
+    @Column(name = "client_last_name")
+    private String clientLastName;
+
     @OneToOne
     @JoinColumn(name = "freelancer_id")
     private Freelancer freelancer;
@@ -67,18 +71,6 @@ public class Project extends BaseEntity {
 
     public Project(){}
 
-    public Project(String name, Status status, String description, BigDecimal payment, Client client,
-                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
-        this.name = name;
-        this.status = status;
-        this.description = description;
-        this.payment = payment;
-        this.client = client;
-        this.freelancer = freelancer;
-        this.appliedFreelancers = appliedFreelancers;
-        this.requiredSkills = requiredSkills;
-    }
-
     public Project(Integer id, String name, Status status, String description, BigDecimal payment, Client client,
                    Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
         super(id);
@@ -90,6 +82,13 @@ public class Project extends BaseEntity {
         this.freelancer = freelancer;
         this.appliedFreelancers = appliedFreelancers;
         this.requiredSkills = requiredSkills;
+
+        this.clientLastName = client.getLastName();
+    }
+
+    public Project(String name, Status status, String description, BigDecimal payment, Client client,
+                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
+        this(null, name, status, description, payment, client, freelancer, appliedFreelancers, requiredSkills);
     }
 
     public Project(Project project){
@@ -135,6 +134,7 @@ public class Project extends BaseEntity {
 
     public void setClient(Client client) {
         this.client = client;
+        this.clientLastName = client.getLastName();
     }
 
     public Freelancer getFreelancer() {
@@ -159,6 +159,14 @@ public class Project extends BaseEntity {
 
     public void setRequiredSkills(List<Skill> requiredSkills) {
         this.requiredSkills = requiredSkills;
+    }
+
+    public String getClientLastName() {
+        return clientLastName;
+    }
+
+    public void setClientLastName(String clientLastName) {
+        this.clientLastName = clientLastName;
     }
 
     @Override
