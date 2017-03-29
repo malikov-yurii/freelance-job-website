@@ -9,11 +9,11 @@ import java.util.Objects;
 public class ClientTestData {
 
     public static final Client CLIENT_1_SIMA = new Client(7, "client1", "$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm",
-            "Sima", "Simov", "simov.sima@gmail.com", Role.USER, Role.CLIENT);
+            "Sima", "Simov", "simov.sima@gmail.com", Role.ROLE_USER, Role.ROLE_CLIENT);
     public static final Client CLIENT_2_ROZA = new Client(8, "client2", "$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm",
-            "Roza", "Rozova", "rozova.roza@gmail.com", Role.USER, Role.CLIENT);
+            "Roza", "Rozova", "rozova.roza@gmail.com", Role.ROLE_USER, Role.ROLE_CLIENT);
     public static final Client CLIENT_3_ISAAK = new Client(9, "client3", "$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm",
-            "Isaak", "Isaakov", "isaakov.isaak@gmail.com", Role.USER, Role.CLIENT);
+            "Isaak", "Isaakov", "isaakov.isaak@gmail.com", Role.ROLE_USER, Role.ROLE_CLIENT);
 
     public static final ModelMatcher<Client> CLIENT_MATCHER = ModelMatcher.of(Client.class,
             (expected, actual) -> expected == actual ||

@@ -24,24 +24,24 @@ INSERT INTO users (login, password, first_name, last_name, email) VALUES
 
 
 INSERT INTO user_roles (role, user_id) VALUES
-  ('USER', 1),
-  ('USER', 2),
-  ('USER', 3),
-  ('USER', 4),
-  ('USER', 5),
-  ('USER', 6),
-  ('USER', 7),
-  ('USER', 8),
-  ('USER', 9),
-  ('FREELANCER', 1),
-  ('FREELANCER', 2),
-  ('FREELANCER', 3),
-  ('FREELANCER', 4),
-  ('ADMIN', 5),
-  ('ADMIN', 6),
-  ('CLIENT', 7),
-  ('CLIENT', 8),
-  ('CLIENT', 9);
+  ('ROLE_USER', 1),
+  ('ROLE_USER', 2),
+  ('ROLE_USER', 3),
+  ('ROLE_USER', 4),
+  ('ROLE_USER', 5),
+  ('ROLE_USER', 6),
+  ('ROLE_USER', 7),
+  ('ROLE_USER', 8),
+  ('ROLE_USER', 9),
+  ('ROLE_FREELANCER', 1),
+  ('ROLE_FREELANCER', 2),
+  ('ROLE_FREELANCER', 3),
+  ('ROLE_FREELANCER', 4),
+  ('ROLE_ADMIN', 5),
+  ('ROLE_ADMIN', 6),
+  ('ROLE_CLIENT', 7),
+  ('ROLE_CLIENT', 8),
+  ('ROLE_CLIENT', 9);
 
 INSERT INTO skills (name) VALUES
   ('HTML'),

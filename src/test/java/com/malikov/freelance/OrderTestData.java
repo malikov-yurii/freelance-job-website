@@ -2,7 +2,7 @@ package com.malikov.freelance;
 
 public class OrderTestData {
 
-//    public static final Order ORDER_1 = new Order(1, CUSTOMER_GOLOV, ADMIN,
+//    public static final Order ORDER_1 = new Order(1, CUSTOMER_GOLOV, ROLE_ADMIN,
 //            PaymentType.PB,
 //            Status.WFP,
 //            null,
@@ -11,7 +11,7 @@ public class OrderTestData {
 //                    new OrderItem(1, POTAL_NAZIONALE, POTAL_NAZIONALE_100, POTAL_NAZIONALE.getName(), POTAL_NAZIONALE_100.getPrice(), 1),
 //                    new OrderItem(2, FERRARIO_ROZOVYJ, FERRARIO_ROZOVYJ_250ML, FERRARIO_ROZOVYJ.getName(), FERRARIO_ROZOVYJ_250ML.getPrice(), 2)
 //            ));
-//    public static final Order ORDER_2 = new Order(2, CUSTOMER_GOLOV, ADMIN,
+//    public static final Order ORDER_2 = new Order(2, CUSTOMER_GOLOV, ROLE_ADMIN,
 //            PaymentType.NP,
 //            Status.SHP,
 //            null,
@@ -21,7 +21,7 @@ public class OrderTestData {
 //                    new OrderItem(4, POTAL_KITAJ, POTAL_KITAJ_100, POTAL_KITAJ.getName(), POTAL_KITAJ_100.getPrice(), 4)
 //            ));
 //
-//    public static final Order ORDER_3 = new Order(3, CUSTOMER_DROGOV, ADMIN,
+//    public static final Order ORDER_3 = new Order(3, CUSTOMER_DROGOV, ROLE_ADMIN,
 //            PaymentType.PB,
 //            Status.SHP,
 //            null,
@@ -30,7 +30,7 @@ public class OrderTestData {
 //                    new OrderItem(5, POTAL_KITAJ, POTAL_KITAJ_100, POTAL_KITAJ.getName(), POTAL_KITAJ_100.getPrice(), 5)
 //            ));
 //
-//    public static final Order ORDER_4 = new Order(4, CUSTOMER_DUNOV, ADMIN,
+//    public static final Order ORDER_4 = new Order(4, CUSTOMER_DUNOV, ROLE_ADMIN,
 //            PaymentType.NP,
 //            Status.SHP,
 //            null,
@@ -41,7 +41,7 @@ public class OrderTestData {
 //                    new OrderItem(8, FERRARIO_ROZOVYJ, FERRARIO_ROZOVYJ_250ML, FERRARIO_ROZOVYJ.getName(), FERRARIO_ROZOVYJ_250ML.getPrice(), 8)
 //            ));
 //
-//    public static final Order ORDER_5 = new Order(5, CUSTOMER_DROGOV, ADMIN,
+//    public static final Order ORDER_5 = new Order(5, CUSTOMER_DROGOV, ROLE_ADMIN,
 //            PaymentType.PB,
 //            Status.WFP,
 //            null,

@@ -12,14 +12,14 @@ import static com.malikov.freelance.SkillTestData.*;
 
 public class FreelancerTestData {
     public static final Freelancer FREELANCER_1_YURII = new Freelancer(1, "freelancer1", "$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm",
-            "Yurii", "Malikov", "malikov.yurii@gmail.com", new HashSet<>(Arrays.asList(Role.USER, Role.FREELANCER)),
+            "Yurii", "Malikov", "malikov.yurii@gmail.com", new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)),
             new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT, JAVA, SQL, HIBERNATE, SPRING, MAVEN)));
     public static final Freelancer FREELANCER_2_DENIS = new Freelancer(2, "freelancer2", "$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm",
-            "Denis", "Malikov", "malikov.denis@gmail.com", new HashSet<>(Arrays.asList(Role.USER, Role.FREELANCER)), new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT)));
+            "Denis", "Malikov", "malikov.denis@gmail.com", new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)), new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT)));
     public static final Freelancer FREELANCER_3_EGOR = new Freelancer(3, "freelancer3", "$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm",
-            "Egor", "Egorov", "egorov.egor@gmail.com", new HashSet<>(Arrays.asList(Role.USER, Role.FREELANCER)), new HashSet<>(Arrays.asList(JAVA, SQL, HIBERNATE, SPRING)));
+            "Egor", "Egorov", "egorov.egor@gmail.com", new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)), new HashSet<>(Arrays.asList(JAVA, SQL, HIBERNATE, SPRING)));
     public static final Freelancer FREELANCER_4_IVAN = new Freelancer(4, "freelancer4", "$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm",
-            "Ivan", "Ivanov", "ivanov.ivan@gmail.com", new HashSet<>(Arrays.asList(Role.USER, Role.FREELANCER)), new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT, JAVA, SQL)));
+            "Ivan", "Ivanov", "ivanov.ivan@gmail.com", new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)), new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT, JAVA, SQL)));
 
     public static final ModelMatcher<Freelancer> FREELANCER_MATCHER = ModelMatcher.of(Freelancer.class,
             (expected, actual) -> expected == actual ||

@@ -40,8 +40,6 @@
         </property>
     </bean>
 
-    <context:component-scan base-package="com.malikov.**.web"/>
-
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
@@ -64,6 +62,8 @@
         <!--<property name="defaultLocale" value="ru"/>-->
         <property name="defaultLocale" value="en_US"/>
     </bean>
+
+    <context:component-scan base-package="com.malikov.**.web"/>
 
     <mvc:interceptors>
         <bean class="com.malikov.freelance.web.interceptor.ModelInterceptor"/>

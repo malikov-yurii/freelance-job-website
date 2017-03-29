@@ -28,7 +28,8 @@ $(function () {
             {
                 "defaultContent": "",
                 "orderable": false,
-                "render": renderApplyForProjectBtn
+                "render": renderApplyForProjectBtn,
+                "className" : "project-apply-btn"
             }
         ],
         "initComplete": onProjectTableReady,
@@ -58,10 +59,10 @@ function renderApplyForProjectBtn(data, type, row) {
                 return '<b>Application closed</b>';
                 break;
             case 'ALLOWED_HAS_SKILLS' :
-                return '<a class="btn btn-xs btn-primary" onclick="applyForProject(' + row.id + ');">Apply for project</a>';
+                return '<a class="btn btn-xs btn-primary" onclick="applyForProject(event, ' + row.id + ');">Apply for project</a>';
                 break;
             case 'ALREADY_APPLIED' :
-                return '<a class="btn btn-xs btn-primary" onclick="discardApplicationForProject(' + row.id + ');">Discard application</a>';
+                return '<a class="btn btn-xs btn-primary" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
                 break;
             case 'NOT_ALLOWED_LACK_OF_SKILLS' :
                 return '<b>Lack of skills</b>';
@@ -70,26 +71,24 @@ function renderApplyForProjectBtn(data, type, row) {
     }
 }
 
-function applyForProject(id) {
-
+function applyForProject(e, id) {
     $.ajax({
         url: ajaxUrl + id + '/apply-for-project',
         type: 'POST',
-        success: function () {
-            updateTable();
-            successNoty('common.saved');
+        success: function (data) {
+            $(e.target).parent().html('<a class="btn btn-xs btn-primary" onclick="discardApplicationForProject(event, ' + id + ');">Discard application</a>');
         }
-    });
+    })
+
 }
 
-function discardApplicationForProject(id) {
+function discardApplicationForProject(e, id) {
 
     $.ajax({
         url: ajaxUrl + id + '/discard-application-for-project',
         type: 'POST',
-        success: function () {
-            updateTable();
-            successNoty('common.saved');
+        success: function (data) {
+            $(e.target).parent().html('<a class="btn btn-xs btn-primary" onclick="applyForProject(event, ' + id + ');">Apply for project</a>');
         }
     });
 }
