@@ -4,5 +4,6 @@ import com.malikov.freelance.model.Freelancer;
 
 public interface FreelancerRepository extends Repository<Freelancer> {
 
+    Freelancer getByLogin(String login);
 
 }

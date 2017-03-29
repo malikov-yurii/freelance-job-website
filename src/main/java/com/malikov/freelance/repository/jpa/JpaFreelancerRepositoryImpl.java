@@ -43,7 +43,10 @@ public class JpaFreelancerRepositoryImpl implements FreelancerRepository {
         return em.createNamedQuery(Freelancer.ALL_SORTED, Freelancer.class).getResultList();
     }
 
-
+    @Override
+    public Freelancer getByLogin(String login) {
+        return em.createNamedQuery(Freelancer.BY_LOGIN, Freelancer.class).setParameter("login", login).getSingleResult();
+    }
 
     //    @Override
 //    public Collection<Freelancer

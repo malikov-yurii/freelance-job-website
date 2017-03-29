@@ -1,7 +1,5 @@
 package com.malikov.freelance.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -31,7 +29,7 @@ public class Project extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private ProjectStatus status;
 
     @Column(name = "description")
     private String description;
@@ -71,7 +69,7 @@ public class Project extends BaseEntity {
 
     public Project(){}
 
-    public Project(Integer id, String name, Status status, String description, BigDecimal payment, Client client,
+    public Project(Integer id, String name, ProjectStatus status, String description, BigDecimal payment, Client client,
                    Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
         super(id);
         this.name = name;
@@ -86,7 +84,7 @@ public class Project extends BaseEntity {
         this.clientLastName = client.getLastName();
     }
 
-    public Project(String name, Status status, String description, BigDecimal payment, Client client,
+    public Project(String name, ProjectStatus status, String description, BigDecimal payment, Client client,
                    Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
         this(null, name, status, description, payment, client, freelancer, appliedFreelancers, requiredSkills);
     }
@@ -104,11 +102,11 @@ public class Project extends BaseEntity {
         this.name = name;
     }
 
-    public Status getStatus() {
+    public ProjectStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ProjectStatus status) {
         this.status = status;
     }
 

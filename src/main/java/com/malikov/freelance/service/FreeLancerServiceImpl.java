@@ -37,4 +37,9 @@ public class FreeLancerServiceImpl implements FreelancerService {
     public void delete(int id) {
         repository.delete(id);
     }
+
+    @Override
+    public Freelancer getByLogin(String login) {
+        return repository.getByLogin(login);
+    }
 }

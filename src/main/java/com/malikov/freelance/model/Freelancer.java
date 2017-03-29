@@ -9,10 +9,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = Freelancer.GET, query = "SELECT f FROM Freelancer f WHERE (f.id=:id AND 'FREELANCER' in elements(f.roles))"),
+        @NamedQuery(name = Freelancer.GET, query = "SELECT f FROM Freelancer f WHERE (f.id=:id AND ROLE_FREELANCER in elements(f.roles))"),
 //        @NamedQuery(name = Freelancer.GET, query = "SELECT c FROM Freelancer c LEFT JOIN c.roles as r WHERE r.name = 'CLIENT' AND c.id=:id"),
         @NamedQuery(name = Freelancer.DELETE, query = "DELETE FROM Freelancer f WHERE (f.id=:id AND 'FREELANCER' in elements(f.roles))"),
-//        @NamedQuery(name = Freelancer.BY_NAME, query = "SELECT c FROM Freelancer c WHERE c.name=:name"),
+        @NamedQuery(name = Freelancer.BY_LOGIN, query = "SELECT c FROM Freelancer c WHERE c.login=:login"),
 //        @NamedQuery(name = Freelancer.BY_LAST_NAME, query = "SELECT c FROM Freelancer c WHERE c.lastName=:lastName"),
 //        @NamedQuery(name = Freelancer.BY_FIRST_NAME_MASK, query = "SELECT c FROM Freelancer c WHERE lower(c.name) LIKE lower(:firstNameMask)"),
 //        @NamedQuery(name = Freelancer.BY_LAST_NAME_MASK, query = "SELECT c FROM Freelancer c WHERE lower(c.lastName) LIKE lower(:lastNameMask)"),
@@ -31,6 +31,7 @@ public class Freelancer extends BaseUser {
 //    public static final String BY_LAST_NAME_MASK = "Freelancer.getByLastNameMask";
 //    public static final String BY_EMAIL = "Freelancer.getByEmail";
     public static final String ALL_SORTED = "Freelancer.getAllSorted";
+    public static final String BY_LOGIN = "Freelancer.getByLogin";
 
 
     @ManyToMany
