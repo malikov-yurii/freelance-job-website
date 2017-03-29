@@ -1,13 +1,15 @@
 package com.malikov.freelance.util;
 
-import com.malikov.freelance.model.ApplicationStatus;
-import com.malikov.freelance.model.Project;
+import com.malikov.freelance.model.*;
 import com.malikov.freelance.to.ProjectTo;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 
 public class ProjectUtil {
 
-   public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus) {
+    public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus) {
 
         String skills = "";
         if (project.getRequiredSkills() != null && project.getRequiredSkills().size() != 0) {
@@ -22,6 +24,19 @@ public class ProjectUtil {
         return new ProjectTo(project.getId(), project.getClient().getId(), project.getName(),
                 project.getDescription(), project.getPayment(), project.getClientLastName(),
                 project.getStatus(), skills, applicationStatus);
+    }
+
+    public static Project fromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {
+        return new Project(
+                0
+                , projectTo.getName() == null ? "No name provided" : projectTo.getName()
+                , projectTo.getStatus() == null ? ProjectStatus.NEW : projectTo.getStatus()
+                , projectTo.getDescription() == null ? "No description provided" : projectTo.getDescription()
+                , projectTo.getPayment() == null ? new BigDecimal(0) : projectTo.getPayment()
+                , client
+                , null
+                , null
+                , skillsList);
     }
 
 

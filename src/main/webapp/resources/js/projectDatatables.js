@@ -1,10 +1,6 @@
 var ajaxUrl = 'ajax/profile/projects/';
 var datatableApi;
 
-function updateTable(added, isTabPressed, orderId) {
-    $.get(ajaxUrl, updateTableByData);
-}
-
 $(function () {
 
     datatableApi = $('#datatable').DataTable({
@@ -43,6 +39,53 @@ $(function () {
     });
 });
 
+function addProject() {
+    $('#addProject').modal();
+
+}
+
+function saveProject(){
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: $('#detailsForm').serialize(),
+        success: function () {
+            $('#addProject').modal('hide');
+            updateTable();
+            successNoty('common.saved');
+        }
+    });
+}
+
+function updateTable(added, isTabPressed, orderId) {
+    $.get(ajaxUrl, updateTableByData);
+}
+
+function updateTableByData(data) {
+    datatableApi.clear().rows.add(data).draw();
+}
+
+function successNoty(key) {
+    closeNoty();
+    noty({
+        text: i18n[key],
+        type: 'success',
+        layout: 'bottomRight',
+        timeout: true
+    });
+}
+
+var failedNote;
+
+function closeNoty() {
+    if (failedNote) {
+        failedNote.close();
+        failedNote = undefined;
+    }
+}
+
+
+
 function onProjectTableReady() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -59,10 +102,10 @@ function renderApplyForProjectBtn(data, type, row) {
                 return '<b>Application closed</b>';
                 break;
             case 'ALLOWED_HAS_SKILLS' :
-                return '<a class="btn btn-xs btn-primary" onclick="applyForProject(event, ' + row.id + ');">Apply for project</a>';
+                return '<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + row.id + ');">Apply for project</a>';
                 break;
             case 'ALREADY_APPLIED' :
-                return '<a class="btn btn-xs btn-primary" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
+                return '<a class="btn btn-xs btn-error" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
                 break;
             case 'NOT_ALLOWED_LACK_OF_SKILLS' :
                 return '<b>Lack of skills</b>';
@@ -76,7 +119,7 @@ function applyForProject(e, id) {
         url: ajaxUrl + id + '/apply-for-project',
         type: 'POST',
         success: function (data) {
-            $(e.target).parent().html('<a class="btn btn-xs btn-primary" onclick="discardApplicationForProject(event, ' + id + ');">Discard application</a>');
+            $(e.target).parent().html('<a class="btn btn-xs btn-error" onclick="discardApplicationForProject(event, ' + id + ');">Discard application</a>');
         }
     })
 
@@ -88,7 +131,7 @@ function discardApplicationForProject(e, id) {
         url: ajaxUrl + id + '/discard-application-for-project',
         type: 'POST',
         success: function (data) {
-            $(e.target).parent().html('<a class="btn btn-xs btn-primary" onclick="applyForProject(event, ' + id + ');">Apply for project</a>');
+            $(e.target).parent().html('<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + id + ');">Apply for project</a>');
         }
     });
 }

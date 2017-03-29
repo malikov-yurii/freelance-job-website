@@ -4,4 +4,6 @@ import com.malikov.freelance.model.Client;
 
 public interface ClientService extends Service<Client> {
 
+    Client getByLogin(String login);
+
 }

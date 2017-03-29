@@ -44,7 +44,12 @@ public class JpaClientRepositoryImpl implements ClientRepository {
         return em.createNamedQuery( Client.ALL_SORTED,  Client.class).getResultList();
     }
 
-//    @Override
+    @Override
+    public Client getByLogin(String login) {
+        return em.createNamedQuery(Client.BY_LOGIN, Client.class).setParameter("login", login).getSingleResult();
+    }
+
+    //    @Override
 //    public List< Client> getByName(String name) {
 //        return em.createNamedQuery( Client.BY_NAME,  Client.class)
 //                .setParameter("name", name).getResultList();

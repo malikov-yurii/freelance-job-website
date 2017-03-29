@@ -1,9 +1,7 @@
 package com.malikov.freelance.web.project;
 
 import com.malikov.freelance.model.*;
-import com.malikov.freelance.service.FreelancerService;
-import com.malikov.freelance.service.ProjectService;
-import com.malikov.freelance.service.UserService;
+import com.malikov.freelance.service.*;
 import com.malikov.freelance.to.ProjectTo;
 import com.malikov.freelance.util.ProjectUtil;
 import org.slf4j.Logger;
@@ -13,7 +11,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.malikov.freelance.model.ApplicationStatus.*;
 
@@ -34,6 +34,12 @@ public abstract class AbstractProjectController {
 
     @Autowired
     private FreelancerService freelancerService;
+
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private SkillService skillService;
 
     //
 //    @Autowired
@@ -76,7 +82,7 @@ public abstract class AbstractProjectController {
                     applicationStatus = NOT_LOOKING_FOR_A_FREELANCER;
                 } else if (project.getAppliedFreelancers().contains(authorizedFreelancer)) {
                     applicationStatus = ALREADY_APPLIED;
-                } else if (authorizedFreelancer.getSkills().containsAll(project.getRequiredSkills())){
+                } else if (authorizedFreelancer.getSkills().containsAll(project.getRequiredSkills())) {
                     applicationStatus = ALLOWED_HAS_SKILLS;
                 } else {
                     applicationStatus = NOT_ALLOWED_LACK_OF_SKILLS;
@@ -100,6 +106,33 @@ public abstract class AbstractProjectController {
                 freelancerService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
         projectService.save(project);
     }
+
+    public void create(ProjectTo projectTo) {
+
+        List<Skill> allSkills = skillService.getAll();
+        List<Skill> rawSkillList = new ArrayList<>(
+                Arrays.stream(
+                        projectTo
+                                .getRequiredSkills()
+                                .split("\\W*,\\W*"))
+                        .map(Skill::new)
+                        .collect(Collectors.toList()));
+        List<Skill> newProjectPersistedSkillList = new ArrayList<>();
+        for (Skill skill : rawSkillList) {
+            int skillId = allSkills.indexOf(skill);
+            if (skillId == -1) {
+                newProjectPersistedSkillList.add(skillService.save(skill));
+            } else {
+                newProjectPersistedSkillList.add(allSkills.get(skillId));
+            }
+        }
+
+        projectService.save(ProjectUtil.fromTo(projectTo
+                , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
+                , newProjectPersistedSkillList));
+    }
+
+    ;
 //
 //    public OrderDatatablePageTo getDatatablePage(int start, int length) {
 //        LOG.info("getAll orders");

@@ -1,9 +1,14 @@
 package com.malikov.freelance.web.project;
 
 import com.malikov.freelance.to.ProjectTo;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,6 +21,13 @@ public class ProjectAjaxController extends AbstractProjectController {
 //    @Autowired
 //    UserService userService;
 //
+
+    @PostMapping
+    public ResponseEntity<String> create(@Valid ProjectTo projectTo, BindingResult result, HttpEntity<String> httpEntity) {
+        super.create(projectTo);
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ProjectTo> getAll() {
         return super.getAll();

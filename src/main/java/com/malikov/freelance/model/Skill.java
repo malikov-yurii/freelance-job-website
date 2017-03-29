@@ -1,6 +1,7 @@
 package com.malikov.freelance.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery(name = Skill.DELETE, query = "DELETE FROM Skill p WHERE p.id=:id"),
@@ -20,6 +21,11 @@ public class Skill extends BaseEntity {
 
     public Skill(){}
 
+    public Skill(String name){
+        super(null);
+        this.name = name;
+    }
+
     public Skill(Integer id, String name){
         this.id = id;
         this.name = name;
@@ -31,6 +37,19 @@ public class Skill extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Skill)) return false;
+        Skill skill = (Skill) o;
+        return Objects.equals(name.toLowerCase(), skill.name.toLowerCase());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name);
     }
 
     @Override

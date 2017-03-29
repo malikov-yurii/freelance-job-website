@@ -38,7 +38,12 @@ public class ClientServiceImpl implements ClientService {
         repository.delete(id);
     }
 
-//    @Override
+    @Override
+    public Client getByLogin(String login) {
+        return repository.getByLogin(login);
+    }
+
+    //    @Override
 //    public Collection<Client> getByName(String name) {
 //        return repository.getByName(name);
 //    }
