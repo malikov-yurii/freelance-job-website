@@ -52,6 +52,11 @@ public class ProjectAjaxController extends AbstractProjectController {
     public void discardApplicationForProject(@PathVariable("id") int id) {
         super.discardApplicationForProject(id);
     }
+
+    @PostMapping(value = "/{projectId}/approve-freelancer/{freelancerId}")
+    public void approveFreelancer(@PathVariable("projectId") int projectId, @PathVariable("freelancerId") int freelancerId) {
+        super.approveFreelancer(projectId, freelancerId);
+    }
 //
 //
 //    @DeleteMapping(value = "/{id}")

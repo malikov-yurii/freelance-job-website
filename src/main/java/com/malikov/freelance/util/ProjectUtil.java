@@ -10,20 +10,9 @@ import java.util.List;
 public class ProjectUtil {
 
     public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus) {
-
-        String skills = "";
-        if (project.getRequiredSkills() != null && project.getRequiredSkills().size() != 0) {
-            skills = project.getRequiredSkills().get(0).getName();
-            for (int i = 1; i < project.getRequiredSkills().size(); i++) {
-                skills += ", ";
-                skills += project.getRequiredSkills().get(i).getName();
-            }
-        }
-
-
         return new ProjectTo(project.getId(), project.getClient().getId(), project.getName(),
                 project.getDescription(), project.getPayment(), project.getClientLastName(),
-                project.getStatus(), skills, applicationStatus);
+                project.getStatus(), SkillTo.asTo(project.getRequiredSkills()), applicationStatus, project.getAppliedFreelancers());
     }
 
     public static Project fromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {

@@ -2,9 +2,14 @@ package com.malikov.freelance.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.malikov.freelance.model.ApplicationStatus;
+import com.malikov.freelance.model.Freelancer;
 import com.malikov.freelance.model.ProjectStatus;
+import com.malikov.freelance.util.FreelancerUtil;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProjectTo {
 
@@ -22,6 +27,8 @@ public class ProjectTo {
 
     private ProjectStatus status;
 
+    private List<FreelancerTo> appliedFreelancerTos;
+
     private String requiredSkills;
 
     private ApplicationStatus applicationStatus;
@@ -36,6 +43,7 @@ public class ProjectTo {
             , ProjectStatus status
             , String requiredSkills
             , ApplicationStatus applicationStatus
+            , List<Freelancer> freelancers
     ) {
         this.id = id;
         this.clientId = clientId == null ? 0 : clientId;
@@ -46,6 +54,11 @@ public class ProjectTo {
         this.status = status;
         this.requiredSkills = requiredSkills != null ? requiredSkills: "";
         this.applicationStatus = applicationStatus;
+        if (freelancers != null && freelancers.size() != 0) {
+            appliedFreelancerTos = freelancers.stream().map(FreelancerUtil::asTo).collect(Collectors.toList());
+        } else {
+            appliedFreelancerTos = Collections.emptyList();
+        }
     }
 
     public ProjectTo(){}
@@ -125,6 +138,14 @@ public class ProjectTo {
 
     public void setRequiredSkills(String requiredSkills) {
         this.requiredSkills = requiredSkills;
+    }
+
+    public List<FreelancerTo> getAppliedFreelancerTos() {
+        return appliedFreelancerTos;
+    }
+
+    public void setAppliedFreelancerTos(List<FreelancerTo> appliedFreelancerTos) {
+        this.appliedFreelancerTos = appliedFreelancerTos;
     }
 
     @Override

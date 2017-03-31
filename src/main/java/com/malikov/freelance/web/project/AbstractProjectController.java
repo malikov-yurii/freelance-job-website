@@ -132,6 +132,14 @@ public abstract class AbstractProjectController {
                 , newProjectPersistedSkillList));
     }
 
+    public void approveFreelancer(int projectId, int freelancerId) {
+        Project project = projectService.get(projectId);
+        project.setFreelancer(freelancerService.get(freelancerId));
+        project.setAppliedFreelancers(null);
+        project.setStatus(ProjectStatus.FREELANCER_ASSIGNED);
+        projectService.save(project);
+    }
+
     ;
 //
 //    public OrderDatatablePageTo getDatatablePage(int start, int length) {

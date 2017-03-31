@@ -56,11 +56,11 @@
                 <form:form class="form-horizontal" method="post" id="detailsForm">
 
                     <%--<div class="form-group">--%>
-                        <%--<label for="id" class="control-label col-xs-3">ID</label>--%>
+                    <%--<label for="id" class="control-label col-xs-3">ID</label>--%>
 
-                        <%--<div class="col-xs-9">--%>
-                            <%--<input type="text" class="form-control" disabled="disabled" id="id" name="id">--%>
-                        <%--</div>--%>
+                    <%--<div class="col-xs-9">--%>
+                    <%--<input type="text" class="form-control" disabled="disabled" id="id" name="id">--%>
+                    <%--</div>--%>
                     <%--</div>--%>
 
                     <div class="form-group">
@@ -110,7 +110,8 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="saveProject()">Persist new project</button>
+                            <button class="btn btn-primary" type="button" onclick="saveProject()">Persist new project
+                            </button>
                         </div>
                     </div>
                 </form:form>
@@ -123,5 +124,43 @@
 
 <jsp:include page="fragments/footer.jsp"/>
 <script type="text/javascript" src="resources/js/projectDatatables.js"></script>
+
+<script type="text/template" id="appliedFreelancerList">
+    <table class="applied-freelancer-table" data-project-id="{{= projectId }}">
+        <thead>
+        <tr>
+            <%--<th>--%>
+            <%--{{= renderAddOrderItemBtn(orderId) }}--%>
+            <%--{{= renderPersistOrUpdateCustomerBtn(row) }}--%>
+            <%--{{= renderDeleteBtn(row) }}--%>
+            <%--</th>--%>
+            <th><span class="order-head-lg">Freelancer full name</span></th>
+            <th><span class="order-head-lg">Skills</span><i class="order-head-sm fa fa-usd" aria-hidden="true"></i></th>
+            <th><span class="order-head-lg">Btn</span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {{for (var i = 0; i < appliedFreelancerTos.length; i++) { }}
+        <tr
+        <%--class="order-product-row {{= appliedFreelancerTos[i].supplier }}"--%>
+                class="order-product-row "
+                data-applied-freelancer-id="{{= appliedFreelancerTos[i].id }}"
+        <%--data-order-product-id="{{= orderItems[i].orderItemId }}"--%>
+        >
+            <td class="applied-freelancer-full-name" data-key="full-name">
+                {{= appliedFreelancerTos[i].fullName }}
+            </td>
+            <td class="order-product-price" data-key="skills">
+                {{= appliedFreelancerTos[i].skills }}
+            </td>
+            <td>
+                {{= renderApproveFreelancerBtn(projectId, appliedFreelancerTos[i].id) }}
+            </td>
+        </tr>
+        {{ } }}
+        </tbody>
+    </table>
+</script>
 
 </html>

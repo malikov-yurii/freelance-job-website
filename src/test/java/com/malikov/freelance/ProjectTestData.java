@@ -22,7 +22,7 @@ public class ProjectTestData {
     public static final Project PROJECT_2_NEW_GOOGLE = new Project(2, "New search system", ProjectStatus.LOOKING_FOR_FREELANCER,
             "I have idea. You should hack Google or Yandex. And to user its source code for our new search system. We'll spit benefits 50/50", new BigDecimal(3000).setScale(2), CLIENT_2_ROZA, null, Collections.emptyList(),
             Collections.singletonList(JAVA));
-    public static final Project PROJECT_3_SHOPPING_CARD = new Project(3, "Shopping card", ProjectStatus.FREELANCER_ASSINED,
+    public static final Project PROJECT_3_SHOPPING_CARD = new Project(3, "Shopping card", ProjectStatus.FREELANCER_ASSIGNED,
             "Add shopping card to my online shop", new BigDecimal(50).setScale(2), CLIENT_3_ISAAK, FREELANCER_2_DENIS, Collections.emptyList(),
             Arrays.asList(HTML, CSS));
     public static final Project PROJECT_4_FILTER = new Project(4, "Filter for products", ProjectStatus.IN_PROGRESS,

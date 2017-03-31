@@ -37,7 +37,73 @@ $(function () {
         // ]
         // "initComplete": onOrderTableReady,
     });
+
+    datatableApi.on('draw.dt', function () {
+        showAppliedFreelancers();
+
+        // onOrderTableReady();
+
+    });
 });
+
+function showAppliedFreelancers() {
+    datatableApi.rows().every(function (rowIdx, tableLoop, rowLoop) {
+        var row = this;
+        var tr = row.node();
+        var appliedFreelancerTos = row.data().appliedFreelancerTos;
+        var projectId = row.data().id;
+        row.child(buildAppliedFreelancerList(appliedFreelancerTos, projectId, row.data()), 'child-row').show();
+
+    })
+}
+
+function buildAppliedFreelancerList(appliedFreelancerTos, projectId, row) {
+    /**
+     * Building ChildRow - list of applied freelancers
+     **/
+
+    //Making templator working properly with JSP
+    _.templateSettings = {
+        evaluate: /{{([\s\S]+?)}}/g,    // {{ }}  :  <% %>
+        interpolate: /{{=([\s\S]+?)}}/g // {{= }} :  <%= %>
+    };
+
+    var tmpl = _.template($('#appliedFreelancerList').html());
+    return tmpl({
+        appliedFreelancerTos,
+        projectId,
+        row
+    });
+
+}
+
+// function renderDeleteBtn(row) {
+
+    // return 'FakeBtn';
+    // return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">' +
+    //     '<span class="order-head-lg">Delete order</span><span class="order-head-sm">Order <i class="fa fa-times" aria-hidden="true"></i></span>' +
+    //     '</a>';
+
+// }
+
+function renderApproveFreelancerBtn(projectId, appliedFreelancerId) {
+
+    return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">✓</a>';
+
+}
+
+function approveAppliedFreelancer(projectId, freelancerId) {
+    if (confirm('Are you sure you want approve this freelancer?')) {
+        $.ajax({
+            url: ajaxUrl + projectId +  '/approve-freelancer/' + freelancerId,
+            type: 'POST',
+            success: function () {
+                updateTable();
+                successNoty('common.deleted');
+            }
+        });
+    }
+}
 
 function addProject() {
     $('#addProject').modal();

@@ -81,7 +81,7 @@ INSERT INTO projects (name, status, description, payment, client_id, freelancer_
   ('New search system', 'LOOKING_FOR_FREELANCER',
    'I have idea. You should hack Google or Yandex. And to user its source code for our new search system. We''ll spit benefits 50/50',
    3000, 8, NULL, 'Rozova'),
-  ('Shopping card', 'FREELANCER_ASSINED', 'Add shopping card to my online shop', 50, 9, 2, 'Isaakov'),
+  ('Shopping card', 'FREELANCER_ASSIGNED', 'Add shopping card to my online shop', 50, 9, 2, 'Isaakov'),
   ('Filter for products', 'IN_PROGRESS', 'Add convenient feature for my CRM to filter products in table', 250, 9, 1, 'Isaakov'),
   ('CRM', 'FINISHED', 'Built CRM for to manage my business (store information about products and customers)', 3555,
    9, 1, 'Isaakov'),
