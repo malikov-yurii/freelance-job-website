@@ -62,6 +62,11 @@ public class ProjectAjaxController extends AbstractProjectController {
     public void deleteComment(@PathVariable("id") int commentId) {
         super.deleteComment(commentId);
     }
+
+    @PostMapping(value = "/{id}/add-comment")
+    public void addComment(@PathVariable("id") int projectId, @RequestParam("text") String commentText) {
+        super.addComment(projectId, commentText);
+    }
 //
 //
 //    @DeleteMapping(value = "/{id}")

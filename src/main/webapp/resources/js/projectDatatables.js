@@ -55,11 +55,39 @@ function showAppliedFreelancersAndComments() {
         var projectId = row.data().id;
         row.child(
             buildAppliedFreelancerList(appliedFreelancerTos, projectId, row.data())
-            + buildCommentList(commentTos),
+            + buildCommentList(commentTos)
+            + renderAddCommentField(projectId),
             'child-row'
         ).show();
 
     })
+}
+
+function renderAddCommentField(projectId){
+    // debugger;
+// return    '<form action="' + ajaxUrl + projectId + '/add-comment" method="POST">' +
+//     '<p><b>Add comment:</b></p>' +
+//     '<p><textarea rows="2" cols="60" name="text"></textarea></p>' +
+//     '<p><input type="submit" value="Submit comment"></p>' +
+//     '<input type="hidden" name="_csrf" value="'+ $("meta[name='_csrf']").attr("content") + '" />' +
+//     '</form>';
+return    '<form id="commentForm' + projectId + '">' +
+    '<p><b>Add comment:</b></p>' +
+    '<p><textarea rows="2" cols="60" name="text"></textarea></p>' +
+    '<button class="btn btn-primary" type="button" onclick="saveComment('+ projectId + ')">Persist new comment</button>' +
+    '</form>';
+}
+
+function saveComment(projectId){
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl + projectId + '/add-comment',
+        data: $('#commentForm' + projectId).serialize(),
+        success: function () {
+            updateTable();
+            successNoty('common.saved');
+        }
+    });
 }
 
 function buildAppliedFreelancerList(appliedFreelancerTos, projectId, row) {

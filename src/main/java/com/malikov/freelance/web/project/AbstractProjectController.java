@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -145,5 +146,10 @@ public abstract class AbstractProjectController {
 
     public void deleteComment(int commentId) {
         commentService.delete(commentId);
+    }
+
+    public void addComment(int projectId, String commentText) {
+        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        commentService.save(new Comment(projectId, LocalDateTime.now(), user.getFirstName() + " " + user.getLastName(), commentText));
     }
 }
