@@ -25,7 +25,9 @@ public class ProjectUtil {
                 , client
                 , null
                 , null
-                , skillsList);
+                , skillsList
+                , null
+        );
     }
 
 

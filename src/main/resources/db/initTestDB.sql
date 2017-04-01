@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS project_applied_freelancers;
 DROP TABLE IF EXISTS project_required_skills;
 DROP TABLE IF EXISTS projects;
@@ -71,3 +72,13 @@ CREATE TABLE project_applied_freelancers
   FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE,
   FOREIGN KEY (freelancer_id) REFERENCES users (id)
 );
+
+CREATE TABLE comments
+(
+  id SERIAL PRIMARY KEY,
+  project_id INTEGER NOT NULL,
+  user_full_name VARCHAR(255),
+  date_placed  TIMESTAMP DEFAULT now(),
+  comment_text TEXT,
+  FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+)

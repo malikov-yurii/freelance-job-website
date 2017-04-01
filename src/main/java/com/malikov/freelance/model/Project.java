@@ -1,5 +1,7 @@
 package com.malikov.freelance.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -67,10 +69,15 @@ public class Project extends BaseEntity {
     )
     private List<Skill> requiredSkills;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectId")
+    @Fetch(FetchMode.SELECT)
+    @OrderBy("date_placed ASC")
+    private List<Comment> comments;
+
     public Project(){}
 
     public Project(Integer id, String name, ProjectStatus status, String description, BigDecimal payment, Client client,
-                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
+                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills, List<Comment> comments) {
         super(id);
         this.name = name;
         this.status = status;
@@ -80,18 +87,19 @@ public class Project extends BaseEntity {
         this.freelancer = freelancer;
         this.appliedFreelancers = appliedFreelancers;
         this.requiredSkills = requiredSkills;
+        this.comments = comments;
 
         this.clientLastName = client.getLastName();
     }
 
     public Project(String name, ProjectStatus status, String description, BigDecimal payment, Client client,
-                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills) {
-        this(null, name, status, description, payment, client, freelancer, appliedFreelancers, requiredSkills);
+                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills, List<Comment> comments) {
+        this(null, name, status, description, payment, client, freelancer, appliedFreelancers, requiredSkills, comments);
     }
 
     public Project(Project project){
         this(project.getId(), project.getName(), project.getStatus(), project.getDescription(), project.getPayment(),
-                project.getClient(), project.getFreelancer(), project.getAppliedFreelancers(), project.getRequiredSkills());
+                project.getClient(), project.getFreelancer(), project.getAppliedFreelancers(), project.getRequiredSkills(), project.getComments());
     }
 
     public String getName() {
@@ -167,6 +175,14 @@ public class Project extends BaseEntity {
         this.clientLastName = clientLastName;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -180,6 +196,7 @@ public class Project extends BaseEntity {
                 Objects.equals(client, project.client) &&
                 Objects.equals(freelancer, project.freelancer) &&
                 Objects.equals(appliedFreelancers, project.appliedFreelancers) &&
+                Objects.equals(comments, project.comments) &&
                 Objects.equals(requiredSkills, project.requiredSkills);
     }
 
@@ -200,6 +217,7 @@ public class Project extends BaseEntity {
                 ", freelancer=" + freelancer +
                 ", appliedFreelancers=" + getAppliedFreelancers() +
                 ", requiredSkills=" + requiredSkills +
+                ", comments=" + comments +
                 '}';
     }
 }

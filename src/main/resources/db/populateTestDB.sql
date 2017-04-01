@@ -1,6 +1,7 @@
 TRUNCATE TABLE project_applied_freelancers,
-project_required_skills, projects, freelancer_skills, skills, user_roles, users CASCADE;
+project_required_skills, projects, freelancer_skills, skills, user_roles, users, comments  CASCADE;
 
+ALTER SEQUENCE comments_id_seq RESTART WITH 1;
 ALTER SEQUENCE projects_id_seq RESTART WITH 1;
 ALTER SEQUENCE skills_id_seq RESTART WITH 1;
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
@@ -121,4 +122,13 @@ INSERT INTO project_applied_freelancers (project_id, freelancer_id) VALUES
   (7, 1),
   (7, 2);
 
+
+INSERT INTO comments (project_id, user_full_name, date_placed, comment_text) VALUES
+  (2, 'Yurii Malikov', '2016-09-13 18:09:03', 'Roza, you must be kidding us?'),
+  (2, 'Roza Rozova', '2016-09-14 18:44:03', 'No, Yurii, it is quite promising project. Can you create it?'),
+  (6, 'Yurii Malikov', '2016-09-15 09:22:55', 'I can complete the task using CMS Joomla'),
+  (6, 'Denis Malikov', '2016-09-16 10:07:07', 'I can complete the task using CMS Drupal'),
+  (7, 'Denis Malikov', '2016-09-21 14:44:44', 'I can complete the task using HTML, CSS'),
+  (7, 'Yurii Malikov', '2016-09-22 16:55:55', 'I can complete the task using CMS Wordpress')
+;
 

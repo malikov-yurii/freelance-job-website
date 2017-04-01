@@ -7,16 +7,17 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = Client.GET, query = "SELECT c FROM Client c WHERE (c.id=:id AND 'CLIENT' in elements(c.roles))"),
+        @NamedQuery(name = Client.GET, query = "SELECT c FROM Client c WHERE (c.id=:id AND 'ROLE_CLIENT' in elements(c.roles))"),
+//        @NamedQuery(name = Client.GET, query = "SELECT c FROM Client c WHERE c.id=:id"),
 //        @NamedQuery(name = Client.GET, query = "SELECT c FROM Client c LEFT JOIN c.roles as r WHERE r.name = 'CLIENT' AND c.id=:id"),
-        @NamedQuery(name = Client.DELETE, query = "DELETE FROM Client c WHERE (c.id=:id AND ROLE_CLIENT in elements(c.roles))"),
-        @NamedQuery(name = Client.BY_LOGIN, query = "SELECT c FROM Client c WHERE c.login=:login"),
+        @NamedQuery(name = Client.DELETE, query = "DELETE FROM Client c WHERE (c.id=:id AND 'ROLE_CLIENT' in elements(c.roles))"),
+        @NamedQuery(name = Client.BY_LOGIN, query = "SELECT c FROM Client c WHERE c.login=:login AND ('ROLE_CLIENT' in elements(c.roles))"),
 //        @NamedQuery(name = Client.BY_NAME, query = "SELECT c FROM Client c WHERE c.name=:name"),
 //        @NamedQuery(name = Client.BY_LAST_NAME, query = "SELECT c FROM Client c WHERE c.lastName=:lastName"),
 //        @NamedQuery(name = Client.BY_FIRST_NAME_MASK, query = "SELECT c FROM Client c WHERE lower(c.name) LIKE lower(:firstNameMask)"),
 //        @NamedQuery(name = Client.BY_LAST_NAME_MASK, query = "SELECT c FROM Client c WHERE lower(c.lastName) LIKE lower(:lastNameMask)"),
 //        @NamedQuery(name = Client.BY_EMAIL, query = "SELECT c FROM Client c WHERE c.email=:email"),
-        @NamedQuery(name = Client.ALL_SORTED, query = "SELECT c FROM Client c WHERE ('CLIENT' in elements(c.roles)) ORDER BY c.id"),
+        @NamedQuery(name = Client.ALL_SORTED, query = "SELECT c FROM Client c WHERE ('ROLE_CLIENT' in elements(c.roles)) ORDER BY c.id"),
 })
 @Entity
 @Table(name = "users")
