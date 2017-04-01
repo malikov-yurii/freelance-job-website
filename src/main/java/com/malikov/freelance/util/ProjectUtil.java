@@ -12,7 +12,8 @@ public class ProjectUtil {
     public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus) {
         return new ProjectTo(project.getId(), project.getClient().getId(), project.getName(),
                 project.getDescription(), project.getPayment(), project.getClientLastName(),
-                project.getStatus(), SkillTo.asTo(project.getRequiredSkills()), applicationStatus, project.getAppliedFreelancers());
+                project.getStatus(), SkillTo.asTo(project.getRequiredSkills()), applicationStatus,
+                project.getAppliedFreelancers(), project.getComments());
     }
 
     public static Project fromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {

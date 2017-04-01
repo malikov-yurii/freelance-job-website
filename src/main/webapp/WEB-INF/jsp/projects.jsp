@@ -163,4 +163,37 @@
     </table>
 </script>
 
+<script type="text/template" id="commentList">
+    <table class="comment-table">
+        <thead>
+        <tr>
+            <%--<th>--%>
+            <%--{{= renderAddOrderItemBtn(orderId) }}--%>
+            <%--{{= renderPersistOrUpdateCustomerBtn(row) }}--%>
+            <%--{{= renderDeleteBtn(row) }}--%>
+            <%--</th>--%>
+            <th><span class="order-head-lg">Comments</span></th>
+            <th><span class="order-head-lg">Btn</span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{for (var i = 0; i < commentTos.length; i++) { }}
+        <tr
+        <%--class="order-product-row {{= appliedFreelancerTos[i].supplier }}"--%>
+        <%--class="order-product-row "--%>
+                data-comment-id="{{= commentTos[i].id }}"
+        <%--data-order-product-id="{{= orderItems[i].orderItemId }}"--%>
+        >
+            <td class="comment-text" data-key="comment-text">
+                {{= commentTos[i].commentText }}
+            </td>
+            <td>
+                {{= renderDeleteCommentBtn(commentTos[i].id) }}
+            </td>
+        </tr>
+        {{ } }}
+        </tbody>
+    </table>
+</script>
+
 </html>

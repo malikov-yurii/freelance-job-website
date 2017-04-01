@@ -2,8 +2,10 @@ package com.malikov.freelance.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.malikov.freelance.model.ApplicationStatus;
+import com.malikov.freelance.model.Comment;
 import com.malikov.freelance.model.Freelancer;
 import com.malikov.freelance.model.ProjectStatus;
+import com.malikov.freelance.util.CommentUtil;
 import com.malikov.freelance.util.FreelancerUtil;
 
 import java.math.BigDecimal;
@@ -29,6 +31,8 @@ public class ProjectTo {
 
     private List<FreelancerTo> appliedFreelancerTos;
 
+    private List<CommentTo> commentTos;
+
     private String requiredSkills;
 
     private ApplicationStatus applicationStatus;
@@ -44,6 +48,7 @@ public class ProjectTo {
             , String requiredSkills
             , ApplicationStatus applicationStatus
             , List<Freelancer> freelancers
+            , List<Comment> comments
     ) {
         this.id = id;
         this.clientId = clientId == null ? 0 : clientId;
@@ -58,6 +63,11 @@ public class ProjectTo {
             appliedFreelancerTos = freelancers.stream().map(FreelancerUtil::asTo).collect(Collectors.toList());
         } else {
             appliedFreelancerTos = Collections.emptyList();
+        }
+        if (comments != null && comments.size() != 0) {
+            commentTos = comments.stream().map(CommentUtil::asTo).collect(Collectors.toList());
+        } else {
+            commentTos = Collections.emptyList();
         }
     }
 
@@ -148,6 +158,14 @@ public class ProjectTo {
         this.appliedFreelancerTos = appliedFreelancerTos;
     }
 
+    public List<CommentTo> getCommentTos() {
+        return commentTos;
+    }
+
+    public void setCommentTos(List<CommentTo> commentTos) {
+        this.commentTos = commentTos;
+    }
+
     @Override
     public String toString() {
         return "ProjectTo{" +
@@ -159,6 +177,7 @@ public class ProjectTo {
                 ", clientLastName='" + clientLastName + '\'' +
                 ", status=" + status +
                 ", requiredSkills='" + requiredSkills + '\'' +
+                ", commentTos='" + commentTos + '\'' +
                 '}';
     }
 }

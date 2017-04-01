@@ -39,20 +39,25 @@ $(function () {
     });
 
     datatableApi.on('draw.dt', function () {
-        showAppliedFreelancers();
+        showAppliedFreelancersAndComments();
 
         // onOrderTableReady();
 
     });
 });
 
-function showAppliedFreelancers() {
+function showAppliedFreelancersAndComments() {
     datatableApi.rows().every(function (rowIdx, tableLoop, rowLoop) {
         var row = this;
         var tr = row.node();
         var appliedFreelancerTos = row.data().appliedFreelancerTos;
+        var commentTos = row.data().commentTos;
         var projectId = row.data().id;
-        row.child(buildAppliedFreelancerList(appliedFreelancerTos, projectId, row.data()), 'child-row').show();
+        row.child(
+            buildAppliedFreelancerList(appliedFreelancerTos, projectId, row.data())
+            + buildCommentList(commentTos),
+            'child-row'
+        ).show();
 
     })
 }
@@ -77,6 +82,7 @@ function buildAppliedFreelancerList(appliedFreelancerTos, projectId, row) {
 
 }
 
+
 // function renderDeleteBtn(row) {
 
     // return 'FakeBtn';
@@ -87,9 +93,9 @@ function buildAppliedFreelancerList(appliedFreelancerTos, projectId, row) {
 // }
 
 function renderApproveFreelancerBtn(projectId, appliedFreelancerId) {
-
-    return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">✓</a>';
-
+    if (role === 'client') {
+        return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">✓</a>';
+    }
 }
 
 function approveAppliedFreelancer(projectId, freelancerId) {
@@ -171,7 +177,7 @@ function renderApplyForProjectBtn(data, type, row) {
                 return '<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + row.id + ');">Apply for project</a>';
                 break;
             case 'ALREADY_APPLIED' :
-                return '<a class="btn btn-xs btn-error" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
+                return '<a class="btn btn-xs btn-danger" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
                 break;
             case 'NOT_ALLOWED_LACK_OF_SKILLS' :
                 return '<b>Lack of skills</b>';
@@ -200,6 +206,42 @@ function discardApplicationForProject(e, id) {
             $(e.target).parent().html('<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + id + ');">Apply for project</a>');
         }
     });
+}
+
+function buildCommentList(commentTos) {
+    /**
+     * Building ChildRow - list of applied freelancers
+     **/
+
+    //Making templator working properly with JSP
+    _.templateSettings = {
+        evaluate: /{{([\s\S]+?)}}/g,    // {{ }}  :  <% %>
+        interpolate: /{{=([\s\S]+?)}}/g // {{= }} :  <%= %>
+    };
+
+    var tmpl = _.template($('#commentList').html());
+    return tmpl({
+        commentTos
+    });
+
+}
+
+function renderDeleteCommentBtn(commentId) {
+    if (role === 'admin') {
+        return '<a class="btn btn-xs btn-danger" onclick="deleteComment(' + commentId + ');">Delete Comment</a>';
+    }
+}
+
+function deleteComment(commentId) {
+    $.ajax({
+        url: ajaxUrl + 'delete-comment/' + commentId,
+        type: 'DELETE',
+        success: function (data) {
+            updateTable();
+            successNoty('common.delete');
+        }
+    })
+
 }
 
 //   datatableApi.on('click focusin', 'td.order-status, td.order-payment-type', function () {
