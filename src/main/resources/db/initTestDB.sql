@@ -14,7 +14,8 @@ CREATE TABLE users
   password   VARCHAR NOT NULL,
   first_name VARCHAR NOT NULL,
   last_name  VARCHAR NOT NULL,
-  email      VARCHAR NOT NULL
+  email      VARCHAR NOT NULL,
+  blocked    SMALLINT DEFAULT 0
 );
 
 CREATE TABLE user_roles
@@ -50,7 +51,8 @@ CREATE TABLE projects
   payment   DECIMAL(12,2),
   client_id     INTEGER,
   freelancer_id INTEGER,
-  client_last_name VARCHAR(255)
+  client_last_name VARCHAR(255),
+  blocked    SMALLINT DEFAULT 0
 --   ,FOREIGN KEY (client_id) REFERENCES users (id)
 --   ,FOREIGN KEY (freelancer_id) REFERENCES users (id)
 );
@@ -80,5 +82,6 @@ CREATE TABLE comments
   user_full_name VARCHAR(255),
   date_placed  TIMESTAMP DEFAULT now(),
   comment_text TEXT,
+  blocked    SMALLINT DEFAULT 0,
   FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
 )

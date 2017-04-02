@@ -1,11 +1,14 @@
 package com.malikov.freelance.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -51,6 +54,10 @@ public class Project extends BaseEntity {
     @JoinColumn(name = "freelancer_id")
     private Freelancer freelancer;
 
+    @Column(name = "blocked")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean blocked;
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
@@ -90,6 +97,8 @@ public class Project extends BaseEntity {
         this.comments = comments;
 
         this.clientLastName = client.getLastName();
+
+        this.blocked = Boolean.FALSE;
     }
 
     public Project(String name, ProjectStatus status, String description, BigDecimal payment, Client client,
@@ -100,6 +109,14 @@ public class Project extends BaseEntity {
     public Project(Project project){
         this(project.getId(), project.getName(), project.getStatus(), project.getDescription(), project.getPayment(),
                 project.getClient(), project.getFreelancer(), project.getAppliedFreelancers(), project.getRequiredSkills(), project.getComments());
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
 
     public String getName() {

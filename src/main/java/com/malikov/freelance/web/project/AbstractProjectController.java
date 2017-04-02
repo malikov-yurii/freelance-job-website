@@ -76,9 +76,10 @@ public abstract class AbstractProjectController {
 
         User authorizedUser = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        if (!authorizedUser.getRoles().contains(Role.ROLE_FREELANCER)) {
-            for (Project project : projectService.getAll())
-                projectTos.add(ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER));
+        if (authorizedUser.getRoles().contains(Role.ROLE_ADMIN)) {
+            projectTos.addAll(projectService.getAll().stream().map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, true)).collect(Collectors.toList()));
+        } else if (authorizedUser.getRoles().contains(Role.ROLE_CLIENT)) {
+            projectTos.addAll(projectService.getAll().stream().map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, false)).collect(Collectors.toList()));
         } else {
             Freelancer authorizedFreelancer = freelancerService.get(authorizedUser.getId());
             for (Project project : projectService.getAll()) {
@@ -91,7 +92,7 @@ public abstract class AbstractProjectController {
                 } else {
                     applicationStatus = NOT_ALLOWED_LACK_OF_SKILLS;
                 }
-                projectTos.add(ProjectUtil.asTo(project, applicationStatus));
+                projectTos.add(ProjectUtil.asTo(project, applicationStatus, false));
             }
         }
         return projectTos;
@@ -140,12 +141,14 @@ public abstract class AbstractProjectController {
         Project project = projectService.get(projectId);
         project.setFreelancer(freelancerService.get(freelancerId));
         project.setAppliedFreelancers(null);
-        project.setStatus(ProjectStatus.FREELANCER_ASSIGNED);
+        project.setStatus(ProjectStatus.IN_PROGRESS);
         projectService.save(project);
     }
 
-    public void deleteComment(int commentId) {
-        commentService.delete(commentId);
+    public void setIsCommentBlocked(int commentId, boolean isBlocked) {
+        Comment comment = commentService.get(commentId);
+        comment.setBlocked(isBlocked);
+        commentService.save(comment);
     }
 
     public void addComment(int projectId, String commentText) {

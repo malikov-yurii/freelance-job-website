@@ -4,7 +4,9 @@ import com.malikov.freelance.model.BaseEntity;
 
 public class CommentTo extends BaseEntity{
 
-    public String commentText;
+    private String commentText;
+
+    private Boolean blocked;
 
     public CommentTo(){}
 
@@ -12,9 +14,18 @@ public class CommentTo extends BaseEntity{
         this.commentText = commentText;
     }
 
-    public CommentTo(Integer id, String commentText) {
+    public CommentTo(Integer id, String commentText, Boolean blocked) {
         super(id);
         this.commentText = commentText;
+        this.blocked = blocked;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
 
     public String getCommentText() {

@@ -1,5 +1,6 @@
 package com.malikov.freelance.model;
 
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -32,6 +33,10 @@ public class Comment extends BaseEntity{
     @Column(name = "comment_text")
     private String text;
 
+    @Column(name = "blocked")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean blocked;
+
     public Comment(){}
 
     public Comment(Comment comment){
@@ -43,6 +48,7 @@ public class Comment extends BaseEntity{
         this.datePlaced = datePlaced;
         this.userFullName = userFullName;
         this.text = text;
+        this.blocked = Boolean.FALSE;
     }
 
     public Comment(Integer id, Integer projectId, LocalDateTime datePlaced, String userFullName, String text) {
@@ -51,6 +57,15 @@ public class Comment extends BaseEntity{
         this.datePlaced = datePlaced;
         this.userFullName = userFullName;
         this.text = text;
+        this.blocked = Boolean.FALSE;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
 
     public Integer getProjectId() {

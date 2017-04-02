@@ -64,18 +64,11 @@ function showAppliedFreelancersAndComments() {
 }
 
 function renderAddCommentField(projectId){
-    // debugger;
-// return    '<form action="' + ajaxUrl + projectId + '/add-comment" method="POST">' +
-//     '<p><b>Add comment:</b></p>' +
-//     '<p><textarea rows="2" cols="60" name="text"></textarea></p>' +
-//     '<p><input type="submit" value="Submit comment"></p>' +
-//     '<input type="hidden" name="_csrf" value="'+ $("meta[name='_csrf']").attr("content") + '" />' +
-//     '</form>';
-return    '<form id="commentForm' + projectId + '">' +
-    '<p><b>Add comment:</b></p>' +
-    '<p><textarea rows="2" cols="60" name="text"></textarea></p>' +
-    '<button class="btn btn-primary" type="button" onclick="saveComment('+ projectId + ')">Persist new comment</button>' +
-    '</form>';
+    return  '<form id="commentForm' + projectId + '">' +
+            '<p><b>Add comment:</b></p>' +
+            '<p><textarea rows="2" cols="60" name="text"></textarea></p>' +
+            '<button class="btn btn-primary" type="button" onclick="saveComment('+ projectId + ')">Persist new comment</button>' +
+            '</form>';
 }
 
 function saveComment(projectId){
@@ -238,7 +231,7 @@ function discardApplicationForProject(e, id) {
 
 function buildCommentList(commentTos) {
     /**
-     * Building ChildRow - list of applied freelancers
+     * Building part of ChildRow - list of comments
      **/
 
     //Making templator working properly with JSP
@@ -254,19 +247,33 @@ function buildCommentList(commentTos) {
 
 }
 
-function renderDeleteCommentBtn(commentId) {
+function renderBlockUnblockCommentBtn(commentId, blocked) {
     if (role === 'admin') {
-        return '<a class="btn btn-xs btn-danger" onclick="deleteComment(' + commentId + ');">Delete Comment</a>';
+        return blocked === false ?
+            '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');">block comment</a>' :
+            '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>' ;
     }
 }
 
-function deleteComment(commentId) {
+function blockComment(commentId) {
     $.ajax({
-        url: ajaxUrl + 'delete-comment/' + commentId,
-        type: 'DELETE',
+        url: ajaxUrl + 'block-comment/' + commentId,
+        type: 'POST',
         success: function (data) {
             updateTable();
-            successNoty('common.delete');
+            successNoty('common.saved');
+        }
+    })
+
+}
+
+function unblockComment(commentId) {
+    $.ajax({
+        url: ajaxUrl + 'unblock-comment/' + commentId,
+        type: 'POST',
+        success: function (data) {
+            updateTable();
+            successNoty('common.saved');
         }
     })
 

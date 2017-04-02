@@ -38,10 +38,10 @@ public class JpaCommentRepository implements CommentRepository {
         return em.find(Comment.class, id);
     }
 
-
     @Override
     public List<Comment> getAll() {
         return em.createNamedQuery(Comment.ALL_SORTED, Comment.class)
                 .getResultList();
     }
+
 }

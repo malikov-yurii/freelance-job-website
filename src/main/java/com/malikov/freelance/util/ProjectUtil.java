@@ -5,22 +5,24 @@ import com.malikov.freelance.to.ProjectTo;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class ProjectUtil {
 
-    public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus) {
+    public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus, boolean isAdmin) {
         return new ProjectTo(project.getId(), project.getClient().getId(), project.getName(),
                 project.getDescription(), project.getPayment(), project.getClientLastName(),
                 project.getStatus(), SkillTo.asTo(project.getRequiredSkills()), applicationStatus,
-                project.getAppliedFreelancers(), project.getComments());
+                project.getAppliedFreelancers()
+                , isAdmin ? project.getComments() : project.getComments().stream().filter(comment -> !comment.getBlocked()).collect(Collectors.toList()));
     }
 
     public static Project fromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {
         return new Project(
                 0
                 , projectTo.getName() == null ? "No name provided" : projectTo.getName()
-                , projectTo.getStatus() == null ? ProjectStatus.NEW : projectTo.getStatus()
+                , projectTo.getStatus() == null ? ProjectStatus.LOOKING_FOR_FREELANCER : projectTo.getStatus()
                 , projectTo.getDescription() == null ? "No description provided" : projectTo.getDescription()
                 , projectTo.getPayment() == null ? new BigDecimal(0) : projectTo.getPayment()
                 , client

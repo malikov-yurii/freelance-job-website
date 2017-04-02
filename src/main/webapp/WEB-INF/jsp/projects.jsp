@@ -188,7 +188,7 @@
                 {{= commentTos[i].commentText }}
             </td>
             <td>
-                {{= renderDeleteCommentBtn(commentTos[i].id) }}
+                {{= renderBlockUnblockCommentBtn(commentTos[i].id, commentTos[i].blocked) }}
             </td>
         </tr>
         {{ } }}

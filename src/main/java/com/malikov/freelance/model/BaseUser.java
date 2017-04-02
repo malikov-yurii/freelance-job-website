@@ -1,5 +1,7 @@
 package com.malikov.freelance.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -24,6 +26,10 @@ public class BaseUser extends BaseEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "blocked")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean blocked;
+
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -43,6 +49,7 @@ public class BaseUser extends BaseEntity {
         this.lastName = lastName;
         this.email = email;
         this.roles = roles;
+        this.blocked = Boolean.FALSE;
     }
 
     public BaseUser(Integer id, String login, String password, String firstName, String lastName, String email, Set<Role> roles) {
@@ -53,6 +60,15 @@ public class BaseUser extends BaseEntity {
         this.lastName = lastName;
         this.email = email;
         this.roles = roles;
+        this.blocked = Boolean.FALSE;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
 
     public String getLogin() {

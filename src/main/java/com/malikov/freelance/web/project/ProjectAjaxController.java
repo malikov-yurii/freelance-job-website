@@ -58,9 +58,14 @@ public class ProjectAjaxController extends AbstractProjectController {
         super.approveFreelancer(projectId, freelancerId);
     }
 
-    @DeleteMapping(value = "/delete-comment/{id}")
-    public void deleteComment(@PathVariable("id") int commentId) {
-        super.deleteComment(commentId);
+    @PostMapping(value = "/block-comment/{id}")
+    public void blockComment(@PathVariable("id") int commentId) {
+        super.setIsCommentBlocked(commentId, true);
+    }
+
+    @PostMapping(value = "/unblock-comment/{id}")
+    public void unblockComment(@PathVariable("id") int commentId) {
+        super.setIsCommentBlocked(commentId, false);
     }
 
     @PostMapping(value = "/{id}/add-comment")
