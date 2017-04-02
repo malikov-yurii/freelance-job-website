@@ -39,13 +39,15 @@
                 <th>Status</th>
                 <th>Skills</th>
                 <th>Btn</th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
         </table>
     </div>
 </div>
 
-<div class="modal fade" id="addProject">
+<div class="modal fade" id="projectForm">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,13 +57,14 @@
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
 
-                    <%--<div class="form-group">--%>
-                    <%--<label for="id" class="control-label col-xs-3">ID</label>--%>
+                    <div class="form-group">
+                        <label for="projectId" class="control-label col-xs-3">ID</label>
 
-                    <%--<div class="col-xs-9">--%>
-                    <%--<input type="text" class="form-control" disabled="disabled" id="id" name="id">--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
+                        <div class="col-xs-9">
+                            <%--<input type="text" class="form-control" disabled="disabled" id="projectId" name="id">--%>
+                            <input type="text" class="form-control" id="projectId" name="id">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="projectName" class="control-label col-xs-3">Project name</label>
@@ -173,7 +176,8 @@
             <%--{{= renderDeleteBtn(row) }}--%>
             <%--</th>--%>
             <th><span class="order-head-lg">Comments</span></th>
-            <th><span class="order-head-lg">Btn</span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
+            <th><span class="order-head-lg">Btn</span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
+            </th>
         </tr>
         </thead>
         <tbody>

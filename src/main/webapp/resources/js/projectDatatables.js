@@ -25,8 +25,17 @@ $(function () {
                 "defaultContent": "",
                 "orderable": false,
                 "render": role === 'admin'  ? renderBlockUnblockProjectBtn :
-                            (role === 'freelancer' ? renderApplyForProjectBtn : ""),
-                "className" : "project-apply-btn"
+                            (role === 'freelancer' ? renderApplyForProjectBtn : "")
+            },
+            {
+                "defaultContent": "",
+                "orderable": false,
+                "render": role === 'admin'  ? renderUpdateProjectBtn : ""
+            },
+            {
+                "defaultContent": "",
+                "orderable": false,
+                "render": role === 'admin'  ? renderDeleteProjectBtn : ""
             }
         ],
         "initComplete": onProjectTableReady,
@@ -134,8 +143,8 @@ function approveAppliedFreelancer(projectId, freelancerId) {
 }
 
 function addProject() {
-    $('#addProject').modal();
-
+    $('#projectForm').modal();
+    $('#projectId').val(0);
 }
 
 function saveProject(){
@@ -144,7 +153,7 @@ function saveProject(){
         url: ajaxUrl,
         data: $('#detailsForm').serialize(),
         success: function () {
-            $('#addProject').modal('hide');
+            $('#projectForm').modal('hide');
             updateTable();
             successNoty('common.saved');
         }
@@ -259,6 +268,21 @@ function renderBlockUnblockProjectBtn(data, type, row) {
         '<a class="btn btn-xs btn-success" onclick="unblockProject(' + row.id + ');">unblock project</a>' ;
 }
 
+function renderUpdateProjectBtn(data, type, row) {
+    return '<a class="btn btn-xs btn-primary" onclick="updateProject(' +
+        row.id + ', \'' +
+        row.name + '\', \'' +
+        row.description + '\', ' +
+        row.payment + ', \'' +
+        row.status + '\', \'' +
+        row.requiredSkills +
+        '\');">update project</a>';
+}
+
+function renderDeleteProjectBtn(data, type, row) {
+    return '<a class="btn btn-xs btn-danger" onclick="deleteProject(' + row.id + ');">delete project</a>';
+}
+
 function blockProject(projectId) {
     $.ajax({
         url: ajaxUrl + 'block-project/' + projectId,
@@ -268,7 +292,29 @@ function blockProject(projectId) {
             successNoty('common.saved');
         }
     })
+}
 
+function updateProject(projectId, projectName, projectDescription, projectPayment, projectStatus, projectRequiredSkills) {
+    $('#projectForm').modal();
+// todo get info from row by projectId
+    $('#projectId').val(projectId);
+    $('#projectName').val(projectName);
+    $('#projectDescription').val(projectDescription);
+    $('#projectPayment').val(projectPayment);
+    $('#projectStatus').val(projectStatus);
+    $('#projectRequiredSkills').val(projectRequiredSkills);
+}
+
+function deleteProject(projectId) {
+    // debugger;
+    $.ajax({
+        url: ajaxUrl + projectId,
+        type: 'DELETE',
+        success: function (data) {
+            updateTable();
+            successNoty('common.deleted');
+        }
+    })
 }
 
 function unblockProject(projectId) {

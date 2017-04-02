@@ -114,8 +114,23 @@ public abstract class AbstractProjectController {
         projectService.save(project);
     }
 
-    public void create(ProjectTo projectTo) {
+    public void saveOrUpdate(ProjectTo projectTo) {
+        if (projectTo.getId() != 0) {
+            Project project = projectService.get(projectTo.getId());
+            project.setName(projectTo.getName());
+            project.setDescription(projectTo.getDescription());
+            project.setPayment(projectTo.getPayment());
+            project.setStatus(projectTo.getStatus());
+            project.setRequiredSkills(getSkillsFromProjectTo(projectTo));
+            projectService.save(project);
+        } else {
+            projectService.save(ProjectUtil.fromTo(projectTo
+                    , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
+                    , getSkillsFromProjectTo(projectTo)));
+        }
+    }
 
+    private List<Skill> getSkillsFromProjectTo(ProjectTo projectTo) {
         List<Skill> allSkills = skillService.getAll();
         List<Skill> rawSkillList = new ArrayList<>(
                 Arrays.stream(
@@ -133,10 +148,7 @@ public abstract class AbstractProjectController {
                 newProjectPersistedSkillList.add(allSkills.get(skillId));
             }
         }
-
-        projectService.save(ProjectUtil.fromTo(projectTo
-                , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
-                , newProjectPersistedSkillList));
+        return newProjectPersistedSkillList;
     }
 
     public void approveFreelancer(int projectId, int freelancerId) {
@@ -162,5 +174,9 @@ public abstract class AbstractProjectController {
     public void addComment(int projectId, String commentText) {
         User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         commentService.save(new Comment(projectId, LocalDateTime.now(), user.getFirstName() + " " + user.getLastName(), commentText));
+    }
+
+    public void delete(int projectId) {
+        projectService.delete(projectId);
     }
 }

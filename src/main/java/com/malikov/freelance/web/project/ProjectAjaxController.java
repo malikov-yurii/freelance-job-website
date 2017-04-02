@@ -23,8 +23,8 @@ public class ProjectAjaxController extends AbstractProjectController {
 //
 
     @PostMapping
-    public ResponseEntity<String> create(@Valid ProjectTo projectTo, BindingResult result, HttpEntity<String> httpEntity) {
-        super.create(projectTo);
+    public ResponseEntity<String> createOrUpdate(@Valid ProjectTo projectTo, BindingResult result, HttpEntity<String> httpEntity) {
+        super.saveOrUpdate(projectTo);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
@@ -82,12 +82,12 @@ public class ProjectAjaxController extends AbstractProjectController {
     public void unblockProject(@PathVariable("id") int projectId) {
         super.setIsProjectBlocked(projectId, false);
     }
-//
-//
-//    @DeleteMapping(value = "/{id}")
-//    public void delete(@PathVariable("id") int id) {
-//        super.delete(id);
-//    }
+
+
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") int projectId) {
+        super.delete(projectId);
+    }
 //
 //    @PostMapping
 //    public ResponseEntity<String> create(@Valid OrderTo orderTo, BindingResult result, HttpEntity<String> httpEntity) {

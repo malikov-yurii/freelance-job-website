@@ -2,6 +2,7 @@ package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.Freelancer;
 import com.malikov.freelance.to.FreelancerTo;
+import com.malikov.freelance.to.SkillTo;
 
 public class FreelancerUtil {
 

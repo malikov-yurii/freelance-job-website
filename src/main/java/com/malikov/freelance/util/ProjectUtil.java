@@ -2,6 +2,7 @@ package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.*;
 import com.malikov.freelance.to.ProjectTo;
+import com.malikov.freelance.to.SkillTo;
 
 import java.math.BigDecimal;
 import java.util.List;

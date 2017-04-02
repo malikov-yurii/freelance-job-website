@@ -1,4 +1,4 @@
-package com.malikov.freelance.util;
+package com.malikov.freelance.to;
 
 import com.malikov.freelance.model.Skill;
 
