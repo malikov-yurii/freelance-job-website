@@ -79,10 +79,12 @@ public abstract class AbstractProjectController {
         if (authorizedUser.getRoles().contains(Role.ROLE_ADMIN)) {
             projectTos.addAll(projectService.getAll().stream().map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, true)).collect(Collectors.toList()));
         } else if (authorizedUser.getRoles().contains(Role.ROLE_CLIENT)) {
-            projectTos.addAll(projectService.getAll().stream().map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, false)).collect(Collectors.toList()));
+            projectTos.addAll(projectService.getAll().stream().filter(project -> !project.getBlocked()).map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, false)).collect(Collectors.toList()));
         } else {
             Freelancer authorizedFreelancer = freelancerService.get(authorizedUser.getId());
             for (Project project : projectService.getAll()) {
+                if (project.getBlocked())
+                    continue;
                 if (project.getStatus() != ProjectStatus.LOOKING_FOR_FREELANCER) {
                     applicationStatus = NOT_LOOKING_FOR_A_FREELANCER;
                 } else if (project.getAppliedFreelancers().contains(authorizedFreelancer)) {
@@ -149,6 +151,12 @@ public abstract class AbstractProjectController {
         Comment comment = commentService.get(commentId);
         comment.setBlocked(isBlocked);
         commentService.save(comment);
+    }
+
+    public void setIsProjectBlocked(int projectId, boolean isBlocked) {
+        Project project = projectService.get(projectId);
+        project.setBlocked(isBlocked);
+        projectService.save(project);
     }
 
     public void addComment(int projectId, String commentText) {

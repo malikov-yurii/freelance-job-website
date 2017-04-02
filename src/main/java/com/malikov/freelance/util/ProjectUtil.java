@@ -15,7 +15,8 @@ public class ProjectUtil {
                 project.getDescription(), project.getPayment(), project.getClientLastName(),
                 project.getStatus(), SkillTo.asTo(project.getRequiredSkills()), applicationStatus,
                 project.getAppliedFreelancers()
-                , isAdmin ? project.getComments() : project.getComments().stream().filter(comment -> !comment.getBlocked()).collect(Collectors.toList()));
+                , isAdmin ? project.getComments() : project.getComments().stream().filter(comment -> !comment.getBlocked()).collect(Collectors.toList())
+        , project.getBlocked());
     }
 
     public static Project fromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {

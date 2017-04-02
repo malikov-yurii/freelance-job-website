@@ -38,7 +38,7 @@
                 <th>Cl last name</th>
                 <th>Status</th>
                 <th>Skills</th>
-                <th></th>
+                <th>Btn</th>
             </tr>
             </thead>
         </table>

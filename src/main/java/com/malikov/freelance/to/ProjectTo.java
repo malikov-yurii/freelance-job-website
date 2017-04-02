@@ -37,6 +37,8 @@ public class ProjectTo {
 
     private ApplicationStatus applicationStatus;
 
+    private Boolean blocked;
+
     public ProjectTo(
             Integer id
             , Integer clientId
@@ -49,6 +51,7 @@ public class ProjectTo {
             , ApplicationStatus applicationStatus
             , List<Freelancer> freelancers
             , List<Comment> comments
+            , Boolean blocked
     ) {
         this.id = id;
         this.clientId = clientId == null ? 0 : clientId;
@@ -69,9 +72,18 @@ public class ProjectTo {
         } else {
             commentTos = Collections.emptyList();
         }
+        this.blocked = blocked;
     }
 
     public ProjectTo(){}
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
+    }
 
     @JsonIgnore
     public boolean isNew() {

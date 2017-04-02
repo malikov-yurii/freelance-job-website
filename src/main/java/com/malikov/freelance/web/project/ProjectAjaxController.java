@@ -72,6 +72,16 @@ public class ProjectAjaxController extends AbstractProjectController {
     public void addComment(@PathVariable("id") int projectId, @RequestParam("text") String commentText) {
         super.addComment(projectId, commentText);
     }
+
+    @PostMapping(value = "/block-project/{id}")
+    public void blockProject(@PathVariable("id") int projectId) {
+        super.setIsProjectBlocked(projectId, true);
+    }
+
+    @PostMapping(value = "/unblock-project/{id}")
+    public void unblockProject(@PathVariable("id") int projectId) {
+        super.setIsProjectBlocked(projectId, false);
+    }
 //
 //
 //    @DeleteMapping(value = "/{id}")
