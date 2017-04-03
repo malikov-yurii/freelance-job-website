@@ -24,7 +24,7 @@ public class ProjectUtil {
         return new Project(
                 0
                 , projectTo.getName() == null ? "No name provided" : projectTo.getName()
-                , projectTo.getStatus() == null ? ProjectStatus.LOOKING_FOR_FREELANCER : projectTo.getStatus()
+                , ProjectStatus.LOOKING_FOR_FREELANCER
                 , projectTo.getDescription() == null ? "No description provided" : projectTo.getDescription()
                 , projectTo.getPayment() == null ? new BigDecimal(0) : projectTo.getPayment()
                 , client

@@ -52,19 +52,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title">Add project</h2>
+                <h2 class="modal-title" id="modalTitle"></h2>
             </div>
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
 
-                    <div class="form-group">
-                        <label for="projectId" class="control-label col-xs-3">ID</label>
-
-                        <div class="col-xs-9">
+                    <%--<div class="form-group">--%>
+                        <%--<label for="projectId" class="control-label col-xs-3">ID</label>--%>
+                        <%--<div class="col-xs-9">--%>
                             <%--<input type="text" class="form-control" disabled="disabled" id="projectId" name="id">--%>
-                            <input type="text" class="form-control" id="projectId" name="id">
-                        </div>
-                    </div>
+                            <input type="hidden" class="form-control" id="projectId" name="id">
+                        <%--</div>--%>
+                    <%--</div>--%>
 
                     <div class="form-group">
                         <label for="projectName" class="control-label col-xs-3">Project name</label>
@@ -93,14 +92,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="projectStatus" class="control-label col-xs-3">Status</label>
-
-                        <div class="col-xs-9">
-                            <input type="text" class="form-control" id="projectStatus" name="status"
-                                   placeholder="LOOKING_FOR_FREELANCER">
-                        </div>
-                    </div>
+                    <%--<div class="form-group">--%>
+                        <%--<label for="projectStatus" class="control-label col-xs-3">Status</label>--%>
+<%----%>
+                        <%--<div class="col-xs-9">--%>
+                            <%--<input type="text" class="form-control" id="projectStatus" name="status"--%>
+                                   <%--placeholder="LOOKING_FOR_FREELANCER">--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
 
                     <div class="form-group">
                         <label for="projectRequiredSkills" class="control-label col-xs-3">Required skills</label>
@@ -113,8 +112,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="saveProject()">Persist new project
-                            </button>
+                            <button class="btn btn-primary" type="button" onclick="saveProject()">Submit</button>
                         </div>
                     </div>
                 </form:form>

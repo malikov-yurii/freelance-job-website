@@ -49,7 +49,7 @@ public class Skill extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name);
+        return Objects.hash(name.toLowerCase());
     }
 
     @Override

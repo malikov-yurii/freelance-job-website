@@ -11,9 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.malikov.freelance.model.ApplicationStatus.*;
@@ -120,7 +118,7 @@ public abstract class AbstractProjectController {
             project.setName(projectTo.getName());
             project.setDescription(projectTo.getDescription());
             project.setPayment(projectTo.getPayment());
-            project.setStatus(projectTo.getStatus());
+//            project.setStatus(projectTo.getStatus());
             project.setRequiredSkills(getSkillsFromProjectTo(projectTo));
             projectService.save(project);
         } else {
@@ -132,15 +130,13 @@ public abstract class AbstractProjectController {
 
     private List<Skill> getSkillsFromProjectTo(ProjectTo projectTo) {
         List<Skill> allSkills = skillService.getAll();
-        List<Skill> rawSkillList = new ArrayList<>(
-                Arrays.stream(
-                        projectTo
-                                .getRequiredSkills()
-                                .split("\\W*,\\W*"))
-                        .map(Skill::new)
-                        .collect(Collectors.toList()));
+        Set<Skill> rawSkillSet = Arrays.stream(projectTo
+                .getRequiredSkills()
+                .split("\\W*,\\W*"))
+                .map(Skill::new)
+                .collect(Collectors.toSet());
         List<Skill> newProjectPersistedSkillList = new ArrayList<>();
-        for (Skill skill : rawSkillList) {
+        for (Skill skill : rawSkillSet) {
             int skillId = allSkills.indexOf(skill);
             if (skillId == -1) {
                 newProjectPersistedSkillList.add(skillService.save(skill));

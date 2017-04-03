@@ -78,7 +78,7 @@ INSERT INTO freelancer_skills (freelancer_id, skill_id) VALUES
 
 INSERT INTO projects (name, status, description, payment, client_id, freelancer_id, client_last_name) VALUES
   ('Online shop of adult toys', 'LOOKING_FOR_FREELANCER', 'I need online shop to be developed very fast (maybe in 1-2 days not more than that)', 25, 7, NULL, 'Simov'),
-  ('New search system', 'LOOKING_FOR_FREELANCER', 'I have idea. You should hack Google or Yandex. And to user its source code for our new search system. We''ll spit benefits 50/50', 3000, 8, NULL, 'Rozova'),
+  ('New search system', 'LOOKING_FOR_FREELANCER', 'I have idea. You should hack Google or Yandex. And to user its source code for our new search system. We will spit benefits 50/50', 3000, 8, NULL, 'Rozova'),
   ('Shopping card', 'IN_PROGRESS', 'Add shopping card to my online shop', 50, 9, 2, 'Isaakov'),
   ('Filter for products', 'IN_PROGRESS', 'Add convenient feature for my CRM to filter products in table', 250, 9, 1, 'Isaakov'),
   ('CRM', 'FINISHED', 'Built CRM for to manage my business (store information about products and customers)', 3555, 9, 1, 'Isaakov'),

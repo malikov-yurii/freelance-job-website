@@ -143,6 +143,7 @@ function approveAppliedFreelancer(projectId, freelancerId) {
 }
 
 function addProject() {
+    $('#modalTitle').html('Add new project');
     $('#projectForm').modal();
     $('#projectId').val(0);
 }
@@ -269,12 +270,12 @@ function renderBlockUnblockProjectBtn(data, type, row) {
 }
 
 function renderUpdateProjectBtn(data, type, row) {
+    // debugger;
     return '<a class="btn btn-xs btn-primary" onclick="updateProject(' +
         row.id + ', \'' +
         row.name + '\', \'' +
         row.description + '\', ' +
         row.payment + ', \'' +
-        row.status + '\', \'' +
         row.requiredSkills +
         '\');">update project</a>';
 }
@@ -294,14 +295,16 @@ function blockProject(projectId) {
     })
 }
 
-function updateProject(projectId, projectName, projectDescription, projectPayment, projectStatus, projectRequiredSkills) {
+function updateProject(projectId, projectName, projectDescription, projectPayment,projectRequiredSkills) {
+    // debugger;
+    $('#modalTitle').html('Update project');
     $('#projectForm').modal();
 // todo get info from row by projectId
     $('#projectId').val(projectId);
     $('#projectName').val(projectName);
     $('#projectDescription').val(projectDescription);
     $('#projectPayment').val(projectPayment);
-    $('#projectStatus').val(projectStatus);
+    // $('#projectStatus').val(projectStatus);
     $('#projectRequiredSkills').val(projectRequiredSkills);
 }
 
