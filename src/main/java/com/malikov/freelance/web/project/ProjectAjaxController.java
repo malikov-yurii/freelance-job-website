@@ -2,9 +2,9 @@ package com.malikov.freelance.web.project;
 
 import com.malikov.freelance.to.ProjectTo;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,10 +22,10 @@ public class ProjectAjaxController extends AbstractProjectController {
 //    UserService userService;
 //
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @PostMapping
     public ResponseEntity<String> createOrUpdate(@Valid ProjectTo projectTo, BindingResult result, HttpEntity<String> httpEntity) {
-        super.saveOrUpdate(projectTo);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return super.saveOrUpdate(projectTo);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,11 +58,13 @@ public class ProjectAjaxController extends AbstractProjectController {
         super.approveFreelancer(projectId, freelancerId);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/block-comment/{id}")
     public void blockComment(@PathVariable("id") int commentId) {
         super.setIsCommentBlocked(commentId, true);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/unblock-comment/{id}")
     public void unblockComment(@PathVariable("id") int commentId) {
         super.setIsCommentBlocked(commentId, false);
@@ -73,11 +75,13 @@ public class ProjectAjaxController extends AbstractProjectController {
         super.addComment(projectId, commentText);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/block-project/{id}")
     public void blockProject(@PathVariable("id") int projectId) {
         super.setIsProjectBlocked(projectId, true);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/unblock-project/{id}")
     public void unblockProject(@PathVariable("id") int projectId) {
         super.setIsProjectBlocked(projectId, false);

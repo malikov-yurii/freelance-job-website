@@ -1,5 +1,10 @@
 package com.malikov.freelance.web;
 
+import com.malikov.freelance.model.Role;
+import com.malikov.freelance.model.User;
+import com.malikov.freelance.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RootController {
+
+    @Autowired
+    private UserService userService;
 
 //    @Autowired
 //    private UserService service;
@@ -40,7 +48,16 @@ public class RootController {
 //    }
 //
     @GetMapping("/projects")
-    public String orders() {
+    public String orders(ModelMap model)
+    {
+        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.put("userId", user.getId());
+        if (user.getRoles().contains(Role.ROLE_ADMIN))
+            model.put("userRole", "admin");
+        else if (user.getRoles().contains(Role.ROLE_CLIENT))
+            model.put("userRole", "client");
+        else if (user.getRoles().contains(Role.ROLE_FREELANCER))
+            model.put("userRole", "freelancer");
         return "projects";
     }
 //

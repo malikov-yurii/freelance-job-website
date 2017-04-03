@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
@@ -75,9 +77,9 @@ public abstract class AbstractProjectController {
         User authorizedUser = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
         if (authorizedUser.getRoles().contains(Role.ROLE_ADMIN)) {
-            projectTos.addAll(projectService.getAll().stream().map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, true)).collect(Collectors.toList()));
+            projectTos.addAll(projectService.getAll().stream().map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, authorizedUser)).collect(Collectors.toList()));
         } else if (authorizedUser.getRoles().contains(Role.ROLE_CLIENT)) {
-            projectTos.addAll(projectService.getAll().stream().filter(project -> !project.getBlocked()).map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, false)).collect(Collectors.toList()));
+            projectTos.addAll(projectService.getAll().stream().filter(project -> !project.getBlocked()).map(project -> ProjectUtil.asTo(project, ApplicationStatus.NOT_FREELANCER, authorizedUser)).collect(Collectors.toList()));
         } else {
             Freelancer authorizedFreelancer = freelancerService.get(authorizedUser.getId());
             for (Project project : projectService.getAll()) {
@@ -92,7 +94,7 @@ public abstract class AbstractProjectController {
                 } else {
                     applicationStatus = NOT_ALLOWED_LACK_OF_SKILLS;
                 }
-                projectTos.add(ProjectUtil.asTo(project, applicationStatus, false));
+                projectTos.add(ProjectUtil.asTo(project, applicationStatus, authorizedUser));
             }
         }
         return projectTos;
@@ -112,20 +114,31 @@ public abstract class AbstractProjectController {
         projectService.save(project);
     }
 
-    public void saveOrUpdate(ProjectTo projectTo) {
-        if (projectTo.getId() != 0) {
-            Project project = projectService.get(projectTo.getId());
-            project.setName(projectTo.getName());
-            project.setDescription(projectTo.getDescription());
-            project.setPayment(projectTo.getPayment());
-//            project.setStatus(projectTo.getStatus());
-            project.setRequiredSkills(getSkillsFromProjectTo(projectTo));
-            projectService.save(project);
-        } else {
+    public ResponseEntity<String> saveOrUpdate(ProjectTo projectTo) {
+        BaseUser user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (user.getRoles().contains(Role.ROLE_ADMIN)) {
             projectService.save(ProjectUtil.fromTo(projectTo
-                    , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
+                    , clientService.get(projectTo.getClientId())
                     , getSkillsFromProjectTo(projectTo)));
+        } else {
+            if (projectTo.getId() != 0) {
+                if (!Objects.equals(projectService.get(projectTo.getId()).getClient().getId(), user.getId())) {
+                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                }
+                Project project = projectService.get(projectTo.getId());
+                project.setName(projectTo.getName());
+                project.setDescription(projectTo.getDescription());
+                project.setPayment(projectTo.getPayment());
+//            project.setStatus(projectTo.getStatus());
+                project.setRequiredSkills(getSkillsFromProjectTo(projectTo));
+                projectService.save(project);
+            } else {
+                projectService.save(ProjectUtil.fromTo(projectTo
+                        , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
+                        , getSkillsFromProjectTo(projectTo)));
+            }
         }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private List<Skill> getSkillsFromProjectTo(ProjectTo projectTo) {

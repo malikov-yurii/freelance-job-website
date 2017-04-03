@@ -17,10 +17,10 @@
 <div class="jumbotron">
     <div class="container">
 
-        <sec:authorize access="hasRole('ROLE_CLIENT')">
+        <sec:authorize access="hasAnyRole('ROLE_CLIENT', 'ROLE_ADMIN')">
             <div class="row">
                 <div class="col-md-3 col-xs-6">
-                    <a class="btn btn-sm btn-success" onclick="addProject('')">Add Project</a>
+                    <a class="btn btn-sm btn-success" onclick="addProject('')">add project</a>
                 </div>
             </div>
         </sec:authorize>
@@ -38,7 +38,7 @@
                 <th>Cl last name</th>
                 <th>Status</th>
                 <th>Skills</th>
-                <th>Btn</th>
+                <th></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -58,12 +58,24 @@
                 <form:form class="form-horizontal" method="post" id="detailsForm">
 
                     <%--<div class="form-group">--%>
-                        <%--<label for="projectId" class="control-label col-xs-3">ID</label>--%>
-                        <%--<div class="col-xs-9">--%>
-                            <%--<input type="text" class="form-control" disabled="disabled" id="projectId" name="id">--%>
-                            <input type="hidden" class="form-control" id="projectId" name="id">
-                        <%--</div>--%>
+                    <%--<label for="projectId" class="control-label col-xs-3">ID</label>--%>
+                    <%--<div class="col-xs-9">--%>
+                    <%--<input type="text" class="form-control" disabled="disabled" id="projectId" name="id">--%>
+                    <input type="hidden" class="form-control" id="projectId" name="id">
                     <%--</div>--%>
+                    <%--</div>--%>
+
+
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <div class="form-group">
+                            <label for="projectClientId" class="control-label col-xs-3">Client id</label>
+
+                            <div class="col-xs-9">
+                                <input type="number" class="form-control" id="projectClientId" name="clientId"
+                                       placeholder="client id of new project">
+                            </div>
+                        </div>
+                    </sec:authorize>
 
                     <div class="form-group">
                         <label for="projectName" class="control-label col-xs-3">Project name</label>
@@ -93,12 +105,12 @@
                     </div>
 
                     <%--<div class="form-group">--%>
-                        <%--<label for="projectStatus" class="control-label col-xs-3">Status</label>--%>
-<%----%>
-                        <%--<div class="col-xs-9">--%>
-                            <%--<input type="text" class="form-control" id="projectStatus" name="status"--%>
-                                   <%--placeholder="LOOKING_FOR_FREELANCER">--%>
-                        <%--</div>--%>
+                    <%--<label for="projectStatus" class="control-label col-xs-3">Status</label>--%>
+                    <%----%>
+                    <%--<div class="col-xs-9">--%>
+                    <%--<input type="text" class="form-control" id="projectStatus" name="status"--%>
+                    <%--placeholder="LOOKING_FOR_FREELANCER">--%>
+                    <%--</div>--%>
                     <%--</div>--%>
 
                     <div class="form-group">
@@ -137,7 +149,7 @@
             <%--</th>--%>
             <th><span class="order-head-lg">Freelancer full name</span></th>
             <th><span class="order-head-lg">Skills</span><i class="order-head-sm fa fa-usd" aria-hidden="true"></i></th>
-            <th><span class="order-head-lg">Btn</span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
+            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
             </th>
         </tr>
         </thead>
@@ -156,7 +168,7 @@
                 {{= appliedFreelancerTos[i].skills }}
             </td>
             <td>
-                {{= renderApproveFreelancerBtn(projectId, appliedFreelancerTos[i].id) }}
+                {{= renderApproveFreelancerBtn(projectId, appliedFreelancerTos[i].id, projectClientId) }}
             </td>
         </tr>
         {{ } }}
@@ -174,7 +186,7 @@
             <%--{{= renderDeleteBtn(row) }}--%>
             <%--</th>--%>
             <th><span class="order-head-lg">Comments</span></th>
-            <th><span class="order-head-lg">Btn</span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
+            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
             </th>
         </tr>
         </thead>

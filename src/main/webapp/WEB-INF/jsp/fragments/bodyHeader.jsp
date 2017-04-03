@@ -26,13 +26,16 @@
 </div>
 
 <script>
-    <sec:authorize access="hasRole('ROLE_ADMIN')">
-      var role = 'admin';
-    </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_FREELANCER')">
-    var role = 'freelancer';
-    </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_CLIENT')">
-    var role = 'client';
-    </sec:authorize>
+    var userId = ${userId};
+    var role = '${userRole}';
+//    debugger;
+    <%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+//      var role = 'admin';
+    <%--</sec:authorize>--%>
+    <%--<sec:authorize access="hasRole('ROLE_FREELANCER')">--%>
+//    var role = 'freelancer';
+    <%--</sec:authorize>--%>
+    <%--<sec:authorize access="hasRole('ROLE_CLIENT')">--%>
+//    var role = 'client';
+    <%--</sec:authorize>--%>
 </script>

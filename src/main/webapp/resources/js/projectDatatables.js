@@ -30,7 +30,7 @@ $(function () {
             {
                 "defaultContent": "",
                 "orderable": false,
-                "render": role === 'admin'  ? renderUpdateProjectBtn : ""
+                "render": renderUpdateProjectBtn
             },
             {
                 "defaultContent": "",
@@ -63,8 +63,9 @@ function showAppliedFreelancersAndComments() {
         var appliedFreelancerTos = row.data().appliedFreelancerTos;
         var commentTos = row.data().commentTos;
         var projectId = row.data().id;
+        // debugger;
         row.child(
-            buildAppliedFreelancerList(appliedFreelancerTos, projectId, row.data())
+            buildAppliedFreelancerList(appliedFreelancerTos, projectId, row.data().clientId, row)
             + buildCommentList(commentTos)
             + renderAddCommentField(projectId),
             'child-row'
@@ -77,7 +78,7 @@ function renderAddCommentField(projectId){
     return  '<form id="commentForm' + projectId + '">' +
             '<p><b>Add comment:</b></p>' +
             '<p><textarea rows="2" cols="60" name="text"></textarea></p>' +
-            '<button class="btn btn-primary" type="button" onclick="saveComment('+ projectId + ')">Persist new comment</button>' +
+            '<button class="btn btn-primary" type="button" onclick="saveComment('+ projectId + ')">submit comment</button>' +
             '</form>';
 }
 
@@ -93,23 +94,29 @@ function saveComment(projectId){
     });
 }
 
-function buildAppliedFreelancerList(appliedFreelancerTos, projectId, row) {
+function buildAppliedFreelancerList(appliedFreelancerTos, projectId, projectClientId, row) {
     /**
      * Building ChildRow - list of applied freelancers
      **/
-
+    // debugger;
     //Making templator working properly with JSP
-    _.templateSettings = {
-        evaluate: /{{([\s\S]+?)}}/g,    // {{ }}  :  <% %>
-        interpolate: /{{=([\s\S]+?)}}/g // {{= }} :  <%= %>
-    };
-
-    var tmpl = _.template($('#appliedFreelancerList').html());
-    return tmpl({
-        appliedFreelancerTos,
-        projectId,
-        row
-    });
+    // debugger;
+    // if (( role === 'admin' || role === 'client' && userId === projectClientId ) && appliedFreelancerTos.length != 0) {
+    if (appliedFreelancerTos.length != 0) {
+        _.templateSettings = {
+            evaluate: /{{([\s\S]+?)}}/g,    // {{ }}  :  <% %>
+            interpolate: /{{=([\s\S]+?)}}/g // {{= }} :  <%= %>
+        };
+        // debugger;
+        var tmpl = _.template($('#appliedFreelancerList').html());
+        return tmpl({
+            appliedFreelancerTos,
+            projectId,
+            projectClientId,
+            row
+        });
+    }
+    return "";
 
 }
 
@@ -123,9 +130,10 @@ function buildAppliedFreelancerList(appliedFreelancerTos, projectId, row) {
 
 // }
 
-function renderApproveFreelancerBtn(projectId, appliedFreelancerId) {
-    if (role === 'client') {
-        return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">✓</a>';
+function renderApproveFreelancerBtn(projectId, appliedFreelancerId, projectClientId) {
+    // debugger;
+    if (role === 'client' && userId === projectClientId) {
+        return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">Approve freelancer for project</a>';
     }
 }
 
@@ -144,8 +152,19 @@ function approveAppliedFreelancer(projectId, freelancerId) {
 
 function addProject() {
     $('#modalTitle').html('Add new project');
-    $('#projectForm').modal();
     $('#projectId').val(0);
+
+    if (role === 'admin')
+        $('#projectClientId').val('');
+
+    $('#projectName').val('');
+    $('#projectDescription').val('');
+    $('#projectPayment').val('');
+    // $('#projectStatus').val(projectStatus);
+    $('#projectRequiredSkills').val('');
+
+    $('#projectForm').modal();
+
 }
 
 function saveProject(){
@@ -243,15 +262,18 @@ function buildCommentList(commentTos) {
      **/
 
     //Making templator working properly with JSP
-    _.templateSettings = {
-        evaluate: /{{([\s\S]+?)}}/g,    // {{ }}  :  <% %>
-        interpolate: /{{=([\s\S]+?)}}/g // {{= }} :  <%= %>
-    };
+    if (commentTos.length != 0) {
+        _.templateSettings = {
+            evaluate: /{{([\s\S]+?)}}/g,    // {{ }}  :  <% %>
+            interpolate: /{{=([\s\S]+?)}}/g // {{= }} :  <%= %>
+        };
 
-    var tmpl = _.template($('#commentList').html());
-    return tmpl({
-        commentTos
-    });
+        var tmpl = _.template($('#commentList').html());
+        return tmpl({
+            commentTos
+        });
+    }
+    return "";
 
 }
 
@@ -271,13 +293,17 @@ function renderBlockUnblockProjectBtn(data, type, row) {
 
 function renderUpdateProjectBtn(data, type, row) {
     // debugger;
-    return '<a class="btn btn-xs btn-primary" onclick="updateProject(' +
-        row.id + ', \'' +
-        row.name + '\', \'' +
-        row.description + '\', ' +
-        row.payment + ', \'' +
-        row.requiredSkills +
-        '\');">update project</a>';
+    if (role === 'admin' || (role === 'client' && userId === row.clientId)) {
+        return '<a class="btn btn-xs btn-primary" onclick="updateProject(' +
+            row.id + ', ' +
+            row.clientId + ', \'' +
+            row.name + '\', \'' +
+            row.description + '\', ' +
+            row.payment + ', \'' +
+            row.requiredSkills +
+            '\');">update project</a>';
+    }
+    return "";
 }
 
 function renderDeleteProjectBtn(data, type, row) {
@@ -295,10 +321,13 @@ function blockProject(projectId) {
     })
 }
 
-function updateProject(projectId, projectName, projectDescription, projectPayment,projectRequiredSkills) {
+function updateProject(projectId, projectClientId, projectName, projectDescription, projectPayment,projectRequiredSkills) {
     // debugger;
+
+    if (role === 'admin')
+        $('#projectClientId').val(projectClientId);
+
     $('#modalTitle').html('Update project');
-    $('#projectForm').modal();
 // todo get info from row by projectId
     $('#projectId').val(projectId);
     $('#projectName').val(projectName);
@@ -306,6 +335,7 @@ function updateProject(projectId, projectName, projectDescription, projectPaymen
     $('#projectPayment').val(projectPayment);
     // $('#projectStatus').val(projectStatus);
     $('#projectRequiredSkills').val(projectRequiredSkills);
+    $('#projectForm').modal();
 }
 
 function deleteProject(projectId) {

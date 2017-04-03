@@ -5,24 +5,32 @@ import com.malikov.freelance.to.ProjectTo;
 import com.malikov.freelance.to.SkillTo;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
 public class ProjectUtil {
 
-    public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus, boolean isAdmin) {
+    public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus, User authorizedUser) {
         return new ProjectTo(project.getId(), project.getClient().getId(), project.getName(),
                 project.getDescription(), project.getPayment(), project.getClientLastName(),
                 project.getStatus(), SkillTo.asTo(project.getRequiredSkills()), applicationStatus,
-                project.getAppliedFreelancers()
-                , isAdmin ? project.getComments() : project.getComments().stream().filter(comment -> !comment.getBlocked()).collect(Collectors.toList())
+                authorizedUser.getRoles().contains(Role.ROLE_ADMIN) ||
+                        (authorizedUser.getRoles().contains(Role.ROLE_CLIENT)
+                                        && Objects.equals(authorizedUser.getId(), project.getClient().getId()))
+                        ? project.getAppliedFreelancers()
+                        : Collections.emptyList()
+                , authorizedUser.getRoles().contains(Role.ROLE_ADMIN)
+                    ? project.getComments()
+                    : project.getComments().stream().filter(comment -> !comment.getBlocked()).collect(Collectors.toList())
         , project.getBlocked());
     }
 
     public static Project fromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {
         return new Project(
-                0
+                projectTo.getId() == null ? 0 : projectTo.getId()
                 , projectTo.getName() == null ? "No name provided" : projectTo.getName()
                 , ProjectStatus.LOOKING_FOR_FREELANCER
                 , projectTo.getDescription() == null ? "No description provided" : projectTo.getDescription()
