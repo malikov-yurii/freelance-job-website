@@ -189,9 +189,14 @@ public abstract class AbstractProjectController {
         projectService.delete(projectId);
     }
 
-    public void updateProjectStatus(int projectId, ProjectStatus status) {
+    public ResponseEntity<String> updateProjectStatus(int projectId, ProjectStatus status) {
+        BaseUser user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         Project project = projectService.get(projectId);
-        project.setStatus(status);
-        projectService.save(project);
+        if (user.getRoles().contains(Role.ROLE_ADMIN) || (user.getRoles().contains(Role.ROLE_CLIENT) && user.getId() == project.getClient().getId())) {
+            project.setStatus(status);
+            projectService.save(project);
+            return new ResponseEntity<String> (HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
     }
 }

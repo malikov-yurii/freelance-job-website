@@ -56,40 +56,45 @@ $(function () {
     });
 
     datatableApi.on('click focusin', 'td.project-status', function () {
-        /**
-         * Autocomplete of 'project-status'
-         **/
+
         var $this = $(this);
+        var tr = $this.closest('tr');
+        var row = datatableApi.row(tr);
 
-        $this.autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: ajaxUrl + 'autocomplete-project-status',
-                    type: "POST",
-                    dataType: "json",
-                    success: function (data) {
-                        response(data);
-                    }
-                });
-            }
-            , select: function (event, ui) {
-                var rowDataId = datatableApi.row($this.closest('tr')).data().id;
-                console.log($this.closest('.project-status'));
-                $this.closest('.project-status').html( ui.item.label );
+        if (role === 'admin' || (role === 'client' && userId === row.data().clientId)) {
 
-                $.ajax({
-                    url: ajaxUrl + rowDataId + '/update-project-status',
-                    type: "POST",
-                    data: 'projectStatus=' + ui.item.value,
-                });
+            /**
+             * Autocomplete of 'project-status'
+             **/
+            $this.autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: ajaxUrl + 'autocomplete-project-status',
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                }
+                , select: function (event, ui) {
+                    var rowDataId = row.data().id;
+                    $this.closest('.project-status').html(ui.item.label);
 
-                $this.blur();
-                return false;
-            }
-            , minLength: 0
-        });
+                    $.ajax({
+                        url: ajaxUrl + rowDataId + '/update-project-status',
+                        type: "POST",
+                        data: 'projectStatus=' + ui.item.value,
+                    });
 
-        $this.autocomplete("search");
+                    $this.blur();
+                    return false;
+                }
+                , minLength: 0
+            });
+
+            $this.autocomplete("search");
+        }
     });
 
 });

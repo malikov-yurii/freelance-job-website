@@ -105,9 +105,10 @@ public class ProjectAjaxController extends AbstractProjectController {
                 , ProjectStatusUtil.asTo(ProjectStatus.FINISHED)));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @PostMapping(value = "{id}/update-project-status")
-    public void updateProjectStatus(@PathVariable("id") int projectId, @RequestParam("projectStatus") ProjectStatus status){
-        super.updateProjectStatus(projectId, status);
+    public ResponseEntity<String> updateProjectStatus(@PathVariable("id") int projectId, @RequestParam("projectStatus") ProjectStatus status){
+        return super.updateProjectStatus(projectId, status);
     }
 //
 //    @PostMapping
