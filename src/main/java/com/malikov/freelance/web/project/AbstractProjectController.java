@@ -188,4 +188,10 @@ public abstract class AbstractProjectController {
     public void delete(int projectId) {
         projectService.delete(projectId);
     }
+
+    public void updateProjectStatus(int projectId, ProjectStatus status) {
+        Project project = projectService.get(projectId);
+        project.setStatus(status);
+        projectService.save(project);
+    }
 }

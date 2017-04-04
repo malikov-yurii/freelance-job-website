@@ -1,6 +1,9 @@
 package com.malikov.freelance.web.project;
 
+import com.malikov.freelance.model.ProjectStatus;
+import com.malikov.freelance.to.ProjectStatusTo;
 import com.malikov.freelance.to.ProjectTo;
+import com.malikov.freelance.util.ProjectStatusUtil;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -91,6 +96,18 @@ public class ProjectAjaxController extends AbstractProjectController {
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int projectId) {
         super.delete(projectId);
+    }
+
+    @PostMapping(value = "/autocomplete-project-status")
+    public List<ProjectStatusTo> autocompleteProjectStatus(){
+        return new ArrayList<>(Arrays.asList(ProjectStatusUtil.asTo(ProjectStatus.LOOKING_FOR_FREELANCER)
+                , ProjectStatusUtil.asTo(ProjectStatus.IN_PROGRESS)
+                , ProjectStatusUtil.asTo(ProjectStatus.FINISHED)));
+    }
+
+    @PostMapping(value = "{id}/update-project-status")
+    public void updateProjectStatus(@PathVariable("id") int projectId, @RequestParam("projectStatus") ProjectStatus status){
+        super.updateProjectStatus(projectId, status);
     }
 //
 //    @PostMapping

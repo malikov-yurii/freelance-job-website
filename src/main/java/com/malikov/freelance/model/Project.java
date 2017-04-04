@@ -17,7 +17,7 @@ import java.util.Objects;
         @NamedQuery(name = Project.DELETE, query = "DELETE FROM Project p WHERE p.id=:id"),
 //        @NamedQuery(name = Project.BY_CLIENT, query = "SELECT p FROM Project p WHERE p.client.id=:clientId"),
 //        @NamedQuery(name = Project.BY_FREELANCER, query = "SELECT p FROM Project p WHERE p.freelancer.id=:freelancerId"),
-        @NamedQuery(name = Project.ALL_SORTED, query = "SELECT p FROM Project p ORDER BY p.id"),
+        @NamedQuery(name = Project.ALL_SORTED, query = "SELECT p FROM Project p ORDER BY p.id DESC"),
 })
 @Entity
 @Table(name = "projects")

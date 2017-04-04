@@ -104,15 +104,6 @@
                         </div>
                     </div>
 
-                    <%--<div class="form-group">--%>
-                    <%--<label for="projectStatus" class="control-label col-xs-3">Status</label>--%>
-                    <%----%>
-                    <%--<div class="col-xs-9">--%>
-                    <%--<input type="text" class="form-control" id="projectStatus" name="status"--%>
-                    <%--placeholder="LOOKING_FOR_FREELANCER">--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-
                     <div class="form-group">
                         <label for="projectRequiredSkills" class="control-label col-xs-3">Required skills</label>
 

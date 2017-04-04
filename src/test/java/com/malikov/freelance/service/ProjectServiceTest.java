@@ -42,8 +42,8 @@ public class ProjectServiceTest extends AbstractServiceTest{
     @Test
     public void getAll() throws Exception {
         PROJECT_MATCHER.assertCollectionEquals(
-                Arrays.asList(PROJECT_1_ADULT_SHOP, PROJECT_2_NEW_GOOGLE, PROJECT_3_SHOPPING_CARD, PROJECT_4_FILTER,
-                PROJECT_5_CRM, PROJECT_6_VISIT_CARD, PROJECT_7_ONE_PAGE, PROJECT_8_SIMPLE_WEBSITE, PROJECT_9_SLIDER),
+                Arrays.asList(PROJECT_9_SLIDER , PROJECT_8_SIMPLE_WEBSITE, PROJECT_7_ONE_PAGE , PROJECT_6_VISIT_CARD, PROJECT_5_CRM,
+                        PROJECT_4_FILTER, PROJECT_3_SHOPPING_CARD, PROJECT_2_NEW_GOOGLE, PROJECT_1_ADULT_SHOP),
                 service.getAll());
     }
 
@@ -51,8 +51,8 @@ public class ProjectServiceTest extends AbstractServiceTest{
     public void delete() throws Exception {
         service.delete(PROJECT_2_NEW_GOOGLE.getId());
         PROJECT_MATCHER.assertCollectionEquals(
-                Arrays.asList(PROJECT_1_ADULT_SHOP, PROJECT_3_SHOPPING_CARD, PROJECT_4_FILTER,
-                        PROJECT_5_CRM, PROJECT_6_VISIT_CARD, PROJECT_7_ONE_PAGE, PROJECT_8_SIMPLE_WEBSITE, PROJECT_9_SLIDER),
+                Arrays.asList(PROJECT_9_SLIDER , PROJECT_8_SIMPLE_WEBSITE, PROJECT_7_ONE_PAGE , PROJECT_6_VISIT_CARD, PROJECT_5_CRM,
+                        PROJECT_4_FILTER, PROJECT_3_SHOPPING_CARD, PROJECT_1_ADULT_SHOP),
                 service.getAll());
     }
 }

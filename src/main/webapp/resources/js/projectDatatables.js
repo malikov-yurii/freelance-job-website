@@ -19,7 +19,7 @@ $(function () {
             {"data": "description", "orderable": false, "className": "project-description"},
             {"data": "payment", "orderable": false, "className": "project-payment"},
             {"data": "clientLastName", "orderable": false, "className": "project-client-last-name"},
-            {"data": "status", "orderable": false, "className": "project-status"},
+            {"data": "status", "orderable": false,"className": "project-status editable"},
             {"data": "requiredSkills", "orderable": false, "className": "project-required-skills"},
             {
                 "defaultContent": "",
@@ -39,12 +39,12 @@ $(function () {
             }
         ],
         "initComplete": onProjectTableReady,
-        // "order": [
-        //     [
-        //         0,
-        //         "desc"
-        //     ]
-        // ]
+        "order": [
+            [
+                0,
+                "desc"
+            ]
+        ]
         // "initComplete": onOrderTableReady,
     });
 
@@ -54,6 +54,44 @@ $(function () {
         // onOrderTableReady();
 
     });
+
+    datatableApi.on('click focusin', 'td.project-status', function () {
+        /**
+         * Autocomplete of 'project-status'
+         **/
+        var $this = $(this);
+
+        $this.autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: ajaxUrl + 'autocomplete-project-status',
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            }
+            , select: function (event, ui) {
+                var rowDataId = datatableApi.row($this.closest('tr')).data().id;
+                console.log($this.closest('.project-status'));
+                $this.closest('.project-status').html( ui.item.label );
+
+                $.ajax({
+                    url: ajaxUrl + rowDataId + '/update-project-status',
+                    type: "POST",
+                    data: 'projectStatus=' + ui.item.value,
+                });
+
+                $this.blur();
+                return false;
+            }
+            , minLength: 0
+        });
+
+        $this.autocomplete("search");
+    });
+
 });
 
 function showAppliedFreelancersAndComments() {

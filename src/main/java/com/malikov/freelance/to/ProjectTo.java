@@ -27,7 +27,7 @@ public class ProjectTo {
 
     private String clientLastName;
 
-    private ProjectStatus status;
+    private String status;
 
     private List<FreelancerTo> appliedFreelancerTos;
 
@@ -59,7 +59,7 @@ public class ProjectTo {
         this.description = description != null ? description : "";
         this.payment = payment != null ? payment : new BigDecimal(0);
         this.clientLastName = clientLastName != null ? clientLastName : "";
-        this.status = status;
+        this.status = status.name().replace('_', ' ');
         this.requiredSkills = requiredSkills != null ? requiredSkills: "";
         this.applicationStatus = applicationStatus;
         if (freelancers != null && freelancers.size() != 0) {
@@ -146,11 +146,11 @@ public class ProjectTo {
         this.clientLastName = clientLastName;
     }
 
-    public ProjectStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(ProjectStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
