@@ -52,6 +52,10 @@ public class Client extends BaseUser {
         this(client.getId(), client.getLogin(), client.getPassword(), client.getFirstName(), client.getLastName(), client.getEmail());
     }
 
+    public Client(BaseUser baseUser) {
+        super(baseUser);
+    }
+
     @Override
     public String toString() {
         return "Client{" +

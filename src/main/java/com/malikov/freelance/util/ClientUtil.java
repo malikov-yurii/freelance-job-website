@@ -1,33 +1,25 @@
 package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.Client;
+import com.malikov.freelance.model.Role;
 import com.malikov.freelance.to.ClientTo;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class ClientUtil {
 
     public static ClientTo asTo(Client client){
-        return new ClientTo(
-                client.getId()
-                ,client.getFirstName() == null ? "" : client.getFirstName()
-                ,client.getLastName() == null ? "" : client.getLastName()
-                ,client.getLogin()
-                ,client.getPassword()
-                ,client.getEmail()
-                ,client.getBlocked()
-        );
+        return new ClientTo(BaseUserUtil.asTo(client));
     }
 
     public static Client newFromTo(ClientTo clientTo) {
-        return new Client(null, clientTo.getLogin(), clientTo.getPassword()
-        , clientTo.getFirstName(), clientTo.getLastName(), clientTo.getEmail());
+        Client client = new Client(BaseUserUtil.newFromTo(clientTo));
+        client.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_CLIENT)));
+        return client;
     }
 
     public static void updateFromTo(Client client, ClientTo clientTo) {
-        client.setFirstName(clientTo.getFirstName());
-        client.setLastName(clientTo.getLastName());
-        client.setLogin(clientTo.getLogin());
-        client.setPassword(clientTo.getPassword());
-        client.setEmail(clientTo.getEmail());
+        BaseUserUtil.updateFromTo(client, clientTo);
     }
-
 }

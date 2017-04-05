@@ -1,32 +1,24 @@
 package com.malikov.freelance.util;
 
-import com.malikov.freelance.model.BaseUser;
-import com.malikov.freelance.to.UserTo;
+import com.malikov.freelance.model.Role;
+import com.malikov.freelance.model.User;
+import com.malikov.freelance.to.BaseUserTo;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class UserUtil {
-
-    public static final int DEFAULT_CALORIES_PER_DAY = 2000;
-
-//    public static User createNewFromTo(UserTo newUser) {
-//        return new User(null, newUser.getName(), newUser.getPassword(), Role.ROLE_USER);
-//    }
-
-    // TODO: 3/22/2017 Implement this
-    public static UserTo asTo(BaseUser baseUser) {
-        return
-//                new UserTo(user.getId(), user.getName(), user.getPassword())
-                null
-                ;
+    public static BaseUserTo asTo(User user){
+        return BaseUserUtil.asTo(user);
     }
-//
-//    public static User updateFromTo(User user, UserTo userTo) {
-//        user.setName(userTo.getName());
-//        user.setPassword(userTo.getPassword());
-//        return user;
-//    }
-//
-//    public static User prepareToSave(User user) {
-//        user.setPassword(PasswordUtil.encode(user.getPassword()));
-//        return user;
-//    }
+
+    public static User newFromTo(BaseUserTo baseUserTo) {
+        User user = new User(BaseUserUtil.newFromTo(baseUserTo));
+        user.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_CLIENT)));
+        return user;
+    }
+
+    public static void updateFromTo(User user, BaseUserTo baseUserTo) {
+        BaseUserUtil.updateFromTo(user, baseUserTo);
+    }
 }

@@ -2,7 +2,6 @@ package com.malikov.freelance;
 
 import com.malikov.freelance.model.BaseUser;
 import com.malikov.freelance.to.UserTo;
-import com.malikov.freelance.util.UserUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -15,7 +14,7 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
 
     public AuthorizedUser(BaseUser baseUser) {
         super(baseUser.getLogin(), baseUser.getPassword(), true, true, true, true, baseUser.getRoles());
-        this.userTo = UserUtil.asTo(baseUser);
+//        this.userTo = BaseUserUtil.asTo(baseUser);
     }
 
     public static AuthorizedUser safeGet() {

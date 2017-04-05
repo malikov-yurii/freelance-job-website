@@ -1,24 +1,18 @@
 package com.malikov.freelance.service;
 
 import com.malikov.freelance.AuthorizedUser;
-import com.malikov.freelance.model.Role;
 import com.malikov.freelance.model.User;
 import com.malikov.freelance.repository.UserRepository;
+import com.malikov.freelance.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
-
-    @Autowired
-    private BCryptPasswordEncoder encoder;
 
     @Autowired
     UserRepository repository;
@@ -34,8 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User save(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(Collections.singletonList(Role.ROLE_USER)));
+        user.setPassword(PasswordUtil.encode(user.getPassword()));
         return repository.save(user);
     }
 
@@ -70,5 +63,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getByLogin(String login) {
         return repository.getByLogin(login);
+    }
+
+    @Override
+    public List<User> getAllAdmins() {
+        return repository.getAllAdmins();
     }
 }

@@ -72,6 +72,17 @@ public class RootController {
 //        model.put("userRole", "admin");
         return "clients";
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/admins")
+    public String admins(
+//            ModelMap model
+    ) {
+//        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+//        model.put("userId", user.getId());
+//        model.put("userRole", "admin");
+        return "admins";
+    }
 //
 //    @GetMapping("/customers")
 //    public String customers() {

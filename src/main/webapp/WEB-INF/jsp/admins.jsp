@@ -17,10 +17,10 @@
 <jsp:include page="fragments/footer.jsp"/>
 
 <script type="text/javascript">
-    $(".page-title").text("Clients");
-    $(".show-add-new-modal").text("Add new client");
-    var entityName = 'client';
-    var ajaxUrl = 'ajax/profile/clients/';
+    $(".page-title").text("Admins");
+    $(".show-add-new-modal").text("Add new admin");
+    var entityName = 'admin';
+    var ajaxUrl = 'ajax/profile/admins/';
 </script>
 
 <script type="text/javascript" src="resources/js/clientAndAdminDatatables.js"></script>

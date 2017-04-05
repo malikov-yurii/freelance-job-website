@@ -63,6 +63,11 @@ public class BaseUser extends BaseEntity {
         this.blocked = Boolean.FALSE;
     }
 
+    public BaseUser(BaseUser baseUser) {
+        this(baseUser.getId(), baseUser.getLogin(), baseUser.getPassword(), baseUser.getFirstName(), baseUser.getLastName()
+                , baseUser.getEmail(), baseUser.getRoles());
+    }
+
     public Boolean getBlocked() {
         return blocked;
     }

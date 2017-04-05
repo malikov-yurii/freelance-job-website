@@ -2,6 +2,7 @@ package com.malikov.freelance.service;
 
 import com.malikov.freelance.model.Freelancer;
 import com.malikov.freelance.repository.FreelancerRepository;
+import com.malikov.freelance.util.BaseUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,12 @@ public class FreeLancerServiceImpl implements FreelancerService {
 
     @Override
     public Freelancer save(Freelancer freelancer) {
-        return repository.save(freelancer);
+        return repository.save((Freelancer) BaseUserUtil.prepareToSave(freelancer));
     }
 
     @Override
     public Freelancer update(Freelancer freelancer) {
-        return repository.save(freelancer);
+        return repository.save((Freelancer) BaseUserUtil.prepareToSave(freelancer));
     }
 
     @Override
