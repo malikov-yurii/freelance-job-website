@@ -114,34 +114,41 @@ public abstract class AbstractProjectController {
         projectService.save(project);
     }
 
-    public ResponseEntity<String> saveOrUpdate(ProjectTo projectTo) {
+    public ResponseEntity<String> create(ProjectTo projectTo) {
         BaseUser user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+
         if (user.getRoles().contains(Role.ROLE_ADMIN)) {
-            projectService.save(ProjectUtil.fromTo(projectTo
+            projectService.save(ProjectUtil.newFromTo(projectTo
                     , clientService.get(projectTo.getClientId())
                     , getSkillsFromProjectTo(projectTo)));
         } else {
-            if (projectTo.getId() != 0) {
-                if (!Objects.equals(projectService.get(projectTo.getId()).getClient().getId(), user.getId())) {
-                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-                }
-                Project project = projectService.get(projectTo.getId());
-                project.setName(projectTo.getName());
-                project.setDescription(projectTo.getDescription());
-                project.setPayment(projectTo.getPayment());
-//            project.setStatus(projectTo.getStatus());
-                project.setRequiredSkills(getSkillsFromProjectTo(projectTo));
-                projectService.save(project);
-            } else {
-                projectService.save(ProjectUtil.fromTo(projectTo
-                        , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
-                        , getSkillsFromProjectTo(projectTo)));
-            }
+            projectService.save(ProjectUtil.newFromTo(projectTo
+                    , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
+                    , getSkillsFromProjectTo(projectTo)));
         }
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    public ResponseEntity<String> update(ProjectTo projectTo) {
+        BaseUser user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        Project project = projectService.get(projectTo.getId());
+
+        if (user.getRoles().contains(Role.ROLE_ADMIN)) {
+            project.setClient(clientService.get(projectTo.getClientId()));
+        } else if (!Objects.equals(projectService.get(projectTo.getId()).getClient().getId(), user.getId())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        project.setName(projectTo.getName());
+        project.setDescription(projectTo.getDescription());
+        project.setPayment(projectTo.getPayment());
+        project.setRequiredSkills(getSkillsFromProjectTo(projectTo));
+        projectService.save(project);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private List<Skill> getSkillsFromProjectTo(ProjectTo projectTo) {
+   private List<Skill> getSkillsFromProjectTo(ProjectTo projectTo) {
         List<Skill> allSkills = skillService.getAll();
         Set<Skill> rawSkillSet = Arrays.stream(projectTo
                 .getRequiredSkills()
@@ -195,7 +202,7 @@ public abstract class AbstractProjectController {
         if (user.getRoles().contains(Role.ROLE_ADMIN) || (user.getRoles().contains(Role.ROLE_CLIENT) && user.getId() == project.getClient().getId())) {
             project.setStatus(status);
             projectService.save(project);
-            return new ResponseEntity<String> (HttpStatus.OK);
+            return new ResponseEntity<String>(HttpStatus.OK);
         }
         return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
     }

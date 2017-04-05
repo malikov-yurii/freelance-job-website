@@ -32,7 +32,7 @@ public abstract class AbstractClientController {
     }
 
     public void create(ClientTo clientTo) {
-        clientService.save(ClientUtil.createNewFromTo(clientTo));
+        clientService.save(ClientUtil.newFromTo(clientTo));
     }
 
     public void update(ClientTo clientTo) {

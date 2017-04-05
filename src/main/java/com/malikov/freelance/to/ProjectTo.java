@@ -1,10 +1,6 @@
 package com.malikov.freelance.to;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.malikov.freelance.model.ApplicationStatus;
-import com.malikov.freelance.model.Comment;
-import com.malikov.freelance.model.Freelancer;
-import com.malikov.freelance.model.ProjectStatus;
+import com.malikov.freelance.model.*;
 import com.malikov.freelance.util.CommentUtil;
 import com.malikov.freelance.util.FreelancerUtil;
 
@@ -13,9 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProjectTo {
-
-    private Integer id;
+public class ProjectTo extends BaseEntity{
 
     private Integer clientId;
 
@@ -53,7 +47,7 @@ public class ProjectTo {
             , List<Comment> comments
             , Boolean blocked
     ) {
-        this.id = id;
+        super(id);
         this.clientId = clientId == null ? 0 : clientId;
         this.name = name != null ? name : "";
         this.description = description != null ? description : "";
@@ -83,19 +77,6 @@ public class ProjectTo {
 
     public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
-    }
-
-    @JsonIgnore
-    public boolean isNew() {
-        return id == null;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public ApplicationStatus getApplicationStatus() {

@@ -28,9 +28,9 @@ public class ProjectUtil {
         , project.getBlocked());
     }
 
-    public static Project fromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {
+    public static Project newFromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {
         return new Project(
-                projectTo.getId() == null ? 0 : projectTo.getId()
+                null
                 , projectTo.getName() == null ? "No name provided" : projectTo.getName()
                 , ProjectStatus.LOOKING_FOR_FREELANCER
                 , projectTo.getDescription() == null ? "No description provided" : projectTo.getDescription()
@@ -42,6 +42,7 @@ public class ProjectUtil {
                 , null
         );
     }
+
 
 
 //

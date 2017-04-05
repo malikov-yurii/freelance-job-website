@@ -11,7 +11,7 @@ public class UserTo implements Serializable {
     private Integer id;
 
     @NotEmpty
-    private String name;
+    private String login;
 
     @Size(min = 4, max = 64, message = " must between 4 and 64 characters")
     private String password;
@@ -19,9 +19,9 @@ public class UserTo implements Serializable {
     public UserTo() {
     }
 
-    public UserTo(Integer id, String name, String password) {
+    public UserTo(Integer id, String login, String password) {
         this.id = id;
-        this.name = name;
+        this.login = login;
         this.password = password;
     }
 
@@ -41,12 +41,12 @@ public class UserTo implements Serializable {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public boolean isNew() {
@@ -57,7 +57,7 @@ public class UserTo implements Serializable {
     public String toString() {
         return "UserTo{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + login + '\'' +
                 '}';
     }
 }

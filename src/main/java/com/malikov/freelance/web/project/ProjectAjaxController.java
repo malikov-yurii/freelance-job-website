@@ -30,7 +30,11 @@ public class ProjectAjaxController extends AbstractProjectController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @PostMapping
     public ResponseEntity<String> createOrUpdate(@Valid ProjectTo projectTo, BindingResult result, HttpEntity<String> httpEntity) {
-        return super.saveOrUpdate(projectTo);
+        if (projectTo.isNew()) {
+            return super.create(projectTo);
+        } else {
+            return super.update(projectTo);
+        }
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

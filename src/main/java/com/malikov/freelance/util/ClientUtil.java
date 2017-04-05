@@ -17,7 +17,7 @@ public class ClientUtil {
         );
     }
 
-    public static Client createNewFromTo(ClientTo clientTo) {
+    public static Client newFromTo(ClientTo clientTo) {
         return new Client(null, clientTo.getLogin(), clientTo.getPassword()
         , clientTo.getFirstName(), clientTo.getLastName(), clientTo.getEmail());
     }
