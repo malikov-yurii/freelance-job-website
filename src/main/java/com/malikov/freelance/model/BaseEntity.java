@@ -39,7 +39,7 @@ public class BaseEntity implements Persistable<Integer> {
 
     @Override
     public boolean isNew() {
-        return (getId() == null);
+        return (getId() == null || getId() == 0);
     }
 
     @Override

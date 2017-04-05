@@ -174,7 +174,7 @@ public abstract class AbstractProjectController {
         commentService.save(comment);
     }
 
-    public void setIsProjectBlocked(int projectId, boolean isBlocked) {
+    public void updateIsProjectBlocked(int projectId, boolean isBlocked) {
         Project project = projectService.get(projectId);
         project.setBlocked(isBlocked);
         projectService.save(project);

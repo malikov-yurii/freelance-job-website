@@ -14,18 +14,23 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3><fmt:message key="users.title"/></h3>
+            <h3>Clients</h3>
 
             <div class="view-box">
-                <a class="btn btn-sm btn-info" onclick="add('<fmt:message key="users.add"/>')"><fmt:message key="users.add"/></a>
+                <a class="btn btn-sm btn-info" onclick="addClient()">Add Client</a>
 
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th><fmt:message key="users.name"/></th>
-                        <th></th>
-                        <th></th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>login</th>
+                        <th>password</th>
+                        <th>email</th>
+                        <th>upd btn</th>
+                        <th>block btn</th>
+                        <th>upd btn</th>
                     </tr>
                     </thead>
                 </table>
@@ -46,26 +51,42 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3"><fmt:message key="users.name"/></label>
+                        <label for="firstName" class="control-label col-xs-3">First Name</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="<fmt:message key="users.name"/>">
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Ivan">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="control-label col-xs-3"><fmt:message key="users.email"/></label>
+                        <label for="lastName" class="control-label col-xs-3">Last Name</label>
 
                         <div class="col-xs-9">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="<fmt:message key="users.email"/>">
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Ivanov">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="control-label col-xs-3"><fmt:message key="users.password"/></label>
+                        <label for="login" class="control-label col-xs-3">Login</label>
 
                         <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="<fmt:message key="users.password"/>">
+                            <input type="text" class="form-control" id="login" name="login" placeholder="login">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="control-label col-xs-3">Password</label>
+
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" id="password" name="password" placeholder="password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="control-label col-xs-3">Email</label>
+
+                        <div class="col-xs-9">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="ivanov@gmail.com">
                         </div>
                     </div>
 
@@ -85,5 +106,5 @@
 </script>
 
 <jsp:include page="fragments/footer.jsp"/>
-<script type="text/javascript" src="resources/js/userDatatables.js"></script>
+<script type="text/javascript" src="resources/js/clientDatatables.js"></script>
 </html>

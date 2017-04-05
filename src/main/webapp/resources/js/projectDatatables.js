@@ -206,58 +206,8 @@ function addProject() {
     // $('#projectStatus').val(projectStatus);
     $('#projectRequiredSkills').val('');
 
-    $('#projectForm').modal();
+    $('#editRow').modal();
 
-}
-
-function saveProject(){
-    $.ajax({
-        type: "POST",
-        url: ajaxUrl,
-        data: $('#detailsForm').serialize(),
-        success: function () {
-            $('#projectForm').modal('hide');
-            updateTable();
-            successNoty('common.saved');
-        }
-    });
-}
-
-function updateTable(added, isTabPressed, orderId) {
-    $.get(ajaxUrl, updateTableByData);
-}
-
-function updateTableByData(data) {
-    datatableApi.clear().rows.add(data).draw();
-}
-
-function successNoty(key) {
-    closeNoty();
-    noty({
-        text: i18n[key],
-        type: 'success',
-        layout: 'bottomRight',
-        timeout: true
-    });
-}
-
-var failedNote;
-
-function closeNoty() {
-    if (failedNote) {
-        failedNote.close();
-        failedNote = undefined;
-    }
-}
-
-
-
-function onProjectTableReady() {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function (e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
 }
 
 function renderApplyForProjectBtn(data, type, row) {
@@ -320,24 +270,20 @@ function buildCommentList(commentTos) {
 
 }
 
-function renderBlockUnblockCommentBtn(commentId, blocked) {
-    if (role === 'admin') {
-        return blocked === false ?
-            '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');">block comment</a>' :
-            '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>' ;
-    }
-}
-
 function renderBlockUnblockProjectBtn(data, type, row) {
     return row.blocked === false ?
-        '<a class="btn btn-xs btn-danger" onclick="blockProject(' + row.id + ');">block project</a>' :
-        '<a class="btn btn-xs btn-success" onclick="unblockProject(' + row.id + ');">unblock project</a>' ;
+        '<a class="btn btn-xs btn-danger" onclick="block(' + row.id + ');">block project</a>' :
+        '<a class="btn btn-xs btn-success" onclick="unblock(' + row.id + ');">unblock project</a>' ;
+}
+
+function renderDeleteProjectBtn(data, type, row) {
+    return '<a class="btn btn-xs btn-danger" onclick="deleteEntity(' + row.id + ');">delete project</a>';
 }
 
 function renderUpdateProjectBtn(data, type, row) {
     // debugger;
     if (role === 'admin' || (role === 'client' && userId === row.clientId)) {
-        return '<a class="btn btn-xs btn-primary" onclick="updateProject(' +
+        return '<a class="btn btn-xs btn-primary" onclick="showUpdateProjectModal(' +
             row.id + ', ' +
             row.clientId + ', \'' +
             row.name + '\', \'' +
@@ -349,22 +295,7 @@ function renderUpdateProjectBtn(data, type, row) {
     return "";
 }
 
-function renderDeleteProjectBtn(data, type, row) {
-    return '<a class="btn btn-xs btn-danger" onclick="deleteProject(' + row.id + ');">delete project</a>';
-}
-
-function blockProject(projectId) {
-    $.ajax({
-        url: ajaxUrl + 'block-project/' + projectId,
-        type: 'POST',
-        success: function (data) {
-            updateTable();
-            successNoty('common.saved');
-        }
-    })
-}
-
-function updateProject(projectId, projectClientId, projectName, projectDescription, projectPayment,projectRequiredSkills) {
+function showUpdateProjectModal(projectId, projectClientId, projectName, projectDescription, projectPayment, projectRequiredSkills) {
     // debugger;
 
     if (role === 'admin')
@@ -378,56 +309,12 @@ function updateProject(projectId, projectClientId, projectName, projectDescripti
     $('#projectPayment').val(projectPayment);
     // $('#projectStatus').val(projectStatus);
     $('#projectRequiredSkills').val(projectRequiredSkills);
-    $('#projectForm').modal();
+    $('#editRow').modal();
 }
 
-function deleteProject(projectId) {
-    // debugger;
-    $.ajax({
-        url: ajaxUrl + projectId,
-        type: 'DELETE',
-        success: function (data) {
-            updateTable();
-            successNoty('common.deleted');
-        }
-    })
-}
 
-function unblockProject(projectId) {
-    $.ajax({
-        url: ajaxUrl + 'unblock-project/' + projectId,
-        type: 'POST',
-        success: function (data) {
-            updateTable();
-            successNoty('common.saved');
-        }
-    })
 
-}
 
-function blockComment(commentId) {
-    $.ajax({
-        url: ajaxUrl + 'block-comment/' + commentId,
-        type: 'POST',
-        success: function (data) {
-            updateTable();
-            successNoty('common.saved');
-        }
-    })
-
-}
-
-function unblockComment(commentId) {
-    $.ajax({
-        url: ajaxUrl + 'unblock-comment/' + commentId,
-        type: 'POST',
-        success: function (data) {
-            updateTable();
-            successNoty('common.saved');
-        }
-    })
-
-}
 
 //   datatableApi.on('click focusin', 'td.order-status, td.order-payment-type', function () {
 //     /**

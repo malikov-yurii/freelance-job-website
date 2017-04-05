@@ -81,15 +81,15 @@ public class ProjectAjaxController extends AbstractProjectController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping(value = "/block-project/{id}")
+    @PostMapping(value = "/{id}/block")
     public void blockProject(@PathVariable("id") int projectId) {
-        super.setIsProjectBlocked(projectId, true);
+        super.updateIsProjectBlocked(projectId, true);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping(value = "/unblock-project/{id}")
+    @PostMapping(value = "/{id}/unblock")
     public void unblockProject(@PathVariable("id") int projectId) {
-        super.setIsProjectBlocked(projectId, false);
+        super.updateIsProjectBlocked(projectId, false);
     }
 
 

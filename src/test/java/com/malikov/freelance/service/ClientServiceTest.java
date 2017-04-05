@@ -1,12 +1,10 @@
 package com.malikov.freelance.service;
 
 import com.malikov.freelance.model.Client;
-import com.malikov.freelance.model.Role;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 import static com.malikov.freelance.ClientTestData.*;
 
@@ -17,7 +15,7 @@ public class ClientServiceTest extends AbstractServiceTest{
     @Test
     public void save() throws Exception {
         Client newClient = new Client("newClientLogin", "newClientPassword", "newClientFirstName", "newClientLastName",
-                "newClientEmail", new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_CLIENT)));
+                "newClientEmail");
         Client created = service.save(newClient);
         CLIENT_MATCHER.assertCollectionEquals(
                 Arrays.asList(

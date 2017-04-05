@@ -4,6 +4,7 @@ import com.malikov.freelance.model.Role;
 import com.malikov.freelance.model.User;
 import com.malikov.freelance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,7 +19,7 @@ public class RootController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
+    //    @Autowired
 //    private UserService service;
 //
 //    @GetMapping("/")
@@ -41,15 +42,15 @@ public class RootController {
         model.put("message", message);
         return "login";
     }
-//
+
+    //
 //    @GetMapping("/products")
 //    public String products() {
 //        return "products";
 //    }
 //
     @GetMapping("/projects")
-    public String orders(ModelMap model)
-    {
+    public String orders(ModelMap model) {
         User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         model.put("userId", user.getId());
         if (user.getRoles().contains(Role.ROLE_ADMIN))
@@ -59,6 +60,17 @@ public class RootController {
         else if (user.getRoles().contains(Role.ROLE_FREELANCER))
             model.put("userRole", "freelancer");
         return "projects";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/clients")
+    public String clients(
+//            ModelMap model
+    ) {
+//        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+//        model.put("userId", user.getId());
+//        model.put("userRole", "admin");
+        return "clients";
     }
 //
 //    @GetMapping("/customers")

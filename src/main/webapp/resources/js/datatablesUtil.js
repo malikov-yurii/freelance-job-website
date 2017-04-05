@@ -1,3 +1,119 @@
+function updateTable(added, isTabPressed, orderId) {
+    $.get(ajaxUrl, updateTableByData);
+}
+
+function updateTableByData(data) {
+    datatableApi.clear().rows.add(data).draw();
+}
+
+function deleteEntity(id) {
+    // debugger;
+    $.ajax({
+        url: ajaxUrl + id,
+        type: 'DELETE',
+        success: function (data) {
+            updateTable();
+            successNoty('common.deleted');
+        }
+    })
+}
+
+function block(id) {
+    $.ajax({
+        url: ajaxUrl + id + '/block',
+        type: 'POST',
+        success: function (data) {
+            updateTable();
+            successNoty('common.saved');
+        }
+    })
+}
+
+function unblock(id) {
+    $.ajax({
+        url: ajaxUrl + id + '/unblock',
+        type: 'POST',
+        success: function (data) {
+            updateTable();
+            successNoty('common.saved');
+        }
+    })
+}
+
+function save(){
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: $('#detailsForm').serialize(),
+        success: function () {
+            $('#editRow').modal('hide');
+            updateTable();
+            successNoty('common.saved');
+        }
+    });
+}
+
+function successNoty(key) {
+    closeNoty();
+    noty({
+        text: i18n[key],
+        type: 'success',
+        layout: 'bottomRight',
+        timeout: true
+    });
+}
+
+var failedNote;
+
+function closeNoty() {
+    if (failedNote) {
+        failedNote.close();
+        failedNote = undefined;
+    }
+}
+
+
+
+function onProjectTableReady() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+}
+
+function renderBlockUnblockCommentBtn(commentId, blocked) {
+    if (role === 'admin') {
+        return blocked === false ?
+        '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');">block comment</a>' :
+        '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>' ;
+    }
+}
+
+function blockComment(commentId) {
+    $.ajax({
+        url: ajaxUrl + 'block-comment/' + commentId,
+        type: 'POST',
+        success: function (data) {
+            updateTable();
+            successNoty('common.saved');
+        }
+    })
+
+}
+
+function unblockComment(commentId) {
+    $.ajax({
+        url: ajaxUrl + 'unblock-comment/' + commentId,
+        type: 'POST',
+        success: function (data) {
+            updateTable();
+            successNoty('common.saved');
+        }
+    })
+}
+
+
 // var form;
 //
 // function makeEditable() {

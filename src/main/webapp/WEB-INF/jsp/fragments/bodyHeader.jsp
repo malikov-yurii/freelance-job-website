@@ -10,13 +10,13 @@
         <a href="#" class="navbar-brand"><fmt:message key="app.title"/></a>
         <form:form class="navbar-form navbar-right" action="logout" method="post">
             <sec:authorize access="isAuthenticated()">
-                <a class="btn btn-info" role="button" href="products"><fmt:message key="products.title"/></a>
-                <a class="btn btn-info" role="button" href="orders"><fmt:message key="orders.title"/></a>
-                <a class="btn btn-info" role="button" href="customers"><fmt:message key="customers.title"/></a>
+                <a class="btn btn-info" role="button" href="projects">Projects</a>
 
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <a class="btn btn-info" role="button" href="clients">Clients</a>
+                    <a class="btn btn-info" role="button" href="freelancers">Freelancers</a>
+                    <a class="btn btn-info" role="button" href="admins">Admins</a>
                     <input type="hidden" id="hasRoleAdmin" value="1" >
-                    <a class="btn btn-info" role="button" href="users"><fmt:message key="users.title"/></a>
                 </sec:authorize>
                 <%--<a class="btn btn-info" role="button" href="profile">${userTo.name} <fmt:message key="app.profile"/></a>--%>
                 <input type="submit" class="btn btn-primary" value="<fmt:message key="app.logout"/>">
@@ -25,17 +25,3 @@
     </div>
 </div>
 
-<script>
-    var userId = ${userId};
-    var role = '${userRole}';
-//    debugger;
-    <%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-//      var role = 'admin';
-    <%--</sec:authorize>--%>
-    <%--<sec:authorize access="hasRole('ROLE_FREELANCER')">--%>
-//    var role = 'freelancer';
-    <%--</sec:authorize>--%>
-    <%--<sec:authorize access="hasRole('ROLE_CLIENT')">--%>
-//    var role = 'client';
-    <%--</sec:authorize>--%>
-</script>

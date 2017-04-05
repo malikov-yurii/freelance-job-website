@@ -83,7 +83,7 @@ INSERT INTO projects (name, status, description, payment, client_id, freelancer_
   ('Filter for products', 'IN_PROGRESS', 'Add convenient feature for my CRM to filter products in table', 250, 9, 1, 'Isaakov'),
   ('CRM', 'FINISHED', 'Built CRM for to manage my business (store information about products and customers)', 3555, 9, 1, 'Isaakov'),
   ('Visit card website', 'LOOKING_FOR_FREELANCER', 'Need personal website for my dog Buddy', 75, 9, NULL, 'Isaakov'),
-  ('One page website', 'LOOKING_FOR_FREELANCER', 'Need single page website to sell my dog''s hilarious video tape', 125, 9, NULL, 'Isaakov'),
+  ('One page website', 'LOOKING_FOR_FREELANCER', 'Need single page website to sell my hilarious video tapes', 125, 9, NULL, 'Isaakov'),
   ('Simple website for photos', 'FINISHED', 'Construct simple website where i would be able to show photos of my projects to peope.', 135, 9, 1, 'Isaakov'),
   ('Photo-slider', 'FINISHED', 'Photo-slider module for simple website',55, 9, 1, 'Isaakov')
 ;

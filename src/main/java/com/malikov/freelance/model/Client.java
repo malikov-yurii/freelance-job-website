@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @NamedQueries({
@@ -38,20 +40,16 @@ public class Client extends BaseUser {
     public Client() {
     }
 
-    public Client(String login, String password, String firstName, String lastName, String email, Set<Role> roles) {
-        super(login, password, firstName, lastName, email, roles);
+    public Client(String login, String password, String firstName, String lastName, String email) {
+        this(null, login, password, firstName, lastName, email);
     }
 
-    public Client(Integer id, String login, String password, String firstName, String lastName, String email, Set<Role> roles) {
-        super(id, login, password, firstName, lastName, email, roles);
-    }
-
-    public Client(Integer id, String login, String password, String firstName, String lastName, String email, Role... roles) {
-        super(id, login, password, firstName, lastName, email, roles);
+    public Client(Integer id, String login, String password, String firstName, String lastName, String email) {
+        super(id, login, password, firstName, lastName, email, Role.ROLE_USER, Role.ROLE_CLIENT);
     }
 
     public Client(Client client){
-        this(client.getId(), client.getLogin(), client.getPassword(), client.getFirstName(), client.getLastName(), client.getEmail(), client.getRoles());
+        this(client.getId(), client.getLogin(), client.getPassword(), client.getFirstName(), client.getLastName(), client.getEmail());
     }
 
     @Override

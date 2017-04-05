@@ -1,10 +1,10 @@
-package com.malikov.freelance.web.customer;
+package com.malikov.freelance.web.client;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //@RequestMapping(value = CustomerRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomerRestController extends AbstractCustomerController {
+public class CustomerRestController extends AbstractClientController {
 
 //    static final String REST_URL = "/rest/profile/customers";
 //

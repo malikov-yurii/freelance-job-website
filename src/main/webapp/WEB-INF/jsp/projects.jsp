@@ -13,6 +13,10 @@
 </head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
+<script>
+    var userId = ${userId};
+    var role = '${userRole}';
+</script>
 
 <div class="jumbotron">
     <div class="container">
@@ -47,7 +51,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="projectForm">
+<div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -115,7 +119,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="saveProject()">Submit</button>
+                            <button class="btn btn-primary" type="button" onclick="save()">Submit</button>
                         </div>
                     </div>
                 </form:form>

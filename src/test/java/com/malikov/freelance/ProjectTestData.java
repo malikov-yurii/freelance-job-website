@@ -37,7 +37,7 @@ public class ProjectTestData {
             "Need personal website for my dog Buddy", new BigDecimal(75).setScale(2), CLIENT_3_ISAAK, null, Arrays.asList(FREELANCER_1_YURII, FREELANCER_2_DENIS),
             Arrays.asList(HTML, CSS), new ArrayList<>(Arrays.asList(PROJECT6_YURII_COMMENT_3, PROJECT6_DENIS_COMMENT_4)));
     public static final Project PROJECT_7_ONE_PAGE = new Project(7, "One page website", ProjectStatus.LOOKING_FOR_FREELANCER,
-            "Need single page website to sell my dog's hilarious video tape", new BigDecimal(125).setScale(2), CLIENT_3_ISAAK, null, Arrays.asList(FREELANCER_1_YURII, FREELANCER_2_DENIS),
+            "Need single page website to sell my hilarious video tapes", new BigDecimal(125).setScale(2), CLIENT_3_ISAAK, null, Arrays.asList(FREELANCER_1_YURII, FREELANCER_2_DENIS),
             Arrays.asList(HTML, CSS), new ArrayList<>(Arrays.asList(PROJECT7_DENIS_COMMENT_5, PROJECT7_YURII_COMMENT_6)));
     public static final Project PROJECT_8_SIMPLE_WEBSITE = new Project(8, "Simple website for photos", ProjectStatus.FINISHED,
             "Construct simple website where i would be able to show photos of my projects to peope.", new BigDecimal(135).setScale(2), CLIENT_3_ISAAK, FREELANCER_1_YURII, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
