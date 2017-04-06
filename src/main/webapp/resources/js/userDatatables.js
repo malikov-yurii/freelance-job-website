@@ -17,6 +17,7 @@ $(function () {
             {"data": "login", "orderable": false, "className": ""},
             // {"data": "password", "orderable": false, "className": ""},
             {"data": "email", "orderable": false, "className": ""},
+            {"data": "skills", "visible": entityName === 'freelancer',"orderable": false, "className": "", "defaultContent": "<i>Not set</i>"},
             {
                 "defaultContent": "",
                 "orderable": false,

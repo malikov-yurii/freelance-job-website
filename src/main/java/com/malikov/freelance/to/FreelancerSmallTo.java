@@ -1,6 +1,6 @@
 package com.malikov.freelance.to;
 
-public class FreelancerTo {
+public class FreelancerSmallTo {
 
     private Integer id;
 
@@ -8,7 +8,7 @@ public class FreelancerTo {
 
     private String skills;
 
-    public FreelancerTo(Integer id, String fullName, String skills) {
+    public FreelancerSmallTo(Integer id, String fullName, String skills) {
         this.id = id;
         this.fullName = fullName;
         this.skills = skills;

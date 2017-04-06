@@ -23,7 +23,7 @@ public class ProjectTo extends BaseEntity{
 
     private String status;
 
-    private List<FreelancerTo> appliedFreelancerTos;
+    private List<FreelancerSmallTo> appliedFreelancerTos;
 
     private List<CommentTo> commentTos;
 
@@ -57,7 +57,7 @@ public class ProjectTo extends BaseEntity{
         this.requiredSkills = requiredSkills != null ? requiredSkills: "";
         this.applicationStatus = applicationStatus;
         if (freelancers != null && freelancers.size() != 0) {
-            appliedFreelancerTos = freelancers.stream().map(FreelancerUtil::asTo).collect(Collectors.toList());
+            appliedFreelancerTos = freelancers.stream().map(FreelancerUtil::asSmallTo).collect(Collectors.toList());
         } else {
             appliedFreelancerTos = Collections.emptyList();
         }
@@ -143,11 +143,11 @@ public class ProjectTo extends BaseEntity{
         this.requiredSkills = requiredSkills;
     }
 
-    public List<FreelancerTo> getAppliedFreelancerTos() {
+    public List<FreelancerSmallTo> getAppliedFreelancerTos() {
         return appliedFreelancerTos;
     }
 
-    public void setAppliedFreelancerTos(List<FreelancerTo> appliedFreelancerTos) {
+    public void setAppliedFreelancerTos(List<FreelancerSmallTo> appliedFreelancerTos) {
         this.appliedFreelancerTos = appliedFreelancerTos;
     }
 

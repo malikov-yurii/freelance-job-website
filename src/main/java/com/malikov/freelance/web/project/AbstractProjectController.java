@@ -4,6 +4,8 @@ import com.malikov.freelance.model.*;
 import com.malikov.freelance.service.*;
 import com.malikov.freelance.to.ProjectTo;
 import com.malikov.freelance.util.ProjectUtil;
+import com.malikov.freelance.util.SkillUtil;
+import com.malikov.freelance.web.AbstractController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.malikov.freelance.model.ApplicationStatus.*;
 
-public abstract class AbstractProjectController {
+public abstract class AbstractProjectController extends AbstractController {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractProjectController.class);
 
     @Autowired
@@ -40,34 +44,9 @@ public abstract class AbstractProjectController {
     private ClientService clientService;
 
     @Autowired
-    private SkillService skillService;
-
-    @Autowired
     private CommentService commentService;
 
-    //
-//    @Autowired
-//    private ClientService customerService;
-//
-//
-//    @Autowired
-//    private ProductVariationService productVariationService;
-//
-//    public OrderTo getOrderTo(int id) {
-//        LOG.info("get order {}", id);
-//        return OrderUtil.asTo(orderService.get(id));
-//    }
-//
-//    public Order getOrder(int id) {
-//        LOG.info("get order {}", id);
-//        return orderService.get(id);
-//    }
-//
-//    public void delete(int id) {
-//        LOG.info("delete order {}", id);
-//        orderService.delete(id);
-//    }
-//
+
     public List<ProjectTo> getAll() {
         LOG.info("getAll orders");
         List<ProjectTo> projectTos = new ArrayList<>();
@@ -120,11 +99,11 @@ public abstract class AbstractProjectController {
         if (user.getRoles().contains(Role.ROLE_ADMIN)) {
             projectService.save(ProjectUtil.newFromTo(projectTo
                     , clientService.get(projectTo.getClientId())
-                    , getSkillsFromProjectTo(projectTo)));
+                    , persistNewSkills(SkillUtil.getSkillSetFromString(projectTo.getRequiredSkills()))));
         } else {
             projectService.save(ProjectUtil.newFromTo(projectTo
                     , clientService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
-                    , getSkillsFromProjectTo(projectTo)));
+                    , persistNewSkills(SkillUtil.getSkillSetFromString(projectTo.getRequiredSkills()))));
         }
         return new ResponseEntity<>(HttpStatus.OK);
 
@@ -143,28 +122,9 @@ public abstract class AbstractProjectController {
         project.setName(projectTo.getName());
         project.setDescription(projectTo.getDescription());
         project.setPayment(projectTo.getPayment());
-        project.setRequiredSkills(getSkillsFromProjectTo(projectTo));
+        project.setRequiredSkills(persistNewSkills(SkillUtil.getSkillSetFromString(projectTo.getRequiredSkills())));
         projectService.save(project);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-   private List<Skill> getSkillsFromProjectTo(ProjectTo projectTo) {
-        List<Skill> allSkills = skillService.getAll();
-        Set<Skill> rawSkillSet = Arrays.stream(projectTo
-                .getRequiredSkills()
-                .split("\\W*,\\W*"))
-                .map(Skill::new)
-                .collect(Collectors.toSet());
-        List<Skill> newProjectPersistedSkillList = new ArrayList<>();
-        for (Skill skill : rawSkillSet) {
-            int skillId = allSkills.indexOf(skill);
-            if (skillId == -1) {
-                newProjectPersistedSkillList.add(skillService.save(skill));
-            } else {
-                newProjectPersistedSkillList.add(allSkills.get(skillId));
-            }
-        }
-        return newProjectPersistedSkillList;
     }
 
     public void approveFreelancer(int projectId, int freelancerId) {

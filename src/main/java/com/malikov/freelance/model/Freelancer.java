@@ -2,7 +2,6 @@ package com.malikov.freelance.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -63,6 +62,10 @@ public class Freelancer extends BaseUser {
     public Freelancer(Integer id, String login, String password, String firstName, String lastName, String email, Set<Role> roles, Set<Skill> skills) {
         super(id, login, password, firstName, lastName, email, roles);
         this.skills = skills;
+    }
+
+    public Freelancer(BaseUser baseUser) {
+        super(baseUser);
     }
 
     public Set<Skill> getSkills() {

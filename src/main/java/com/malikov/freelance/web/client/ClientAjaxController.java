@@ -1,6 +1,6 @@
 package com.malikov.freelance.web.client;
 
-import com.malikov.freelance.to.ClientTo;
+import com.malikov.freelance.to.ClientUserTo;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 public class ClientAjaxController extends AbstractClientController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ClientTo> getAll() {
+    public List<ClientUserTo> getAll() {
         return super.getAll();
     }
 
@@ -37,7 +37,7 @@ public class ClientAjaxController extends AbstractClientController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public void createOrUpdate(@Valid ClientTo clientTo){
+    public void createOrUpdate(@Valid ClientUserTo clientTo){
         if (clientTo.isNew()) {
             super.create(clientTo);
         } else {

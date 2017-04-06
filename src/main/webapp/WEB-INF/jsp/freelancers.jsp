@@ -1,9 +1,21 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<html>
+
+<head>
+    <jsp:include page="fragments/headTag.jsp"/>
+</head>
+
+<body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3 class="page-title"></h3>
+            <h3 class="page-title">Freelancers</h3>
 
             <div class="view-box">
                 <a class="btn btn-sm btn-info show-add-new-modal" onclick="showAddUserModal()"></a>
@@ -16,7 +28,7 @@
                         <th>Last name</th>
                         <th>login</th>
                         <th>email</th>
-                        <th></th>
+                        <th>skills</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -80,6 +92,14 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="skills" class="control-label col-xs-3">Skills</label>
+
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" id="skills" name="skills" placeholder="Java, HTML, CSS">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button class="btn btn-primary" type="button" onclick="save()">save</button>
                         </div>
@@ -89,3 +109,20 @@
         </div>
     </div>
 </div>
+</body>
+
+
+<jsp:include page="fragments/footer.jsp"/>
+
+<script type="text/javascript">
+    //    debugger;
+    $(".show-add-new-modal").html('add new freelancer');
+    var entityName = 'freelancer';
+    var ajaxUrl = 'ajax/profile/freelancers/';
+</script>
+
+<%--<script type="text/javascript" src="resources/js/datatablesUtil.js"></script>--%>
+
+<script type="text/javascript" src="resources/js/userDatatables.js"></script>
+
+</html>

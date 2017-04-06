@@ -2,7 +2,8 @@ package com.malikov.freelance.web.client;
 
 import com.malikov.freelance.model.Client;
 import com.malikov.freelance.service.ClientService;
-import com.malikov.freelance.to.ClientTo;
+import com.malikov.freelance.to.ClientUserTo;
+import com.malikov.freelance.util.BaseUserUtil;
 import com.malikov.freelance.util.ClientUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public abstract class AbstractClientController {
     @Autowired
     ClientService clientService;
 
-    public List<ClientTo> getAll() {
+    public List<ClientUserTo> getAll() {
         return clientService.getAll().stream().map(ClientUtil::asTo).collect(Collectors.toList());
     }
 
@@ -31,13 +32,13 @@ public abstract class AbstractClientController {
         clientService.delete(clientId);
     }
 
-    public void create(ClientTo clientTo) {
+    public void create(ClientUserTo clientTo) {
         clientService.save(ClientUtil.newFromTo(clientTo));
     }
 
-    public void update(ClientTo clientTo) {
+    public void update(ClientUserTo clientTo) {
         Client client = clientService.get(clientTo.getId());
-        ClientUtil.updateFromTo(client, clientTo);
+        BaseUserUtil.updateFromTo(client, clientTo);
         clientService.save(client);
     }
 

@@ -1,12 +1,30 @@
 package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.Freelancer;
-import com.malikov.freelance.to.FreelancerTo;
-import com.malikov.freelance.to.SkillTo;
+import com.malikov.freelance.model.Role;
+import com.malikov.freelance.model.Skill;
+import com.malikov.freelance.to.FreelancerSmallTo;
+import com.malikov.freelance.to.FreelancerUserTo;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class FreelancerUtil {
 
-    public static FreelancerTo asTo (Freelancer freelancer){
-        return new FreelancerTo(freelancer.getId(), freelancer.getFirstName() + " " + freelancer.getLastName(), SkillTo.asTo(freelancer.getSkills()));
+    public static FreelancerSmallTo asSmallTo(Freelancer freelancer){
+        return new FreelancerSmallTo(freelancer.getId(), freelancer.getFirstName() + " " + freelancer.getLastName(), SkillUtil.skillCollectionToString(freelancer.getSkills()));
     }
+
+    public static FreelancerUserTo asUserTo(Freelancer freelancer){
+        return new FreelancerUserTo(BaseUserUtil.asTo(freelancer), SkillUtil.skillCollectionToString(freelancer.getSkills()));
+    }
+
+    public static Freelancer newFromTo(FreelancerUserTo freelancerUserTo, List<Skill> persistedSkillList) {
+        Freelancer freelancer = new Freelancer(BaseUserUtil.newFromTo(freelancerUserTo));
+        freelancer.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)));
+        freelancer.setSkills(new HashSet<>(persistedSkillList));
+        return freelancer;
+    }
+
 }

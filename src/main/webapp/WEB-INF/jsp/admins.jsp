@@ -18,11 +18,11 @@
 
 <script type="text/javascript">
     $(".page-title").text("Admins");
-    $(".show-add-new-modal").text("Add new admin");
+    $(".show-add-new-modal").text("add new admin");
     var entityName = 'admin';
     var ajaxUrl = 'ajax/profile/admins/';
 </script>
 
-<script type="text/javascript" src="resources/js/clientAndAdminDatatables.js"></script>
+<script type="text/javascript" src="resources/js/userDatatables.js"></script>
 
 </html>

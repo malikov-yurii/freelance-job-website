@@ -39,7 +39,7 @@ CREATE TABLE freelancer_skills
   skill_id      INTEGER NOT NULL,
   CONSTRAINT freelancer_id_skill_id_idx UNIQUE (freelancer_id, skill_id),
   FOREIGN KEY (freelancer_id) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (skill_id) REFERENCES skills (id)
+  FOREIGN KEY (skill_id) REFERENCES skills (id) ON DELETE CASCADE
 );
 
 CREATE TABLE projects
@@ -63,7 +63,7 @@ CREATE TABLE project_required_skills
   skill_id   INTEGER NOT NULL,
   CONSTRAINT project_id_skill_id_idx UNIQUE (project_id, skill_id),
   FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE,
-  FOREIGN KEY (skill_id) REFERENCES skills (id)
+  FOREIGN KEY (skill_id) REFERENCES skills (id) ON DELETE CASCADE
 );
 
 CREATE TABLE project_applied_freelancers

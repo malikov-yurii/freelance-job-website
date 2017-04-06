@@ -2,7 +2,6 @@ package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.*;
 import com.malikov.freelance.to.ProjectTo;
-import com.malikov.freelance.to.SkillTo;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -16,7 +15,7 @@ public class ProjectUtil {
     public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus, User authorizedUser) {
         return new ProjectTo(project.getId(), project.getClient().getId(), project.getName(),
                 project.getDescription(), project.getPayment(), project.getClientLastName(),
-                project.getStatus(), SkillTo.asTo(project.getRequiredSkills()), applicationStatus,
+                project.getStatus(), SkillUtil.skillCollectionToString(project.getRequiredSkills()), applicationStatus,
                 authorizedUser.getRoles().contains(Role.ROLE_ADMIN) ||
                         (authorizedUser.getRoles().contains(Role.ROLE_CLIENT)
                                         && Objects.equals(authorizedUser.getId(), project.getClient().getId()))
