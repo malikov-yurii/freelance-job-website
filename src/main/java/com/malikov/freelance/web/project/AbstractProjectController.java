@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -147,10 +146,10 @@ public abstract class AbstractProjectController extends AbstractController {
         projectService.save(project);
     }
 
-    public void addComment(int projectId, String commentText) {
-        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        commentService.save(new Comment(projectId, LocalDateTime.now(), user.getFirstName() + " " + user.getLastName(), commentText));
-    }
+//    public void addComment(int projectId, String commentText) {
+//        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+//        commentService.save(new Comment(projectId, LocalDateTime.now(), user.getFirstName() + " " + user.getLastName(), commentText));
+//    }
 
     public void delete(int projectId) {
         projectService.delete(projectId);

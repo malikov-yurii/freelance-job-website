@@ -128,6 +128,40 @@
     </div>
 </div>
 
+<div class="modal fade" id="commentEditRow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="commentModalTitle"></h2>
+            </div>
+            <div class="modal-body">
+                <form:form class="form-horizontal" method="post" id="commentDetailsForm">
+
+                    <input type="hidden" class="form-control" id="commentProjectId" name="projectId">
+
+                    <input type="hidden" class="form-control" id="id" name="id">
+
+
+                    <div class="form-group">
+                        <label for="commentText" class="control-label col-xs-3">Comment text</label>
+
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" id="commentText" name="commentText">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button class="btn btn-primary" type="button" onclick="updateComment()">Submit</button>
+                        </div>
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 
 <jsp:include page="fragments/footer.jsp"/>
@@ -181,8 +215,9 @@
             <%--{{= renderDeleteBtn(row) }}--%>
             <%--</th>--%>
             <th><span class="order-head-lg">Comments</span></th>
-            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
-            </th>
+            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
+            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
+            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
         </tr>
         </thead>
         <tbody>
@@ -194,10 +229,16 @@
         <%--data-order-product-id="{{= orderItems[i].orderItemId }}"--%>
         >
             <td class="comment-text" data-key="comment-text">
-                {{= commentTos[i].commentText }}
+                {{= commentTos[i].dateTimePlaced + ' ' + commentTos[i].userFullName + ': ' + commentTos[i].commentText }}
             </td>
             <td>
                 {{= renderBlockUnblockCommentBtn(commentTos[i].id, commentTos[i].blocked) }}
+            </td>
+             <td>
+                {{= renderUpdateCommentBtn(commentTos[i].id, commentTos[i].commentText) }}
+            </td>
+             <td>
+                {{= renderDeleteCommentBtn(commentTos[i].id) }}
             </td>
         </tr>
         {{ } }}

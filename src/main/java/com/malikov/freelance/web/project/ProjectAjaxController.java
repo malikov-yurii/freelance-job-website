@@ -79,10 +79,10 @@ public class ProjectAjaxController extends AbstractProjectController {
         super.setIsCommentBlocked(commentId, false);
     }
 
-    @PostMapping(value = "/{id}/add-comment")
-    public void addComment(@PathVariable("id") int projectId, @RequestParam("text") String commentText) {
-        super.addComment(projectId, commentText);
-    }
+//    @PostMapping(value = "/{id}/add-comment")
+//    public void addComment(@PathVariable("id") int projectId, @RequestParam("text") String commentText) {
+//        super.addComment(projectId, commentText);
+//    }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/{id}/block")

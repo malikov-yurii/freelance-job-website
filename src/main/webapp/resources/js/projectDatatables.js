@@ -98,6 +98,103 @@ $(function () {
     });
 });
 
+function renderAddCommentField(projectId){
+    return  '<form id="commentForm' + projectId + '">' +
+        '<p><b>Add comment:</b></p>' +
+        '<p><textarea id="newCommentTextArea'+ projectId +'" rows="2" cols="60" name="text"></textarea></p>' +
+        '<button class="btn btn-primary" type="button" onclick="saveNewComment('+ projectId + ')">submit comment</button>' +
+        '</form>';
+}
+
+function saveNewComment(projectId){
+    $.ajax({
+        type: "POST",
+        url: 'ajax/profile/comments',
+        data: {"commentText": $("#newCommentTextArea" + projectId).val(), "projectId": projectId},
+        success: function () {
+            updateTable();
+            successNoty('common.saved');
+        }
+    });
+}
+
+function renderUpdateCommentBtn(commentId, commentText) {
+    if (role === 'admin') {
+        return '<a class="btn btn-xs btn-primary" onclick="showUpdateCommentModal(' + commentId + ', \'' + commentText + '\')">update</a>';
+    }
+    return "";
+}
+
+function showUpdateCommentModal(commentId, commentText) {
+
+    $('#commentModalTitle').html('Update comment');
+    $('#id').val(commentId);
+    $('#commentProjectId').val(0);
+
+    $('#commentText').val(commentText);
+    $('#commentEditRow').modal();
+}
+
+function updateComment(){
+    $.ajax({
+        type: "POST",
+        url: 'ajax/profile/comments',
+        data: $('#commentDetailsForm').serialize(),
+        success: function () {
+            $('#commentEditRow').modal('hide');
+            updateTable();
+            successNoty('common.saved');
+        }
+    });
+}
+
+function renderDeleteCommentBtn(commentId) {
+    return '<a class="btn btn-xs btn-danger" onclick="deleteComment(' + commentId + ')">delete</a>';
+}
+
+function deleteComment(id) {
+    // debugger;
+    $.ajax({
+        url: 'ajax/profile/comments/' + id,
+        type: 'DELETE',
+        success: function (data) {
+            updateTable();
+            successNoty('common.deleted');
+        }
+    })
+}
+
+function renderBlockUnblockCommentBtn(commentId, blocked) {
+    if (role === 'admin') {
+        return blocked === false ?
+        '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');">block comment</a>' :
+        '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>' ;
+    }
+}
+
+function blockComment(commentId) {
+    $.ajax({
+        url: ajaxUrl + 'block-comment/' + commentId,
+        type: 'POST',
+        success: function (data) {
+            updateTable();
+            successNoty('common.saved');
+        }
+    })
+
+}
+
+function unblockComment(commentId) {
+    $.ajax({
+        url: ajaxUrl + 'unblock-comment/' + commentId,
+        type: 'POST',
+        success: function (data) {
+            updateTable();
+            successNoty('common.saved');
+        }
+    })
+}
+
 function showAppliedFreelancersAndComments() {
     datatableApi.rows().every(function (rowIdx, tableLoop, rowLoop) {
         var row = this;
@@ -113,26 +210,6 @@ function showAppliedFreelancersAndComments() {
             'child-row'
         ).show();
     })
-}
-
-function renderAddCommentField(projectId){
-    return  '<form id="commentForm' + projectId + '">' +
-            '<p><b>Add comment:</b></p>' +
-            '<p><textarea rows="2" cols="60" name="text"></textarea></p>' +
-            '<button class="btn btn-primary" type="button" onclick="saveComment('+ projectId + ')">submit comment</button>' +
-            '</form>';
-}
-
-function saveComment(projectId){
-    $.ajax({
-        type: "POST",
-        url: ajaxUrl + projectId + '/add-comment',
-        data: $('#commentForm' + projectId).serialize(),
-        success: function () {
-            updateTable();
-            successNoty('common.saved');
-        }
-    });
 }
 
 function buildAppliedFreelancerList(appliedFreelancerTos, projectId, projectClientId, row) {

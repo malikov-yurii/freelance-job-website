@@ -2,7 +2,13 @@ package com.malikov.freelance.to;
 
 import com.malikov.freelance.model.BaseEntity;
 
+import java.time.LocalDateTime;
+
 public class CommentTo extends BaseEntity{
+
+    private String userFullName;
+
+    private LocalDateTime dateTimePlaced;
 
     private String commentText;
 
@@ -10,14 +16,28 @@ public class CommentTo extends BaseEntity{
 
     public CommentTo(){}
 
-    public CommentTo(String commentText) {
-        this.commentText = commentText;
-    }
-
-    public CommentTo(Integer id, String commentText, Boolean blocked) {
+    public CommentTo(Integer id, String userFullName, LocalDateTime dateTimePlaced, String commentText, Boolean blocked) {
         super(id);
+        this.userFullName = userFullName;
+        this.dateTimePlaced = dateTimePlaced;
         this.commentText = commentText;
         this.blocked = blocked;
+    }
+
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
+    }
+
+    public LocalDateTime getDateTimePlaced() {
+        return dateTimePlaced;
+    }
+
+    public void setDateTimePlaced(LocalDateTime dateTimePlaced) {
+        this.dateTimePlaced = dateTimePlaced;
     }
 
     public Boolean getBlocked() {

@@ -6,6 +6,10 @@ import com.malikov.freelance.to.CommentTo;
 public class CommentUtil {
 
     public static CommentTo asTo(Comment comment){
-        return new CommentTo(comment.getId(), comment.getDatePlaced() + " " + comment.getUserFullName() + ": " + comment.getText(), comment.getBlocked());
+        return new CommentTo(comment.getId(), comment.getUserFullName(), comment.getDatePlaced(), comment.getText(), comment.getBlocked());
     }
+
+//    public static Comment newFromTo(CommentTo commentTo) {
+//        return new Comment(commentTo);
+//    }
 }

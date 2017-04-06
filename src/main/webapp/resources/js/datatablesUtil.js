@@ -174,34 +174,3 @@ function onProjectTableReady() {
         xhr.setRequestHeader(header, token);
     });
 }
-
-function renderBlockUnblockCommentBtn(commentId, blocked) {
-    if (role === 'admin') {
-        return blocked === false ?
-        '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');">block comment</a>' :
-        '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>' ;
-    }
-}
-
-function blockComment(commentId) {
-    $.ajax({
-        url: ajaxUrl + 'block-comment/' + commentId,
-        type: 'POST',
-        success: function (data) {
-            updateTable();
-            successNoty('common.saved');
-        }
-    })
-
-}
-
-function unblockComment(commentId) {
-    $.ajax({
-        url: ajaxUrl + 'unblock-comment/' + commentId,
-        type: 'POST',
-        success: function (data) {
-            updateTable();
-            successNoty('common.saved');
-        }
-    })
-}
