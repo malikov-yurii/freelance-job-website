@@ -30,13 +30,17 @@
 
             <div class="view-box">
                 <form:form modelAttribute="userTo" class="form-horizontal" method="post"
-                           action="${register ? 'register' : 'profile'}" charset="utf-8" accept-charset="UTF-8">
+                           action="${register ? (userRole == 'client' ? 'register-client': 'register-freelancer'): 'profile'}"
+                           charset="utf-8" accept-charset="UTF-8">
 
-                    <fmt:message key="users.name" var="userName"/>
-                    <ishop:inputField label='${userName}' name="name"/>
-
-                    <fmt:message key="users.password" var="userPassword"/>
-                    <ishop:inputField label='${userPassword}' name="password" inputType="password"/>
+                    <ishop:inputField label="First Name" name="firstName"/>
+                    <ishop:inputField label="Last Name" name="lastName"/>
+                    <ishop:inputField label="Login" name="login"/>
+                    <ishop:inputField label="Password" name="password" inputType="password"/>
+                    <ishop:inputField label="Email" name="email"/>
+                    <c:if test="${userRole == 'freelancer'}">
+                        <ishop:inputField label="Skills" name="skills"/>
+                    </c:if>
 
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">

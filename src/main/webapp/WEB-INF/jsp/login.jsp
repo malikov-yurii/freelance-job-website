@@ -21,7 +21,8 @@
             <input type="password" placeholder="Password" class="form-control" name='password'>
             <button type="submit" class="btn btn-success"><fmt:message key="app.login"/></button>
         </form:form>
-        <a class="login-register btn-primary" role="button" href="register"><fmt:message key="app.register"/></a>
+        <a class="login-register btn-primary" role="button" href="register-client">Register as client</a>
+        <a class="login-register btn-primary" role="button" href="register-freelancer">Register as freelancer</a>
 
     </div>
 

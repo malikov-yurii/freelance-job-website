@@ -17,6 +17,7 @@
                     <a class="btn btn-info" role="button" href="freelancers">Freelancers</a>
                     <a class="btn btn-info" role="button" href="admins">Admins</a>
                     <a class="btn btn-info" role="button" href="skills">Skills</a>
+                    <a class="btn btn-info" role="button" href="profile">Profile</a>
                     <input type="hidden" id="hasRoleAdmin" value="1" >
                 </sec:authorize>
                 <%--<a class="btn btn-info" role="button" href="profile">${userTo.name} <fmt:message key="app.profile"/></a>--%>

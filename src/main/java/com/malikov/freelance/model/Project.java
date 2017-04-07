@@ -2,8 +2,8 @@ package com.malikov.freelance.model;
 
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Project.DELETE, query = "DELETE FROM Project p WHERE p.id=:id"),
@@ -74,7 +75,7 @@ public class Project extends BaseEntity {
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-    private List<Skill> requiredSkills;
+    private Set<Skill> requiredSkills;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectId")
     @Fetch(FetchMode.SELECT)
@@ -84,7 +85,7 @@ public class Project extends BaseEntity {
     public Project(){}
 
     public Project(Integer id, String name, ProjectStatus status, String description, BigDecimal payment, Client client,
-                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills, List<Comment> comments) {
+                   Freelancer freelancer, List<Freelancer> appliedFreelancers, Set<Skill> requiredSkills, List<Comment> comments) {
         super(id);
         this.name = name;
         this.status = status;
@@ -102,7 +103,7 @@ public class Project extends BaseEntity {
     }
 
     public Project(String name, ProjectStatus status, String description, BigDecimal payment, Client client,
-                   Freelancer freelancer, List<Freelancer> appliedFreelancers, List<Skill> requiredSkills, List<Comment> comments) {
+                   Freelancer freelancer, List<Freelancer> appliedFreelancers, Set<Skill> requiredSkills, List<Comment> comments) {
         this(null, name, status, description, payment, client, freelancer, appliedFreelancers, requiredSkills, comments);
     }
 
@@ -176,11 +177,11 @@ public class Project extends BaseEntity {
         this.appliedFreelancers = appliedFreelancers;
     }
 
-    public List<Skill> getRequiredSkills() {
+    public Set<Skill> getRequiredSkills() {
         return requiredSkills;
     }
 
-    public void setRequiredSkills(List<Skill> requiredSkills) {
+    public void setRequiredSkills(Set<Skill> requiredSkills) {
         this.requiredSkills = requiredSkills;
     }
 

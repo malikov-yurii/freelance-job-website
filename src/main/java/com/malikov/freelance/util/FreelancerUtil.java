@@ -8,7 +8,7 @@ import com.malikov.freelance.to.FreelancerUserTo;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class FreelancerUtil {
 
@@ -20,10 +20,10 @@ public class FreelancerUtil {
         return new FreelancerUserTo(BaseUserUtil.asTo(freelancer), SkillUtil.skillCollectionToString(freelancer.getSkills()));
     }
 
-    public static Freelancer newFromTo(FreelancerUserTo freelancerUserTo, List<Skill> persistedSkillList) {
+    public static Freelancer newFromTo(FreelancerUserTo freelancerUserTo, Set<Skill> persistedSkillList) {
         Freelancer freelancer = new Freelancer(BaseUserUtil.newFromTo(freelancerUserTo));
         freelancer.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)));
-        freelancer.setSkills(new HashSet<>(persistedSkillList));
+        freelancer.setSkills(persistedSkillList);
         return freelancer;
     }
 

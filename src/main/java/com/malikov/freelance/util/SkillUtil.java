@@ -2,10 +2,7 @@ package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.Skill;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SkillUtil {
@@ -24,6 +21,8 @@ public class SkillUtil {
     }
 
     public static Set<Skill> getSkillSetFromString(String skillsString) {
+        if (skillsString == null || "".equals(skillsString))
+            return Collections.emptySet();
         return Arrays.stream(
                 skillsString
                         .split("\\W*,\\W*"))

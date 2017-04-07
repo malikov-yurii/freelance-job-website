@@ -16,7 +16,7 @@ public class BaseUserTo extends BaseEntity {
 
     private Boolean blocked;
 
-    BaseUserTo(){}
+    public BaseUserTo(){}
 
     public BaseUserTo(Integer id, String firstName, String lastName, String login, String password, String email, Boolean blocked) {
         super(id);

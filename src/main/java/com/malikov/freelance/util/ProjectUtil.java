@@ -5,8 +5,8 @@ import com.malikov.freelance.to.ProjectTo;
 
 import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -27,7 +27,7 @@ public class ProjectUtil {
         , project.getBlocked());
     }
 
-    public static Project newFromTo(ProjectTo projectTo, Client client, List<Skill> skillsList) {
+    public static Project newFromTo(ProjectTo projectTo, Client client, Set<Skill> skills) {
         return new Project(
                 null
                 , projectTo.getName() == null ? "No name provided" : projectTo.getName()
@@ -37,7 +37,7 @@ public class ProjectUtil {
                 , client
                 , null
                 , null
-                , skillsList
+                , skills
                 , null
         );
     }
