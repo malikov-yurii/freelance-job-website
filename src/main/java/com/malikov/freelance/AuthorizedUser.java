@@ -1,7 +1,8 @@
 package com.malikov.freelance;
 
 import com.malikov.freelance.model.BaseUser;
-import com.malikov.freelance.to.UserTo;
+import com.malikov.freelance.to.BaseUserTo;
+import com.malikov.freelance.util.BaseUserUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -10,11 +11,11 @@ import static java.util.Objects.requireNonNull;
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;
 
-    private UserTo userTo;
+    private BaseUserTo baseUserTo;
 
     public AuthorizedUser(BaseUser baseUser) {
         super(baseUser.getLogin(), baseUser.getPassword(), true, true, true, true, baseUser.getRoles());
-//        this.userTo = BaseUserUtil.asTo(baseUser);
+        this.baseUserTo = BaseUserUtil.asTo(baseUser);
     }
 
     public static AuthorizedUser safeGet() {
@@ -33,19 +34,19 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     }
 
     public static int id() {
-        return get().userTo.getId();
+        return get().baseUserTo.getId();
     }
 
-    public void update(UserTo newTo) {
-        userTo = newTo;
+    public void update(BaseUserTo newTo) {
+        baseUserTo = newTo;
     }
 
-    public UserTo getUserTo() {
-        return userTo;
+    public BaseUserTo getBaseUserTo() {
+        return baseUserTo;
     }
 
     @Override
     public String toString() {
-        return userTo.toString();
+        return baseUserTo.toString();
     }
 }

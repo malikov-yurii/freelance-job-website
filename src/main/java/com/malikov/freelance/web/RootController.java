@@ -2,8 +2,6 @@ package com.malikov.freelance.web;
 
 import com.malikov.freelance.model.Client;
 import com.malikov.freelance.model.Freelancer;
-import com.malikov.freelance.model.Role;
-import com.malikov.freelance.model.User;
 import com.malikov.freelance.service.ClientService;
 import com.malikov.freelance.service.FreelancerService;
 import com.malikov.freelance.service.UserService;
@@ -14,7 +12,6 @@ import com.malikov.freelance.util.FreelancerUtil;
 import com.malikov.freelance.util.SkillUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -66,15 +63,17 @@ public class RootController extends AbstractController{
 //    }
 //
     @GetMapping("/projects")
-    public String orders(ModelMap model) {
-        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        model.put("userId", user.getId());
-        if (user.getRoles().contains(Role.ROLE_ADMIN))
-            model.put("userRole", "admin");
-        else if (user.getRoles().contains(Role.ROLE_CLIENT))
-            model.put("userRole", "client");
-        else if (user.getRoles().contains(Role.ROLE_FREELANCER))
-            model.put("userRole", "freelancer");
+    public String orders(
+//            ModelMap model
+    ) {
+//        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+//        model.put("userId", user.getId());
+//        if (user.getRoles().contains(Role.ROLE_ADMIN))
+//            model.put("userRole", "admin");
+//        else if (user.getRoles().contains(Role.ROLE_CLIENT))
+//            model.put("userRole", "client");
+//        else if (user.getRoles().contains(Role.ROLE_FREELANCER))
+//            model.put("userRole", "freelancer");
         return "projects";
     }
 
@@ -130,19 +129,24 @@ public class RootController extends AbstractController{
 //        }
 //    }
 //
+    @GetMapping("/profile")
+    public String profile(ModelMap model) {
+        model.addAttribute("register", false);
+        model.addAttribute("profileUserTo", super.getAuthorizedUserTo());
+        return "profile";
+}
+
     @GetMapping("/register-client")
     public String registerClient(ModelMap model) {
-        model.addAttribute("userTo", new ClientUserTo());
+        model.addAttribute("profileUserTo", new ClientUserTo());
         model.addAttribute("register", true);
-        model.addAttribute("userRole", "client");
         return "profile";
     }
 
     @GetMapping("/register-freelancer")
     public String registerFreelancer(ModelMap model) {
-        model.addAttribute("userTo", new FreelancerUserTo());
+        model.addAttribute("profileUserTo", new FreelancerUserTo());
         model.addAttribute("register", true);
-        model.addAttribute("userRole", "freelancer");
         return "profile";
     }
 //

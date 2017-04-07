@@ -2,6 +2,8 @@ package com.malikov.freelance.to;
 
 public class FreelancerUserTo extends BaseUserTo {
 
+    {setRole("freelancer");}
+
     private String skills;
 
     public FreelancerUserTo(BaseUserTo baseUserTo, String skills){

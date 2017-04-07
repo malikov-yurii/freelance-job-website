@@ -23,14 +23,14 @@
                     <fmt:message key="common.add" var="saveButton"/>
                 </c:if>
                 <c:if test="${not register}">
-                    ${userTo.name} <fmt:message key="app.profile"/>
+                    ${profileUserTo.firstName} ${profileUserTo.lastName} profile
                     <fmt:message key="common.update" var="saveButton"/>
                 </c:if>
             </h3>
 
             <div class="view-box">
-                <form:form modelAttribute="userTo" class="form-horizontal" method="post"
-                           action="${register ? (userRole == 'client' ? 'register-client': 'register-freelancer'): 'profile'}"
+                <form:form modelAttribute="profileUserTo" class="form-horizontal" method="post"
+                           action="${register ? (profileUserTo.role == 'client' ? 'register-client': 'register-freelancer'): 'profile'}"
                            charset="utf-8" accept-charset="UTF-8">
 
                     <ishop:inputField label="First Name" name="firstName"/>
@@ -38,7 +38,7 @@
                     <ishop:inputField label="Login" name="login"/>
                     <ishop:inputField label="Password" name="password" inputType="password"/>
                     <ishop:inputField label="Email" name="email"/>
-                    <c:if test="${userRole == 'freelancer'}">
+                    <c:if test="${profileUserTo.role == 'freelancer'}">
                         <ishop:inputField label="Skills" name="skills"/>
                     </c:if>
 

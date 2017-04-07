@@ -16,9 +16,11 @@ public class BaseUserTo extends BaseEntity {
 
     private Boolean blocked;
 
+    private String role;
+
     public BaseUserTo(){}
 
-    public BaseUserTo(Integer id, String firstName, String lastName, String login, String password, String email, Boolean blocked) {
+    public BaseUserTo(Integer id, String firstName, String lastName, String login, String password, String email, Boolean blocked, String role) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +28,7 @@ public class BaseUserTo extends BaseEntity {
         this.password = password;
         this.email = email;
         this.blocked = blocked;
+        this.role = role;
     }
 
     public BaseUserTo(BaseUserTo baseUserTo) {
@@ -36,6 +39,15 @@ public class BaseUserTo extends BaseEntity {
         this.password = baseUserTo.getPassword();
         this.email = baseUserTo.getEmail();
         this.blocked = baseUserTo.getBlocked();
+        this.role = baseUserTo.getRole();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Boolean getBlocked() {

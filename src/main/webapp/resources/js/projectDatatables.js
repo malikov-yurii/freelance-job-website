@@ -19,13 +19,13 @@ $(function () {
             {"data": "description", "orderable": false, "className": "project-description"},
             {"data": "payment", "orderable": false, "className": "project-payment"},
             {"data": "clientLastName", "orderable": false, "className": "project-client-last-name"},
-            {"data": "status", "orderable": false,"className": "project-status editable"},
+            {"data": "status", "orderable": false, "className": "project-status editable"},
             {"data": "requiredSkills", "orderable": false, "className": "project-required-skills"},
             {
                 "defaultContent": "",
                 "orderable": false,
-                "render": role === 'admin'  ? renderBlockUnblockProjectBtn :
-                            (role === 'freelancer' ? renderApplyForProjectBtn : "")
+                "render": role === 'admin' ? renderBlockUnblockProjectBtn :
+                    (role === 'freelancer' ? renderApplyForProjectBtn : "")
             },
             {
                 "defaultContent": "",
@@ -35,7 +35,7 @@ $(function () {
             {
                 "defaultContent": "",
                 "orderable": false,
-                "render": role === 'admin'  ? renderDeleteProjectBtn : ""
+                "render": role === 'admin' ? renderDeleteProjectBtn : ""
             }
         ],
         "initComplete": onProjectTableReady,
@@ -98,15 +98,15 @@ $(function () {
     });
 });
 
-function renderAddCommentField(projectId){
-    return  '<form id="commentForm' + projectId + '">' +
+function renderAddCommentField(projectId) {
+    return '<form id="commentForm' + projectId + '">' +
         '<p><b>Add comment:</b></p>' +
-        '<p><textarea id="newCommentTextArea'+ projectId +'" rows="2" cols="60" name="text"></textarea></p>' +
-        '<button class="btn btn-primary" type="button" onclick="saveNewComment('+ projectId + ')">submit comment</button>' +
+        '<p><textarea id="newCommentTextArea' + projectId + '" rows="2" cols="60" name="text"></textarea></p>' +
+        '<button class="btn btn-primary" type="button" onclick="saveNewComment(' + projectId + ')">submit comment</button>' +
         '</form>';
 }
 
-function saveNewComment(projectId){
+function saveNewComment(projectId) {
     $.ajax({
         type: "POST",
         url: 'ajax/profile/comments',
@@ -135,7 +135,7 @@ function showUpdateCommentModal(commentId, commentText) {
     $('#commentEditRow').modal();
 }
 
-function updateComment(){
+function updateComment() {
     $.ajax({
         type: "POST",
         url: 'ajax/profile/comments',
@@ -149,7 +149,8 @@ function updateComment(){
 }
 
 function renderDeleteCommentBtn(commentId) {
-    return '<a class="btn btn-xs btn-danger" onclick="deleteComment(' + commentId + ')">delete</a>';
+    if (role === 'admin')
+        return '<a class="btn btn-xs btn-danger" onclick="deleteComment(' + commentId + ')">delete</a>';
 }
 
 function deleteComment(id) {
@@ -168,7 +169,7 @@ function renderBlockUnblockCommentBtn(commentId, blocked) {
     if (role === 'admin') {
         return blocked === false ?
         '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');">block comment</a>' :
-        '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>' ;
+        '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>';
     }
 }
 
@@ -246,7 +247,7 @@ function renderApproveFreelancerBtn(projectId, appliedFreelancerId, projectClien
 function approveAppliedFreelancer(projectId, freelancerId) {
     if (confirm('Are you sure you want approve this freelancer?')) {
         $.ajax({
-            url: ajaxUrl + projectId +  '/approve-freelancer/' + freelancerId,
+            url: ajaxUrl + projectId + '/approve-freelancer/' + freelancerId,
             type: 'POST',
             success: function () {
                 updateTable();
@@ -274,20 +275,20 @@ function addProject() {
 }
 
 function renderApplyForProjectBtn(data, type, row) {
-        switch (row.applicationStatus) {
-            case 'NOT_LOOKING_FOR_A_FREELANCER' :
-                return '<b>Application closed</b>';
-                break;
-            case 'ALLOWED_HAS_SKILLS' :
-                return '<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + row.id + ');">Apply for project</a>';
-                break;
-            case 'ALREADY_APPLIED' :
-                return '<a class="btn btn-xs btn-danger" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
-                break;
-            case 'NOT_ALLOWED_LACK_OF_SKILLS' :
-                return '<b>Lack of skills</b>';
-                break;
-        }
+    switch (row.applicationStatus) {
+        case 'NOT_LOOKING_FOR_A_FREELANCER' :
+            return '<b>Application closed</b>';
+            break;
+        case 'ALLOWED_HAS_SKILLS' :
+            return '<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + row.id + ');">Apply for project</a>';
+            break;
+        case 'ALREADY_APPLIED' :
+            return '<a class="btn btn-xs btn-danger" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
+            break;
+        case 'NOT_ALLOWED_LACK_OF_SKILLS' :
+            return '<b>Lack of skills</b>';
+            break;
+    }
 }
 
 function applyForProject(e, id) {
@@ -335,8 +336,8 @@ function buildCommentList(commentTos) {
 
 function renderBlockUnblockProjectBtn(data, type, row) {
     return row.blocked === false ?
-        '<a class="btn btn-xs btn-danger" onclick="block(' + row.id + ');">block project</a>' :
-        '<a class="btn btn-xs btn-success" onclick="unblock(' + row.id + ');">unblock project</a>' ;
+    '<a class="btn btn-xs btn-danger" onclick="block(' + row.id + ');">block project</a>' :
+    '<a class="btn btn-xs btn-success" onclick="unblock(' + row.id + ');">unblock project</a>';
 }
 
 function renderDeleteProjectBtn(data, type, row) {

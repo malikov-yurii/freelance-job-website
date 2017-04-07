@@ -17,7 +17,7 @@ public class ModelInterceptor extends HandlerInterceptorAdapter {
         if (modelAndView != null && !modelAndView.isEmpty()) {
             AuthorizedUser authorizedUser = AuthorizedUser.safeGet();
             if (authorizedUser != null) {
-                modelAndView.getModelMap().addAttribute("userTo", authorizedUser.getUserTo());
+                modelAndView.getModelMap().addAttribute("baseUserTo", authorizedUser.getBaseUserTo());
             }
         }
     }

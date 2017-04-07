@@ -14,8 +14,8 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <script>
-    var userId = ${userId};
-    var role = '${userRole}';
+    var userId = ${baseUserTo.id};
+    var role = '${baseUserTo.role}';
 </script>
 
 <div class="jumbotron">

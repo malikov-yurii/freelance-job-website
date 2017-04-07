@@ -1,6 +1,7 @@
 package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.BaseUser;
+import com.malikov.freelance.model.Role;
 import com.malikov.freelance.to.BaseUserTo;
 
 public class BaseUserUtil {
@@ -20,6 +21,7 @@ public class BaseUserUtil {
                 ,null
                 ,baseUser.getEmail()
                 ,baseUser.getBlocked()
+                ,baseUser.getRoles().contains(Role.ROLE_ADMIN) ? "admin" : (baseUser.getRoles().contains(Role.ROLE_CLIENT) ? "client" : "freelancer")
         );
     }
 
