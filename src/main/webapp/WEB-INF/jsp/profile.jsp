@@ -30,9 +30,12 @@
 
             <div class="view-box">
                 <form:form modelAttribute="profileUserTo" class="form-horizontal" method="post"
-                           action="${register ? (profileUserTo.role == 'client' ? 'register-client': 'register-freelancer'): 'profile'}"
+                           action="${register ?
+                           (profileUserTo.role == 'client' ? 'register-client': 'register-freelancer') :
+                           (profileUserTo.role == 'freelancer' ? 'profile-freelancer' : 'profile-user')}"
                            charset="utf-8" accept-charset="UTF-8">
 
+                    <ishop:inputField label="ID" name="id"/>
                     <ishop:inputField label="First Name" name="firstName"/>
                     <ishop:inputField label="Last Name" name="lastName"/>
                     <ishop:inputField label="Login" name="login"/>

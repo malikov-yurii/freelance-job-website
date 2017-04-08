@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <display-name>shop-system</display-name>
+    <display-name>freelance-exchange</display-name>
 
     <context-param>
         <param-name>spring.profiles.default</param-name>
@@ -23,7 +23,6 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -37,7 +36,6 @@
         <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
 
     <filter>
         <filter-name>encodingFilter</filter-name>

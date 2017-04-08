@@ -2,15 +2,12 @@ package com.malikov.freelance.web;
 
 import com.malikov.freelance.model.Client;
 import com.malikov.freelance.model.Freelancer;
-import com.malikov.freelance.service.ClientService;
-import com.malikov.freelance.service.FreelancerService;
-import com.malikov.freelance.service.UserService;
+import com.malikov.freelance.to.BaseUserTo;
 import com.malikov.freelance.to.ClientUserTo;
 import com.malikov.freelance.to.FreelancerUserTo;
 import com.malikov.freelance.util.ClientUtil;
 import com.malikov.freelance.util.FreelancerUtil;
 import com.malikov.freelance.util.SkillUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,32 +18,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.validation.Valid;
 
 @Controller
-public class RootController extends AbstractController{
+public class RootController extends AbstractController {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ClientService clientService;
-
-    @Autowired
-    private FreelancerService freelancerService;
-
-    //    @Autowired
-//    private UserService service;
-//
-//    @GetMapping("/")
-//    public String root() {
-//        return "redirect:orders";
-//    }
-//
-//    //    @Secured("ROLE_ADMIN")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @GetMapping("/users")
-//    public String users() {
-//        return "users";
-//    }
-//
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap model,
                         @RequestParam(value = "error", required = false) boolean error,
@@ -56,35 +29,14 @@ public class RootController extends AbstractController{
         return "login";
     }
 
-    //
-//    @GetMapping("/products")
-//    public String products() {
-//        return "products";
-//    }
-//
     @GetMapping("/projects")
-    public String orders(
-//            ModelMap model
-    ) {
-//        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-//        model.put("userId", user.getId());
-//        if (user.getRoles().contains(Role.ROLE_ADMIN))
-//            model.put("userRole", "admin");
-//        else if (user.getRoles().contains(Role.ROLE_CLIENT))
-//            model.put("userRole", "client");
-//        else if (user.getRoles().contains(Role.ROLE_FREELANCER))
-//            model.put("userRole", "freelancer");
+    public String orders() {
         return "projects";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/clients")
-    public String clients(
-//            ModelMap model
-    ) {
-//        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-//        model.put("userId", user.getId());
-//        model.put("userRole", "admin");
+    public String clients() {
         return "clients";
     }
 
@@ -105,36 +57,29 @@ public class RootController extends AbstractController{
     public String skills() {
         return "skills";
     }
-//
-//    @GetMapping("/customers")
-//    public String customers() {
-//        return "customers";
-//    }
-//
-//    @GetMapping("/profile")
-//    public String profile() {
-//        return "profile";
-//    }
-//
-//    @PostMapping("/profile")
-//    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
-//        if (result.hasErrors()) {
-//            return "profile";
-//        } else {
-//            userTo.setId(AuthorizedUser.id());
-//            service.update(userTo);
-//            AuthorizedUser.get().update(userTo);
-//            status.setComplete();
-//            return "redirect:products";
-//        }
-//    }
-//
+
     @GetMapping("/profile")
     public String profile(ModelMap model) {
         model.addAttribute("register", false);
         model.addAttribute("profileUserTo", super.getAuthorizedUserTo());
         return "profile";
-}
+    }
+
+    @PostMapping("/profile-freelancer")
+    public String updateFreelancerProfile(@Valid FreelancerUserTo freelancerUserTo, ModelMap model) {
+        super.updateFreelancerProfile(freelancerUserTo);
+        model.addAttribute("register", false);
+        model.addAttribute("profileUserTo", super.getAuthorizedUserTo());
+        return "profile";
+    }
+
+    @PostMapping("/profile-user")
+    public String updateClientAdminProfile(@Valid BaseUserTo baseUserTo, ModelMap model) {
+        super.updateBaseUserProfile(baseUserTo);
+        model.addAttribute("register", false);
+        model.addAttribute("profileUserTo", super.getAuthorizedUserTo());
+        return "profile";
+    }
 
     @GetMapping("/register-client")
     public String registerClient(ModelMap model) {
@@ -149,7 +94,7 @@ public class RootController extends AbstractController{
         model.addAttribute("register", true);
         return "profile";
     }
-//
+
     @PostMapping("/register-client")
     public String saveRegisteredClient(@Valid ClientUserTo clientUserTo, BindingResult result, SessionStatus status, ModelMap model) {
         if (result.hasErrors()) {

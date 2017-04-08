@@ -34,7 +34,9 @@ public class BaseUserUtil {
         baseUser.setFirstName(baseUserTo.getFirstName());
         baseUser.setLastName(baseUserTo.getLastName());
         baseUser.setLogin(baseUserTo.getLogin());
-        baseUser.setPassword(baseUserTo.getPassword());
+        if (PasswordUtil.isEncoded(baseUserTo.getPassword())){
+            baseUser.setPassword(PasswordUtil.encode(baseUserTo.getPassword()));
+        }
         baseUser.setEmail(baseUserTo.getEmail());
     }
 }

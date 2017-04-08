@@ -76,8 +76,6 @@
     var ajaxUrl = 'ajax/profile/skills/';
 </script>
 
-<%--<script type="text/javascript" src="resources/js/datatablesUtil.js"></script>--%>
-
 <script type="text/javascript" src="resources/js/skillDatatables.js"></script>
 
 </html>
