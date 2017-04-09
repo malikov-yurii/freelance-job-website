@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="jumbotron">
+<div class="login-page">
 
     <div class="login-logo">
         <fmt:message key="app.title"/>
@@ -21,14 +21,15 @@
             <input type="password" placeholder="Password" class="form-control" name='password'>
             <button type="submit" class="btn btn-success"><fmt:message key="app.login"/></button>
         </form:form>
-        <a class="login-register btn-primary" role="button" href="register-client">Register as client</a>
-        <a class="login-register btn-primary" role="button" href="register-freelancer">Register as freelancer</a>
+        <div class="login-register-text">Don't have an account?</div>
+        <a class="login-register btn btn-primary" role="button" href="register-client">Register as client</a>
+        <a class="login-register btn btn-primary" role="button" href="register-freelancer">Register as freelancer</a>
 
     </div>
 
     <hr>
 
-    <div class="container">
+    <div class="login-footer">
         <c:if test="${error}">
             <div class="error">
                     ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
@@ -62,17 +63,15 @@
             <a href="http://ned.im/noty/">jQuery notification</a>,
             <a href="http://getbootstrap.com/">Bootstrap</a>.
         </p>
-    </div>
-</div>
-<div class="container">
-    <div class="lead">
-        &nbsp;&nbsp;&nbsp;<a href="https://github.com/malikov-yurii/online-shop-management-system">Java Enterprise
-        project</a> with
-        registration/authorization and interface based on roles (USER, ADMIN).
-        Administrator has full rights to create and change all entities (order, product, user, etc.).
-        User has only read access.
-        Interaction with system is implemented with UI (AJAX) and through REST interface with basic authorization.
-        JUnit test implemented by Spring MVC Test and Spring Security Test.
+        <div>
+            &nbsp;&nbsp;&nbsp;<a href="https://github.com/malikov-yurii/online-shop-management-system">Java Enterprise
+            project</a> with
+            registration/authorization and interface based on roles (USER, ADMIN).
+            Administrator has full rights to create and change all entities (order, product, user, etc.).
+            User has only read access.
+            Interaction with system is implemented with UI (AJAX) and through REST interface with basic authorization.
+            JUnit test implemented by Spring MVC Test and Spring Security Test.
+        </div>
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>

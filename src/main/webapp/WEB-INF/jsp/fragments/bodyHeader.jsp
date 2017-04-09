@@ -5,9 +5,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<div class="navbar navbar-inverse"  role="navigation">
+<div class="nav-block"  role="navigation">
     <div class="container">
-        <i class="menu-toggle fa fa-bars" aria-hidden="true"></i>
         <a href="#" class="navbar-brand"><fmt:message key="app.title"/></a>
         <form:form class="navbar-form navbar-right" action="logout" method="post">
             <sec:authorize access="isAuthenticated()">

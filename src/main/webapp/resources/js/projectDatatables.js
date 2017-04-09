@@ -38,13 +38,15 @@ $(function () {
                 "render": role === 'admin' ? renderDeleteProjectBtn : ""
             }
         ],
+        "createdRow": onCreatedParentRow,
         "initComplete": onProjectTableReady,
         "order": [
             [
                 0,
                 "desc"
             ]
-        ]
+        ],
+        "autoWidth": false
         // "initComplete": onOrderTableReady,
     });
 
@@ -99,7 +101,7 @@ $(function () {
 });
 
 function renderAddCommentField(projectId) {
-    return '<form id="commentForm' + projectId + '">' +
+    return '<form class="comments-form" id="commentForm' + projectId + '">' +
         '<p><b>Add comment:</b></p>' +
         '<p><textarea id="newCommentTextArea' + projectId + '" rows="2" cols="60" name="text"></textarea></p>' +
         '<button class="btn btn-primary" type="button" onclick="saveNewComment(' + projectId + ')">submit comment</button>' +
@@ -120,7 +122,7 @@ function saveNewComment(projectId) {
 
 function renderUpdateCommentBtn(commentId, commentText) {
     if (role === 'admin') {
-        return '<a class="btn btn-xs btn-primary" onclick="showUpdateCommentModal(' + commentId + ', \'' + commentText + '\')">update</a>';
+        return '<a class="btn btn-xs btn-primary" title="Update comment" onclick="showUpdateCommentModal(' + commentId + ', \'' + commentText + '\')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
     }
     return "";
 }
@@ -150,7 +152,7 @@ function updateComment() {
 
 function renderDeleteCommentBtn(commentId) {
     if (role === 'admin')
-        return '<a class="btn btn-xs btn-danger" onclick="deleteComment(' + commentId + ')">delete</a>';
+        return '<a class="btn btn-xs btn-danger" onclick="deleteComment(' + commentId + ')" title="Delete comment"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
 }
 
 function deleteComment(id) {
@@ -168,8 +170,8 @@ function deleteComment(id) {
 function renderBlockUnblockCommentBtn(commentId, blocked) {
     if (role === 'admin') {
         return blocked === false ?
-        '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');">block comment</a>' :
-        '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');">unblock comment</a>';
+        '<a class="btn btn-xs btn-danger" onclick="blockComment(' + commentId + ');" title="Block comment"><i class="fa fa-ban" aria-hidden="true"></i></a>' :
+        '<a class="btn btn-xs btn-success" onclick="unblockComment(' + commentId + ');" title="Unblock comment"><i class="fa unlock-alt" aria-hidden="true"></i></a>';
     }
 }
 
@@ -373,4 +375,8 @@ function showUpdateProjectModal(projectId, projectClientId, projectName, project
     // $('#projectStatus').val(projectStatus);
     $('#projectRequiredSkills').val(projectRequiredSkills);
     $('#editRow').modal();
+}
+function onCreatedParentRow(row, data, rowIndex) {
+    $row = $(row);
+    $row.addClass('parent-row');
 }

@@ -171,25 +171,15 @@
     <table class="applied-freelancer-table" data-project-id="{{= projectId }}">
         <thead>
         <tr>
-            <%--<th>--%>
-            <%--{{= renderAddOrderItemBtn(orderId) }}--%>
-            <%--{{= renderPersistOrUpdateCustomerBtn(row) }}--%>
-            <%--{{= renderDeleteBtn(row) }}--%>
-            <%--</th>--%>
             <th><span class="order-head-lg">Freelancer full name</span></th>
-            <th><span class="order-head-lg">Skills</span><i class="order-head-sm fa fa-usd" aria-hidden="true"></i></th>
-            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i>
+            <th><span class="order-head-lg">Skills</span></th>
+            <th>
             </th>
         </tr>
         </thead>
         <tbody>
         {{for (var i = 0; i < appliedFreelancerTos.length; i++) { }}
-        <tr
-        <%--class="order-product-row {{= appliedFreelancerTos[i].supplier }}"--%>
-                class="order-product-row "
-                data-applied-freelancer-id="{{= appliedFreelancerTos[i].id }}"
-        <%--data-order-product-id="{{= orderItems[i].orderItemId }}"--%>
-        >
+        <tr class="order-product-row" data-applied-freelancer-id="{{= appliedFreelancerTos[i].id }}">
             <td class="applied-freelancer-full-name" data-key="full-name">
                 {{= appliedFreelancerTos[i].fullName }}
             </td>
@@ -209,36 +199,19 @@
     <table class="comment-table">
         <thead>
         <tr>
-            <%--<th>--%>
-            <%--{{= renderAddOrderItemBtn(orderId) }}--%>
-            <%--{{= renderPersistOrUpdateCustomerBtn(row) }}--%>
-            <%--{{= renderDeleteBtn(row) }}--%>
-            <%--</th>--%>
-            <th><span class="order-head-lg">Comments</span></th>
-            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
-            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
-            <th><span class="order-head-lg"></span><i class="order-head-sm fa fa-trash-o" aria-hidden="true"></i></th>
+            <th colspan="4"><span class="order-head-lg">Comments</span></th>
         </tr>
         </thead>
         <tbody>
         {{for (var i = 0; i < commentTos.length; i++) { }}
-        <tr
-                data-comment-id="{{= commentTos[i].id }}"
-        <%--data-order-product-id="{{= orderItems[i].orderItemId }}"--%>
-        >
-            <td class="comment-text" data-key="comment-text">
-                {{= commentTos[i].dateTimePlaced + ' ' + commentTos[i].userFullName + ': ' + commentTos[i].commentText }}
-            </td>
-            <td>
-                {{= renderBlockUnblockCommentBtn(commentTos[i].id, commentTos[i].blocked) }}
-            </td>
-             <td>
-                {{= renderUpdateCommentBtn(commentTos[i].id, commentTos[i].commentText) }}
-            </td>
-             <td>
-                {{= renderDeleteCommentBtn(commentTos[i].id) }}
-            </td>
-        </tr>
+            <tr data-comment-id="{{= commentTos[i].id }}">
+                <td class="comment-text" data-key="comment-text">
+                    {{= commentTos[i].dateTimePlaced + ' ' + commentTos[i].userFullName + ': ' + commentTos[i].commentText }}
+                </td>
+                <td>{{= renderBlockUnblockCommentBtn(commentTos[i].id, commentTos[i].blocked) }}</td>
+                <td>{{= renderUpdateCommentBtn(commentTos[i].id, commentTos[i].commentText) }}</td>
+                <td>{{= renderDeleteCommentBtn(commentTos[i].id) }}</td>
+            </tr>
         {{ } }}
         </tbody>
     </table>
