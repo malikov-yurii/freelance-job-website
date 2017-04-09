@@ -223,8 +223,6 @@
         <tbody>
         {{for (var i = 0; i < commentTos.length; i++) { }}
         <tr
-        <%--class="order-product-row {{= appliedFreelancerTos[i].supplier }}"--%>
-        <%--class="order-product-row "--%>
                 data-comment-id="{{= commentTos[i].id }}"
         <%--data-order-product-id="{{= orderItems[i].orderItemId }}"--%>
         >
