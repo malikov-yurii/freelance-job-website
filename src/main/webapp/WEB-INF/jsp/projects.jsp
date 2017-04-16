@@ -13,10 +13,6 @@
 </head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
-<script>
-    var userId = ${baseUserTo.id};
-    var role = '${baseUserTo.role}';
-</script>
 
 <div class="jumbotron">
     <div class="container">
@@ -24,7 +20,7 @@
         <sec:authorize access="hasAnyRole('ROLE_CLIENT', 'ROLE_ADMIN')">
             <div class="row">
                 <div class="col-md-3 col-xs-6">
-                    <a class="btn btn-sm btn-success" onclick="addProject('')">add project</a>
+                    <a class="btn btn-success" onclick="addProject('')">add project</a>
                 </div>
             </div>
         </sec:authorize>
@@ -199,7 +195,10 @@
     <table class="comment-table">
         <thead>
         <tr>
-            <th colspan="4"><span class="order-head-lg">Comments</span></th>
+            <th>Comments</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>

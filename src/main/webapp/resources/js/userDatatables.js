@@ -1,5 +1,17 @@
 var datatableApi;
 
+function showPortfolio(freelancerId) {
+    //todo just get??
+    $.ajax({
+        url: 'freelancer-portfolio/' + freelancerId,
+        type: "GET",
+    });
+}
+
+function renderPortfolioBtn(data, type, row) {
+    return '<a class="btn btn-xs btn-primary" onclick="showPortfolio(' + row.id + ')">portfolio<a/>';
+}
+
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "ajax": {
@@ -7,8 +19,8 @@ $(function () {
             "dataSrc": ""
         },
         "searching": false,
-        // "pagingType": "full_numbers",
-        "paging": false,
+        "pagingType": "full_numbers",
+        "paging": true,
         "info": true,
         "columns": [
             {"data": "id", "orderable": false, "visible": true, "className": ""},
@@ -17,21 +29,32 @@ $(function () {
             {"data": "login", "orderable": false, "className": ""},
             // {"data": "password", "orderable": false, "className": ""},
             {"data": "email", "orderable": false, "className": ""},
-            {"data": "skills", "visible": entityName === 'freelancer',"orderable": false, "className": "", "defaultContent": "<i>Not set</i>"},
             {
-                "defaultContent": "",
+                "data": "skills",
+                "visible": entityName === 'freelancer',
                 "orderable": false,
-                "render": renderBlockUnblockBtn
+                "className": "",
+                "defaultContent": "<i>Not set</i>"
             },
             {
                 "defaultContent": "",
                 "orderable": false,
-                "render": renderUpdateUserBtn
+                "render": renderPortfolioBtn
             },
             {
                 "defaultContent": "",
                 "orderable": false,
-                "render": renderDeleteBtn
+                "render": role === 'admin' ? renderBlockUnblockBtn : ""
+            },
+            {
+                "defaultContent": "",
+                "orderable": false,
+                "render": role === 'admin' ? renderUpdateUserBtn : ""
+            },
+            {
+                "defaultContent": "",
+                "orderable": false,
+                "render": role === 'admin' ? renderDeleteBtn : ""
             }
         ],
         "initComplete": onProjectTableReady,
@@ -40,8 +63,8 @@ $(function () {
                 0,
                 "desc"
             ]
-        ]
-        // "initComplete": onOrderTableReady,
+        ],
+        "autoWidth": false
     });
 });
 

@@ -9,16 +9,15 @@ $(function () {
             "dataSrc": ""
         },
         "searching": false,
-        // "pagingType": "full_numbers",
-        "paging": false,
+        "pagingType": "full_numbers",
+        "paging": true,
         "info": true,
         "columns": [
-            {"data": "id", "orderable": false, "visible": true, "className": ""},
-            {"data": "firstName", "orderable": false, "visible": true, "className": ""},
-            {"data": "lastName", "orderable": false, "visible": true, "className": ""},
-            {"data": "login", "orderable": false, "className": ""},
-            // {"data": "password", "orderable": false, "className": ""},
-            {"data": "email", "orderable": false, "className": ""},
+            {"data": "id", "orderable": false, "visible": true},
+            {"data": "firstName", "orderable": false, "visible": true},
+            {"data": "lastName", "orderable": false, "visible": true},
+            {"data": "login", "orderable": false},
+            {"data": "email", "orderable": false},
             {
                 "defaultContent": "",
                 "orderable": false,
@@ -41,8 +40,8 @@ $(function () {
                 0,
                 "desc"
             ]
-        ]
-        // "initComplete": onOrderTableReady,
+        ],
+        "autoWidth": false
     });
 });
 

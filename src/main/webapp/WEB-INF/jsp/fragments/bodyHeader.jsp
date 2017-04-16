@@ -27,3 +27,7 @@
     </div>
 </div>
 
+<script>
+    var userId = ${baseUserTo.id};
+    var role = '${baseUserTo.role}';
+</script>
