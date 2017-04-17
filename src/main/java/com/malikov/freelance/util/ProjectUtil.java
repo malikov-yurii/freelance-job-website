@@ -1,6 +1,7 @@
 package com.malikov.freelance.util;
 
 import com.malikov.freelance.model.*;
+import com.malikov.freelance.to.ProjectSmallTo;
 import com.malikov.freelance.to.ProjectTo;
 
 import java.math.BigDecimal;
@@ -11,6 +12,13 @@ import java.util.stream.Collectors;
 
 
 public class ProjectUtil {
+
+    public static ProjectSmallTo asSmallTo(Project project){
+        return new ProjectSmallTo(project.getName()
+                , project.getDescription()
+                , project.getClient().getLastName()
+                , SkillUtil.skillCollectionToString(project.getRequiredSkills()));
+    }
 
     public static ProjectTo asTo(Project project, ApplicationStatus applicationStatus, User authorizedUser) {
         return new ProjectTo(project.getId(), project.getClient().getId(), project.getName(),

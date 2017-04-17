@@ -1,7 +1,3 @@
-// $(function() {
-//     $('.show-update-user-modal').on('click', showUpdateUserModal);
-// });
-
 function renderUpdateUserBtn(data, type, row) {
     // debugger;
     var result = '<a class="btn btn-xs btn-primary" onclick="showUpdateUserModal(' +
@@ -18,40 +14,7 @@ function renderUpdateUserBtn(data, type, row) {
 
     console.log(result);
     return result;
-
-    // return '<a class="btn btn-xs btn-primary show-update-user-modal">update</a>';
 }
-
-/*
-
-
- function showUpdateUserModal(e) {
- debugger;
- console.log(e);
- var tr = $(e.target).closest('tr.child-row')[0];
- var row = datatableApi.row(tr).data();
-
- // console.log(  );
- //
- // console.log( datatableApi.row(tr).data().id );
- //
- // console.log( datatableApi.row(tr).data().firstName );
-
- $('#modalTitle').html('Update ' + entityName);
- $('#id').val(row.id);
- $('#firstName').val(row.firstName);
- $('#lastName').val(row.lastName);
- $('#login').val(row.login);
- $('#password').val('');
- $('#email').val(row.email);
-
- if(entityName === 'freelancer')
- $('#skills').val(row.skills);
-
- $('#editRow').modal();
-
- }
- */
 
 function showUpdateUserModal(id, firstName, lastName, login, email, skills) {
     $('#modalTitle').html('Update ' + entityName);
@@ -61,7 +24,7 @@ function showUpdateUserModal(id, firstName, lastName, login, email, skills) {
     $('#login').val(login);
     $('#password').val('');
     $('#email').val(email);
-    if(entityName === 'freelancer')
+    if (entityName === 'freelancer')
         $('#skills').val(skills);
     $('#editRow').modal();
 
@@ -92,8 +55,6 @@ function renderBlockUnblockBtn(data, type, row) {
     '<a class="btn btn-xs btn-danger" onclick="block(' + row.id + ');">block</a>' :
     '<a class="btn btn-xs btn-success" onclick="unblock(' + row.id + ');">unblock</a>';
 }
-
-
 
 function renderDeleteBtn(data, type, row) {
     return '<a class="btn btn-xs btn-danger" onclick="deleteEntity(' + row.id + ');">delete</a>';
@@ -133,7 +94,7 @@ function unblock(id) {
     })
 }
 
-function save(){
+function save() {
     $.ajax({
         type: "POST",
         url: ajaxUrl,
@@ -164,8 +125,6 @@ function closeNoty() {
         failedNote = undefined;
     }
 }
-
-
 
 function onProjectTableReady() {
     var token = $("meta[name='_csrf']").attr("content");

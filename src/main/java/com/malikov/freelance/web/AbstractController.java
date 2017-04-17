@@ -16,6 +16,7 @@ import com.malikov.freelance.util.ClientUtil;
 import com.malikov.freelance.util.FreelancerUtil;
 import com.malikov.freelance.util.SkillUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -76,5 +77,11 @@ public abstract class AbstractController {
             BaseUserUtil.updateFromTo(user, baseUserTo);
             userService.save(user);
         }
+    }
+
+    public void addFreelancerToModel(int freelancerId, ModelMap model) {
+        Freelancer freelancer = freelancerService.get(freelancerId);
+        model.addAttribute("freelancer", FreelancerUtil.asSmallTo(freelancer));
+
     }
 }

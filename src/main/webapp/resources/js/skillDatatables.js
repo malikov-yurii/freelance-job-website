@@ -7,8 +7,8 @@ $(function () {
             "dataSrc": ""
         },
         "searching": false,
-        // "pagingType": "full_numbers",
-        "paging": false,
+        "pagingType": "full_numbers",
+        "paging": true,
         "info": true,
         "columns": [
             {"data": "id", "orderable": false, "visible": true, "className": ""},
@@ -30,11 +30,9 @@ $(function () {
                 0,
                 "desc"
             ]
-        ]
-        // "initComplete": onOrderTableReady,
+        ],
+        "autoWidth": false
     });
-
-
 });
 
 function showAddSkillModal() {
@@ -56,5 +54,5 @@ function showUpdateSkillModal(id, name) {
     $('#id').val(id);
     $('#name').val(name);
     $('#editRow').modal();
-    }
+}
 

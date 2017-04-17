@@ -1,6 +1,7 @@
 package com.malikov.freelance.web.project;
 
 import com.malikov.freelance.model.ProjectStatus;
+import com.malikov.freelance.to.ProjectSmallTo;
 import com.malikov.freelance.to.ProjectStatusTo;
 import com.malikov.freelance.to.ProjectTo;
 import com.malikov.freelance.util.ProjectStatusUtil;
@@ -40,6 +41,10 @@ public class ProjectAjaxController extends AbstractProjectController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ProjectTo> getAll() {
         return super.getAll();
+    }
+    @GetMapping(value = "/portfolio/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ProjectSmallTo> getPortfolio(@PathVariable("id") int freelancerId) {
+        return super.getPortfolio(freelancerId);
     }
 
     //

@@ -2,6 +2,7 @@ package com.malikov.freelance.web.project;
 
 import com.malikov.freelance.model.*;
 import com.malikov.freelance.service.*;
+import com.malikov.freelance.to.ProjectSmallTo;
 import com.malikov.freelance.to.ProjectTo;
 import com.malikov.freelance.util.ProjectUtil;
 import com.malikov.freelance.util.SkillUtil;
@@ -164,5 +165,9 @@ public abstract class AbstractProjectController extends AbstractController {
             return new ResponseEntity<String>(HttpStatus.OK);
         }
         return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
+    }
+
+    public List<ProjectSmallTo> getPortfolio(int freelancerId) {
+        return projectService.getPortfolio(freelancerId).stream().map(ProjectUtil::asSmallTo).collect(Collectors.toList());
     }
 }

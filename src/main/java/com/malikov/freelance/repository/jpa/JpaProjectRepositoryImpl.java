@@ -44,4 +44,11 @@ public class JpaProjectRepositoryImpl implements ProjectRepository {
         return em.createNamedQuery(Project.ALL_SORTED, Project.class)
                 .getResultList();
     }
+
+    @Override
+    public List<Project> getPortfolio(int freelancerId) {
+        return em.createNamedQuery(Project.GET_PORTFOLIO, Project.class)
+                .setParameter("freelancerId" ,freelancerId)
+                .getResultList();
+    }
 }

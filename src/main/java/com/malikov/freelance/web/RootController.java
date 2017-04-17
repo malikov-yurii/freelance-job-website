@@ -29,6 +29,13 @@ public class RootController extends AbstractController {
         return "login";
     }
 
+    @GetMapping("/freelancer-portfolio/{id}")
+    public String freelancerPortfolio(@PathVariable("id") int freelancerId, ModelMap model) {
+        super.addFreelancerToModel(freelancerId, model);
+        return "freelancer-portfolio";
+    }
+
+
     @GetMapping("/projects")
     public String orders() {
         return "projects";

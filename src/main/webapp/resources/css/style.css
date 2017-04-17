@@ -6,6 +6,10 @@
     font-style: normal;
 }
 
+body {
+    font-family: Arial, sans-serif;
+}
+
 .project-table {
     width: 100%;
     table-layout: fixed;
@@ -133,9 +137,8 @@
     margin: 0;
 }
 
-.page {
+.jumbotron {
     padding: 30px 0;
-    background: #fefefe;
 }
 
 table.dataTable thead>tr>th[class*="sorting"] {
@@ -167,19 +170,22 @@ table.datatable {
 }
 
 td.child-row {
-    padding-bottom: 50px;
+    padding: 0 0 50px;
 }
 
-.child-row form {
-    margin: 0;
+.child-content {
+    padding: 15px;
+    position: relative;
+    z-index: 20;
+    box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.21);
 }
 
-.project-table .parent-row:nth-child(4n-7) {
-    background: rgba(91, 192, 222, 0.38);
+.project-table .parent-row.odd, .project-table .parent-row.odd + .child-row .child-content {
+    background: rgb(200, 227, 235);
 }
 
-.project-table .parent-row:nth-child(4n-5) {
-    background: rgba(91, 162, 222, 0.28);
+.project-table .parent-row.even, .project-table .parent-row.even + .child-row .child-content {
+    background: rgb(226, 232, 237);
 }
 
 .project-table .project-id {
@@ -201,15 +207,96 @@ td.child-row {
 }
 
 .project-table .project-payment {
-    width: 64px;
+    width: 60px;
     text-align: center;
 }
 
 .project-table .project-client-last-name {
-    width: 210px;
+    width: 97px;
     text-align: center;
 }
 
 .project-table .project-status {
     width: 100px;
+}
+.project-table .project-required-skills {
+    width: 200px;
+}
+.parent-row {
+    position: relative;
+    z-index: 10;
+    box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.34);
+}
+.comment-table {
+    table-layout: fixed;
+    width: 100%;
+    margin: 0 0 20px;
+}
+
+.comment-table
+th:first-child {
+    width: calc(100% - 60px);
+    font-weight: bold;
+}
+
+.comment-table
+th:nth-child(2), .comment-table
+th:nth-child(3), .comment-table
+th:nth-child(4) {
+    width: 30px;
+}
+
+.applied-freelancer-table td, .comment-table td {
+    padding: 8px 7px;
+    border-bottom: 1px solid #ccc;
+}
+
+.applied-freelancer-table tbody tr:hover, .comment-table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+.btn-project {
+    margin: 5px 0;
+    padding: 4px 4px;
+    font-size: 15px;
+}
+.project-table .parent-row td:nth-last-child(1),
+.project-table .parent-row td:nth-last-child(2),
+.project-table .parent-row td:nth-last-child(3) {
+    text-align: center;
+}
+
+.comment-table .btn {
+    font-size: 19px;
+}
+
+.btn-unblock-comment {
+    color: #13a713;
+}
+.btn-unblock-comment:hover {
+    color: #109b10;
+}
+.btn-block-comment {
+    color: #c60404;
+}
+.btn-block-comment:hover {
+    color: #aa0505;
+}
+.btn-delete-comment {
+    color: #c60404;
+}
+.btn-delete-comment:hover {
+    color: #aa0505;
+}
+.order-table-head th:nth-last-child(1), .order-table-head th:nth-last-child(2), .order-table-head th:nth-last-child(3) {
+     border-right: 0;
+     border-left: 0;
+ }
+
+.applied-freelancer-table {
+    width: 100%;
+    margin: 10px 0 30px;
+}
+
+.applied-freelancer-table th {
+    font-weight: bold;
 }
