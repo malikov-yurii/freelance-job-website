@@ -167,7 +167,7 @@ public abstract class AbstractProjectController extends AbstractController {
         return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
     }
 
-    public List<ProjectSmallTo> getPortfolio(int freelancerId) {
-        return projectService.getPortfolio(freelancerId).stream().map(ProjectUtil::asSmallTo).collect(Collectors.toList());
-    }
+//    public List<ProjectSmallTo> getPortfolio(int freelancerId) {
+//        return projectService.getPortfolio(freelancerId).stream().map(ProjectUtil::asSmallTo).collect(Collectors.toList());
+//    }
 }

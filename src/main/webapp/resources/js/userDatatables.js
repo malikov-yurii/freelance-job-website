@@ -1,15 +1,15 @@
 var datatableApi;
 
-function showPortfolio(freelancerId) {
-    //todo just get??
-    $.ajax({
-        url: 'freelancer-portfolio/' + freelancerId,
-        type: "GET",
-    });
-}
+// function showPortfolio(freelancerId) {
+//     todo just get??
+    // $.ajax({
+    //     url: 'freelancer-portfolio/' + freelancerId,
+    //     type: "GET",
+    // });
+// }
 
 function renderPortfolioBtn(data, type, row) {
-    return '<a class="btn btn-xs btn-primary" onclick="showPortfolio(' + row.id + ')">portfolio<a/>';
+    return '<a class="btn btn-xs btn-primary" href="freelancer-portfolio/' + row.id + '">portfolio<a/>';
 }
 
 $(function () {

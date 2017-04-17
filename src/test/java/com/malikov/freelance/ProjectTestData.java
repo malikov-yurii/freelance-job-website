@@ -37,9 +37,9 @@ public class ProjectTestData {
             "Need single page website to sell my hilarious video tapes", new BigDecimal(125).setScale(2), CLIENT_3_ISAAK, null, Arrays.asList(FREELANCER_1_YURII, FREELANCER_2_DENIS),
             new HashSet<>(Arrays.asList(HTML, CSS)), new ArrayList<>(Arrays.asList(PROJECT7_DENIS_COMMENT_5, PROJECT7_YURII_COMMENT_6)));
     public static final Project PROJECT_8_SIMPLE_WEBSITE = new Project(8, "Simple website for photos", ProjectStatus.FINISHED,
-            "Construct simple website where i would be able to show photos of my projects to peope.", new BigDecimal(135).setScale(2), CLIENT_3_ISAAK, FREELANCER_1_YURII, Collections.emptyList(), Collections.emptySet(), Collections.emptyList());
+            "Construct simple website where i would be able to show photos of my projects to peope.", new BigDecimal(135).setScale(2), CLIENT_3_ISAAK, FREELANCER_1_YURII, Collections.emptyList(), new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT)), Collections.emptyList());
     public static final Project PROJECT_9_SLIDER = new Project(9, "Photo-slider", ProjectStatus.FINISHED,
-            "Photo-slider module for simple website", new BigDecimal(55).setScale(2), CLIENT_3_ISAAK, FREELANCER_1_YURII, Collections.emptyList(), Collections.emptySet(), Collections.emptyList());
+            "Photo-slider module for simple website", new BigDecimal(55).setScale(2), CLIENT_3_ISAAK, FREELANCER_1_YURII, Collections.emptyList(), new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT)), Collections.emptyList());
 
     public static final ModelMatcher<Project> PROJECT_MATCHER = ModelMatcher.of(Project.class,
             (expected, actual) -> expected == actual ||

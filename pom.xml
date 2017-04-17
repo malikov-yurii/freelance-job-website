@@ -140,6 +140,13 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.2</version>
+        </dependency>
+
         <!-- Logging with SLF4J & LogBack -->
         <dependency>
             <groupId>org.slf4j</groupId>

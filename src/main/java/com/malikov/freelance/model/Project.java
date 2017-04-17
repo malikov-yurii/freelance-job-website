@@ -19,7 +19,8 @@ import java.util.Set;
 //        @NamedQuery(name = Project.BY_CLIENT, query = "SELECT p FROM Project p WHERE p.client.id=:clientId"),
 //        @NamedQuery(name = Project.BY_FREELANCER, query = "SELECT p FROM Project p WHERE p.freelancer.id=:freelancerId"),
         @NamedQuery(name = Project.ALL_SORTED, query = "SELECT p FROM Project p ORDER BY p.id DESC"),
-        @NamedQuery(name = Project.GET_PORTFOLIO, query = "SELECT p FROM Project p JOIN Freelancer f WHERE p.freelancer.id = f.id AND p.status = 'FINISHIED' ORDER BY p.id DESC"),
+//        @NamedQuery(name = Project.GET_PORTFOLIO, query = "SELECT p FROM Project p JOIN Freelancer f WHERE p.freelancer.id = f.id AND p.freelancer.id = :freelancerId AND p.status = 'FINISHIED' ORDER BY p.id DESC"),
+        @NamedQuery(name = Project.GET_PORTFOLIO, query = "SELECT p FROM Project p WHERE p.freelancer.id = :freelancerId AND p.status = 'FINISHED' ORDER BY p.id DESC"),
 })
 @Entity
 @Table(name = "projects")

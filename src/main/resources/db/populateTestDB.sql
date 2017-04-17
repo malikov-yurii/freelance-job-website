@@ -1,5 +1,5 @@
 TRUNCATE TABLE project_applied_freelancers,
-project_required_skills, projects, freelancer_skills, skills, user_roles, users, comments  CASCADE;
+project_required_skills, projects, freelancer_skills, skills, user_roles, users, comments CASCADE;
 
 ALTER SEQUENCE comments_id_seq RESTART WITH 1;
 ALTER SEQUENCE projects_id_seq RESTART WITH 1;
@@ -19,7 +19,8 @@ INSERT INTO users (login, password, first_name, last_name, email) VALUES
    'vahtangov.vahtang@gmail.com'), -- password = '1111'
   ('admin2', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Goga', 'Gogov', 'gogov.goga@gmail.com'),
   ('client1', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Sima', 'Simov', 'simov.sima@gmail.com'),
-  ('client2', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Roza', 'Rozova', 'rozova.roza@gmail.com'),
+  ('client2', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Roza', 'Rozova',
+   'rozova.roza@gmail.com'),
   ('client3', '$2a$11$bRQR2FxnBrKnr/PS0eaDUeEQzO2ZtYJllGPIkdekZ0q6rJVJrCmXm', 'Isaak', 'Isaakov',
    'isaakov.isaak@gmail.com');
 
@@ -77,16 +78,22 @@ INSERT INTO freelancer_skills (freelancer_id, skill_id) VALUES
   (4, 5);
 
 INSERT INTO projects (name, status, description, payment, client_id, freelancer_id, client_last_name) VALUES
-  ('Online shop of adult toys', 'LOOKING_FOR_FREELANCER', 'I need online shop to be developed very fast (maybe in 1-2 days not more than that)', 25, 7, NULL, 'Simov'),
-  ('New search system', 'LOOKING_FOR_FREELANCER', 'I have idea. You should hack Google or Yandex. And to user its source code for our new search system. We will spit benefits 50/50', 3000, 8, NULL, 'Rozova'),
+  ('Online shop of adult toys', 'LOOKING_FOR_FREELANCER',
+   'I need online shop to be developed very fast (maybe in 1-2 days not more than that)', 25, 7, NULL, 'Simov'),
+  ('New search system', 'LOOKING_FOR_FREELANCER',
+   'I have idea. You should hack Google or Yandex. And to user its source code for our new search system. We will spit benefits 50/50',
+   3000, 8, NULL, 'Rozova'),
   ('Shopping card', 'IN_PROGRESS', 'Add shopping card to my online shop', 50, 9, 2, 'Isaakov'),
-  ('Filter for products', 'IN_PROGRESS', 'Add convenient feature for my CRM to filter products in table', 250, 9, 1, 'Isaakov'),
-  ('CRM', 'FINISHED', 'Built CRM for to manage my business (store information about products and customers)', 3555, 9, 1, 'Isaakov'),
+  ('Filter for products', 'IN_PROGRESS', 'Add convenient feature for my CRM to filter products in table', 250, 9, 1,
+   'Isaakov'),
+  ('CRM', 'FINISHED', 'Built CRM for to manage my business (store information about products and customers)', 3555, 9,
+   1, 'Isaakov'),
   ('Visit card website', 'LOOKING_FOR_FREELANCER', 'Need personal website for my dog Buddy', 75, 9, NULL, 'Isaakov'),
-  ('One page website', 'LOOKING_FOR_FREELANCER', 'Need single page website to sell my hilarious video tapes', 125, 9, NULL, 'Isaakov'),
-  ('Simple website for photos', 'FINISHED', 'Construct simple website where i would be able to show photos of my projects to peope.', 135, 9, 1, 'Isaakov'),
-  ('Photo-slider', 'FINISHED', 'Photo-slider module for simple website',55, 9, 1, 'Isaakov')
-;
+  ('One page website', 'LOOKING_FOR_FREELANCER', 'Need single page website to sell my hilarious video tapes', 125, 9,
+   NULL, 'Isaakov'),
+  ('Simple website for photos', 'FINISHED',
+   'Construct simple website where i would be able to show photos of my projects to peope.', 135, 9, 1, 'Isaakov'),
+  ('Photo-slider', 'FINISHED', 'Photo-slider module for simple website', 55, 9, 1, 'Isaakov');
 
 INSERT INTO project_required_skills (project_id, skill_id) VALUES
   (1, 1),
@@ -107,7 +114,13 @@ INSERT INTO project_required_skills (project_id, skill_id) VALUES
   (6, 1),
   (6, 2),
   (7, 1),
-  (7, 2);
+  (7, 2),
+  (8, 1),
+  (8, 2),
+  (8, 3),
+  (9, 1),
+  (9, 2),
+  (9, 3);
 
 INSERT INTO project_applied_freelancers (project_id, freelancer_id) VALUES
   (6, 1),
@@ -122,6 +135,5 @@ INSERT INTO comments (project_id, user_full_name, date_placed, comment_text) VAL
   (6, 'Yurii Malikov', '2016-09-15 09:22:55', 'I can complete the task using CMS Joomla'),
   (6, 'Denis Malikov', '2016-09-16 10:07:07', 'I can complete the task using CMS Drupal'),
   (7, 'Denis Malikov', '2016-09-21 14:44:44', 'I can complete the task using HTML, CSS'),
-  (7, 'Yurii Malikov', '2016-09-22 16:55:55', 'I can complete the task using CMS Wordpress')
-;
+  (7, 'Yurii Malikov', '2016-09-22 16:55:55', 'I can complete the task using CMS Wordpress');
 

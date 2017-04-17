@@ -5,9 +5,11 @@ import com.malikov.freelance.model.Freelancer;
 import com.malikov.freelance.to.BaseUserTo;
 import com.malikov.freelance.to.ClientUserTo;
 import com.malikov.freelance.to.FreelancerUserTo;
+import com.malikov.freelance.to.ProjectSmallTo;
 import com.malikov.freelance.util.ClientUtil;
 import com.malikov.freelance.util.FreelancerUtil;
 import com.malikov.freelance.util.SkillUtil;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 @Controller
 public class RootController extends AbstractController {
@@ -32,8 +37,24 @@ public class RootController extends AbstractController {
     @GetMapping("/freelancer-portfolio/{id}")
     public String freelancerPortfolio(@PathVariable("id") int freelancerId, ModelMap model) {
         super.addFreelancerToModel(freelancerId, model);
-        return "freelancer-portfolio";
+        model.addAttribute("portfolioList", super.getPortfolio(freelancerId));
+        return "portfolio";
     }
+
+//    @GetMapping(value = "/ajax/portfolio/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public List<ProjectSmallTo> portfolio(@PathVariable("id") int freelancerId, ModelMap model) {
+//        return super.getPortfolio(freelancerId);
+//
+//    }
+
+/*//    @GetMapping(value = "/portfolio/{id}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/port", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @GetMapping()
+//    public List<ProjectSmallTo> getPortfolio(@PathVariable("id") int freelancerId) {
+    public List<ProjectSmallTo> getPortfolio() {
+//    public java.util.List<ProjectSmallTo> getPortfolio() {
+        return super.getPortfolio(1);
+    }*/
 
 
     @GetMapping("/projects")

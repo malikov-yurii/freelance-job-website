@@ -5,16 +5,11 @@ import com.malikov.freelance.model.Client;
 import com.malikov.freelance.model.Freelancer;
 import com.malikov.freelance.model.Skill;
 import com.malikov.freelance.model.User;
-import com.malikov.freelance.service.ClientService;
-import com.malikov.freelance.service.FreelancerService;
-import com.malikov.freelance.service.SkillService;
-import com.malikov.freelance.service.UserService;
+import com.malikov.freelance.service.*;
 import com.malikov.freelance.to.BaseUserTo;
 import com.malikov.freelance.to.FreelancerUserTo;
-import com.malikov.freelance.util.BaseUserUtil;
-import com.malikov.freelance.util.ClientUtil;
-import com.malikov.freelance.util.FreelancerUtil;
-import com.malikov.freelance.util.SkillUtil;
+import com.malikov.freelance.to.ProjectSmallTo;
+import com.malikov.freelance.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 
@@ -22,6 +17,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class AbstractController {
 
@@ -33,6 +29,8 @@ public abstract class AbstractController {
 
     @Autowired
     FreelancerService freelancerService;
+    @Autowired
+    ProjectService projectService;
 
     @Autowired
     ClientService clientService;
@@ -83,5 +81,11 @@ public abstract class AbstractController {
         Freelancer freelancer = freelancerService.get(freelancerId);
         model.addAttribute("freelancer", FreelancerUtil.asSmallTo(freelancer));
 
+    }
+
+
+    // TODO: 4/17/2017 remove!
+    public List<ProjectSmallTo> getPortfolio(int freelancerId) {
+        return projectService.getPortfolio(freelancerId).stream().map(ProjectUtil::asSmallTo).collect(Collectors.toList());
     }
 }
