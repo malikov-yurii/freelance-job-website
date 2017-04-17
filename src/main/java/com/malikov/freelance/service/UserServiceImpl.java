@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (u == null) {
             throw new UsernameNotFoundException("User with login=" + login + " is not found");
         }
+        if (u.getBlocked() != null && u.getBlocked()){
+            throw new UsernameNotFoundException("User with login=" + login + " is blocked by admin!");
+        }
         return new AuthorizedUser(u);
     }
 

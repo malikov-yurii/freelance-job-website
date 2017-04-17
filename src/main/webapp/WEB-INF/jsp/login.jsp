@@ -32,12 +32,12 @@
     <div class="login-footer">
         <c:if test="${error}">
             <div class="error">
-                    ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                    <h2>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</h2>
             </div>
         </c:if>
         <c:if test="${not empty message}">
             <div class="message">
-                <fmt:message key="${message}"/>
+                <h2><fmt:message key="${message}"/></h2>
             </div>
         </c:if>
         <p>Developed by Yurii Malikov</p>
@@ -64,13 +64,13 @@
             <%--<a href="http://getbootstrap.com/">Bootstrap</a>.--%>
         <%--</p>--%>
         <div>
-            &nbsp;&nbsp;&nbsp;<a href="https://github.com/malikov-yurii/java-developer-course-freelance-exchange">
-            Java Enterprise project</a> with
-            registration/authorization and interface based on roles (USER, ADMIN, CLIENT).
-            Administrator has full rights to create, update, delete all entities (users, projects, skills, comments).
-            Also administrator can block projects and project comments.
-            Client can create project, update his own project adn change status of their own project.
-            Freelancers can only apply for project.
+            <a href="https://github.com/malikov-yurii/java-developer-course-freelance-exchange">
+            Java Enterprise project</a> with registration/authorization and interface based on roles
+            (FREELANCER, ADMIN, CLIENT). <br>
+            Administrator has full rights to create, update, delete all entities (users, projects, skills, comments).<br>
+            Also administrator can block projects and project comments.<br>
+            Client can create project, update his own project and change statuses of their own projects.<br>
+            Freelancers can only apply for project.<br>
             Interaction with system is implemented with UI (AJAX) and through REST interface with basic authorization.
         </div>
     </div>

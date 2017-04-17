@@ -15,43 +15,77 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron">
-    <div class="container">
-        <div class="shadow">
-            <h3>
-                <c:if test="${register}">
-                    <fmt:message key="app.register"/>
-                    <fmt:message key="common.add" var="saveButton"/>
+    <div class="profile-page">
+        <h3>
+            <c:if test="${register}">
+                <fmt:message key="app.register"/>
+                <c:if test="${profileUserTo.role == 'freelancer'}">
+
+                    <fmt:message key="app.freelancer"/>
                 </c:if>
+                <c:if test="${profileUserTo.role == 'client'}">
+                    <fmt:message key="app.client"/>
+                </c:if>
+
+                <fmt:message key="common.submitRegister" var="saveButton"/>
+
+            </c:if>
+            <c:if test="${not register}">
+                ${profileUserTo.firstName} ${profileUserTo.lastName} profile
+                <fmt:message key="common.update" var="saveButton"/>
+            </c:if>
+            <br><br>
+        </h3>
+
+        <div class="view-box">
+
+            <form:form modelAttribute="profileUserTo" class="form-horizontal profile-form" method="post"
+                       action="${register
+                       ? (profileUserTo.role == 'client' ? 'register-client': 'register-freelancer')
+                       : (profileUserTo.role == 'freelancer' ? 'profile-freelancer' : 'profile-user')}"
+                       charset="utf-8" accept-charset="UTF-8">
+
                 <c:if test="${not register}">
-                    ${profileUserTo.firstName} ${profileUserTo.lastName} profile
-                    <fmt:message key="common.update" var="saveButton"/>
+                    <form:input path="id" type="hidden" class="form-control"/>
                 </c:if>
-            </h3>
 
-            <div class="view-box">
-                <form:form modelAttribute="profileUserTo" class="form-horizontal" method="post"
-                           action="${register ?
-                           (profileUserTo.role == 'client' ? 'register-client': 'register-freelancer') :
-                           (profileUserTo.role == 'freelancer' ? 'profile-freelancer' : 'profile-user')}"
-                           charset="utf-8" accept-charset="UTF-8">
+                    <div class="table-row">
+                        <form:label path="firstName" class="control-label">First name</form:label>
+                        <form:input path="firstName" type="text" class="form-control"/>
+                    </div>
 
-                    <ishop:inputField label="ID" name="id"/>
-                    <ishop:inputField label="First Name" name="firstName"/>
-                    <ishop:inputField label="Last Name" name="lastName"/>
-                    <ishop:inputField label="Login" name="login"/>
-                    <ishop:inputField label="Password" name="password" inputType="password"/>
-                    <ishop:inputField label="Email" name="email"/>
+                    <div class="table-row">
+                        <form:label path="lastName" class="control-label">Last name</form:label>
+                        <form:input path="lastName" type="text" class="form-control"/>
+                    </div>
+
+                    <div class="table-row">
+                        <form:label path="login" class="control-label">Login</form:label>
+                        <form:input path="login" type="text" class="form-control"/>
+                    </div>
+
+                    <div class="table-row">
+                        <form:label path="password" class="control-label">Password</form:label>
+                        <form:input path="password" type="password" class="form-control"/>
+                    </div>
+
+                    <div class="table-row">
+                        <form:label path="email" class="control-label">Email</form:label>
+                        <form:input path="email" type="email" class="form-control"/>
+                    </div>
+
                     <c:if test="${profileUserTo.role == 'freelancer'}">
-                        <ishop:inputField label="Skills" name="skills"/>
+                        <div class="table-row">
+                            <form:label path="skills" class="control-label">Skills</form:label>
+                            <form:input path="skills" type="text" class="form-control"/>
+                        </div>
                     </c:if>
 
-                    <div class="form-group">
-                        <div class="col-xs-offset-2 col-xs-10">
-                            <button type="submit" class="btn btn-primary">${saveButton}</button>
-                        </div>
+                    <div class="table-row">
+                        <button type="submit" class="profile-submit">Submit</button>
                     </div>
-                </form:form>
-            </div>
+            </form:form>
+
         </div>
     </div>
 </div>

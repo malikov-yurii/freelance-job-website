@@ -132,7 +132,9 @@ body {
     border-radius: 0;
     line-height: 50px;
 }
-
+.nav-block .btn:focus {
+    outline: none;
+}
 .nav-block .navbar-form {
     margin: 0;
 }
@@ -296,7 +298,56 @@ th:nth-child(4) {
     width: 100%;
     margin: 10px 0 30px;
 }
-
 .applied-freelancer-table th {
     font-weight: bold;
+}
+.profile-page {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.profile-page h3 {
+    margin: 10px 0;
+    font-size: 30px;
+    line-height: 1;
+    text-align: center;
+}
+.profile-form label, .profile-form input {
+    display: inline-block;
+    vertical-align: top;
+}
+.profile-form label {
+    width: 30%;
+}
+.profile-form input {
+    width: 65%;
+    margin: 0 0 0 4%;
+}
+.profile-form .table-row {
+    margin: 10px 0 0;
+}
+.profile-submit {
+    float: right;
+    min-width: 200px;
+    width: 65%;
+    margin: 10px auto 0;
+    background: #25a1c5;
+    border: 0;
+    color: #fff;
+    font-size: 19px;
+    line-height: 43px;
+}
+.profile-form:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.profile-form {
+    position: relative;
+    left: -15%;
+}
+.profile-submit:hover {
+    background: #26add4;
+}
+.show-add-new-modal {
+    margin: 7px 0 16px;
 }

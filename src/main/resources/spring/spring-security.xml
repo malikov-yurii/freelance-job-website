@@ -22,6 +22,7 @@
         <intercept-url pattern="/register-freelancer" access="permitAll"/>
 
         <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <!--<intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>-->
         <intercept-url pattern="/**" access="isAuthenticated()"/>
 
         <form-login login-page="/login" default-target-url="/projects"
