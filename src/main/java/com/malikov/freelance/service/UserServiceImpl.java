@@ -5,6 +5,7 @@ import com.malikov.freelance.model.User;
 import com.malikov.freelance.repository.UserRepository;
 import com.malikov.freelance.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -69,4 +70,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<User> getAllAdmins() {
         return repository.getAllAdmins();
     }
+
+//    @CacheEvict(value = "users", allEntries = true)
+//    @Override
+//    public void evictCache() {}
 }

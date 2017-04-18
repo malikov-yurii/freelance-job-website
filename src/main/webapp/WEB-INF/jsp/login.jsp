@@ -11,6 +11,21 @@
 
 <div class="login-page">
 
+    <div class="login-info__block">
+        <div class="login-info">
+            Admin login: admin1
+        </div>
+        <div class="login-info">
+            Client login: client1
+        </div>
+        <div class="login-info">
+            Freelancer login: freelancer1
+        </div>
+        <div class="login-info">
+            Password for all: 1111
+        </div>
+    </div>
+
     <div class="login-logo">
         <fmt:message key="app.title"/>
     </div>
