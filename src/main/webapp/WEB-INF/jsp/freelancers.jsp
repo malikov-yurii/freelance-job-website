@@ -15,7 +15,7 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3 class="page-title">Freelancers</h3>
+            <h3 class="page-title"><fmt:message key="app.freelancers"/></h3>
 
             <div class="view-box">
                 <a class="btn btn-sm btn-info show-add-new-modal" onclick="showAddUserModal()"></a>
@@ -23,12 +23,12 @@
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>login</th>
-                        <th>email</th>
-                        <th>skills</th>
+                        <th><fmt:message key="app.id"/></th>
+                        <th><fmt:message key="app.firstName"/></th>
+                        <th><fmt:message key="app.lastName"/></th>
+                        <th><fmt:message key="app.userLogin"/></th>
+                        <th><fmt:message key="app.email"/></th>
+                        <th><fmt:message key="app.skills"/></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -52,7 +52,7 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="firstName" class="control-label col-xs-3">First Name</label>
+                        <label for="firstName" class="control-label col-xs-3"><fmt:message key="app.firstName"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Ivan">
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="lastName" class="control-label col-xs-3">Last Name</label>
+                        <label for="lastName" class="control-label col-xs-3"><fmt:message key="app.lastName"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Ivanov">
@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="login" class="control-label col-xs-3">Login</label>
+                        <label for="login" class="control-label col-xs-3"><fmt:message key="app.userLogin"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="login" name="login" placeholder="login">
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="control-label col-xs-3">Password</label>
+                        <label for="password" class="control-label col-xs-3"><fmt:message key="app.password"/></label>
 
                         <div class="col-xs-9">
                             <input type="password" class="form-control" id="password" name="password">
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="control-label col-xs-3">Email</label>
+                        <label for="email" class="control-label col-xs-3"><fmt:message key="app.email"/></label>
 
                         <div class="col-xs-9">
                             <input type="email" class="form-control" id="email" name="email" placeholder="ivanov@gmail.com">
@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="skills" class="control-label col-xs-3">Skills</label>
+                        <label for="skills" class="control-label col-xs-3"><fmt:message key="app.skills"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="skills" name="skills" placeholder="Java, HTML, CSS">
@@ -101,7 +101,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="save()">save</button>
+                            <button class="btn btn-primary" type="button" onclick="save()"><fmt:message key="common.save"/></button>
                         </div>
                     </div>
                 </form:form>
@@ -115,13 +115,10 @@
 <jsp:include page="fragments/footer.jsp"/>
 
 <script type="text/javascript">
-    //    debugger;
-    $(".show-add-new-modal").html('add new freelancer');
+    $(".show-add-new-modal").html('<fmt:message key="app.addNewFreelancer"/>');
     var entityName = 'freelancer';
     var ajaxUrl = 'ajax/profile/freelancers/';
 </script>
-
-<%--<script type="text/javascript" src="resources/js/datatablesUtil.js"></script>--%>
 
 <script type="text/javascript" src="resources/js/userDatatables.js"></script>
 

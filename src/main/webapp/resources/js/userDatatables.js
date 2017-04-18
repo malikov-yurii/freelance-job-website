@@ -1,7 +1,7 @@
 var datatableApi;
 
 function renderPortfolioBtn(data, type, row) {
-    return '<a class="btn btn-xs btn-primary" href="freelancer-portfolio/' + row.id + '">portfolio<a/>';
+    return '<a class="btn btn-xs btn-primary" href="freelancer-portfolio/' + row.id + '">' + i18n['common.portfolio'] + '<a/>';
 }
 
 $(function () {

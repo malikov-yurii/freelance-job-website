@@ -17,8 +17,8 @@
 <jsp:include page="fragments/footer.jsp"/>
 
 <script type="text/javascript">
-    $(".page-title").text("Clients");
-    $(".show-add-new-modal").text("add new client");
+    $(".page-title").text("<fmt:message key="app.clients"/>");
+    $(".show-add-new-modal").text("<fmt:message key="app.addNewClient"/>");
     var entityName = 'client';
     var ajaxUrl = 'ajax/profile/clients/';
 </script>

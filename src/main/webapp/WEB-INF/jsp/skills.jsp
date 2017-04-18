@@ -15,7 +15,7 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3 class="page-title">Freelancers</h3>
+            <h3 class="page-title"><fmt:message key="app.skills"/></h3>
 
             <div class="view-box">
                 <a class="btn btn-sm btn-info show-add-new-modal" onclick="showAddSkillModal()"></a>
@@ -23,8 +23,8 @@
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Skill name</th>
+                        <th><fmt:message key="app.id"/></th>
+                        <th><fmt:message key="app.skillName"/></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -47,7 +47,7 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3">Skill name</label>
+                        <label for="name" class="control-label col-xs-3"><fmt:message key="app.skillName"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Java 8">
@@ -56,7 +56,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="save()">save</button>
+                            <button class="btn btn-primary" type="button" onclick="save()"><fmt:message key="common.submit"/></button>
                         </div>
                     </div>
                 </form:form>
@@ -70,8 +70,7 @@
 <jsp:include page="fragments/footer.jsp"/>
 
 <script type="text/javascript">
-    //    debugger;
-    $(".show-add-new-modal").html('add new skill');
+    $(".show-add-new-modal").html('<fmt:message key="app.addNewSkill"/>');
     var entityName = 'skill';
     var ajaxUrl = 'ajax/profile/skills/';
 </script>

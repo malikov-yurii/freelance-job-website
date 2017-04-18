@@ -20,8 +20,8 @@ $(function () {
         "paging": true,
         "info": true,
         "columns": [
-            {"data": "id", "orderable": false, "className": "project-id"},
-            {"data": "clientId", "orderable": false, "className": "project-client-id"},
+            {"data": "id", "orderable": false, "visible": false, "className": "project-id"},
+            {"data": "clientId", "orderable": false, "visible": false,  "className": "project-client-id"},
             {"data": "name", "orderable": false, "className": "project-name"},
             {"data": "description", "orderable": false, "className": "project-description"},
             {"data": "payment", "orderable": false, "className": "project-payment"},
@@ -102,9 +102,9 @@ $(function () {
 
 function renderAddCommentField(projectId) {
     return '<form class="comments-form" id="commentForm' + projectId + '">' +
-        '<p><b>Add comment:</b></p>' +
+        '<p><b>' + i18n['common.addComment'] + ':</b></p>' +
         '<p><textarea id="newCommentTextArea' + projectId + '" rows="2" cols="60" name="text"></textarea></p>' +
-        '<button class="btn btn-primary" type="button" onclick="saveNewComment(' + projectId + ')">submit comment</button>' +
+        '<button class="btn btn-primary" type="button" onclick="saveNewComment(' + projectId + ')">' + i18n['common.submit'] + '</button>' +
         '</form>';
 }
 
@@ -121,11 +121,11 @@ function saveNewComment(projectId) {
 }
 
 function renderUpdateCommentBtn(commentId, commentText) {
-    return authorizedUserRole === 'admin' ? '<a class="btn btn-xs btn-update-comment" title="Update comment" onclick="showUpdateCommentModal(' + commentId + ', \'' + commentText + '\')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>' : "";
+    return authorizedUserRole === 'admin' ? '<a class="btn btn-xs btn-update-comment" title="' + i18n['common.updateComment'] + '" onclick="showUpdateCommentModal(' + commentId + ', \'' + commentText + '\')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>' : "";
 }
 
 function showUpdateCommentModal(commentId, commentText) {
-    $('#commentModalTitle').html('Update comment');
+    $('#commentModalTitle').html(i18n['common.updateComment']);
     $('#id').val(commentId);
     $('#commentProjectId').val(0);
     $('#commentText').val(commentText);
@@ -147,11 +147,11 @@ function updateComment() {
 
 function renderDeleteCommentBtn(commentId) {
     if (authorizedUserRole === 'admin')
-        return '<a class="btn btn-xs btn-delete-comment" onclick="deleteComment(' + commentId + ')" title="Delete comment"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+        return '<a class="btn btn-xs btn-delete-comment" onclick="deleteComment(' + commentId + ')" title="' + i18n['common.deleteComment'] + '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
 }
 
 function deleteComment(id) {
-    if (confirm('Are you sure you want to delete comment?')) {
+    if (confirm(i18n['common.areYouSureWantToDelete'])) {
         $.ajax({
             url: 'ajax/profile/comments/' + id,
             type: 'DELETE',
@@ -166,8 +166,8 @@ function deleteComment(id) {
 function renderBlockUnblockCommentBtn(commentId, blocked) {
     if (authorizedUserRole === 'admin') {
         return blocked === false ?
-        '<a class="btn btn-xs btn-block-comment" onclick="blockComment(' + commentId + ');" title="Block comment"><i class="fa fa-ban" aria-hidden="true"></i></a>' :
-        '<a class="btn btn-xs btn-unblock-comment" onclick="unblockComment(' + commentId + ');" title="Unblock comment"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a>';
+        '<a class="btn btn-xs btn-block-comment" onclick="blockComment(' + commentId + ');" title="' + i18n['common.block'] + '"><i class="fa fa-ban" aria-hidden="true"></i></a>' :
+        '<a class="btn btn-xs btn-unblock-comment" onclick="unblockComment(' + commentId + ');" title="' + i18n['common.unblock'] + '"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a>';
     }
 }
 
@@ -229,12 +229,12 @@ function buildAppliedFreelancerList(appliedFreelancerTos, projectId, projectClie
 
 function renderApproveFreelancerBtn(projectId, appliedFreelancerId, projectClientId) {
     if (authorizedUserRole === 'client' && authorizedUserId === projectClientId) {
-        return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">Approve freelancer for project</a>';
+        return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">' + i18n['common.approveFreelancerForProject'] + '</a>';
     }
 }
 
 function approveAppliedFreelancer(projectId, freelancerId) {
-    if (confirm('Are you sure you want approve this freelancer?')) {
+    if (confirm(i18n['common.areYouSureYouWantApproveThisFreelancer'])) {
         $.ajax({
             url: ajaxUrl + projectId + '/approve-freelancer/' + freelancerId,
             type: 'POST',
@@ -268,13 +268,13 @@ function renderApplyForProjectBtn(data, type, row) {
             return '<b>Application closed</b>';
             break;
         case 'ALLOWED_HAS_SKILLS' :
-            return '<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + row.id + ');">Apply for project</a>';
+            return '<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + row.id + ');">' + i18n['common.applyForProject'] + '</a>';
             break;
         case 'ALREADY_APPLIED' :
-            return '<a class="btn btn-xs btn-danger" onclick="discardApplicationForProject(event, ' + row.id + ');">Discard application</a>';
+            return '<a class="btn btn-xs btn-danger" onclick="discardApplicationForProject(event, ' + row.id + ');">' + i18n['common.discardApplication'] + '</a>';
             break;
         case 'NOT_ALLOWED_LACK_OF_SKILLS' :
-            return '<b>Lack of skills</b>';
+            return '<b>' + i18n['common.lackOfSkills'] + '</b>';
             break;
     }
 }
@@ -284,7 +284,7 @@ function applyForProject(e, id) {
         url: ajaxUrl + id + '/apply-for-project',
         type: 'POST',
         success: function (data) {
-            $(e.target).parent().html('<a class="btn btn-xs btn-danger" onclick="discardApplicationForProject(event, ' + id + ');">Discard application</a>');
+            $(e.target).parent().html('<a class="btn btn-xs btn-danger" onclick="discardApplicationForProject(event, ' + id + ');">' + i18n['common.discardApplication'] + '</a>');
         }
     })
 }
@@ -294,7 +294,7 @@ function discardApplicationForProject(e, id) {
         url: ajaxUrl + id + '/discard-application-for-project',
         type: 'POST',
         success: function (data) {
-            $(e.target).parent().html('<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + id + ');">Apply for project</a>');
+            $(e.target).parent().html('<a class="btn btn-xs btn-success" onclick="applyForProject(event, ' + id + ');">' + i18n['common.applyForProject'] + '</a>');
         }
     });
 }
@@ -317,12 +317,12 @@ function buildCommentList(commentTos) {
 
 function renderBlockUnblockProjectBtn(data, type, row) {
     return row.blocked === false ?
-    '<a class="btn btn-xs btn-danger btn-project" onclick="block(' + row.id + ');" title="Block Project"><i class="fa fa-ban" aria-hidden="true"></i></a>' :
-    '<a class="btn btn-xs btn-success btn-project" onclick="unblock(' + row.id + ');" title="Unblock Project"><i class="fa fa-check" aria-hidden="true"></i></a>';
+    '<a class="btn btn-xs btn-danger btn-project" onclick="block(' + row.id + ');" title="' + i18n['common.block'] + '"><i class="fa fa-ban" aria-hidden="true"></i></a>' :
+    '<a class="btn btn-xs btn-success btn-project" onclick="unblock(' + row.id + ');" title="' + i18n['common.unblock'] + '"><i class="fa fa-check" aria-hidden="true"></i></a>';
 }
 
 function renderDeleteProjectBtn(data, type, row) {
-    return '<a class="btn btn-xs btn-danger btn-project" onclick="deleteEntity(' + row.id + ');" title="Delete Project"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+    return '<a class="btn btn-xs btn-danger btn-project" onclick="deleteEntity(' + row.id + ');" title="' + i18n['common.delete'] + '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
 }
 
 function renderUpdateProjectBtn(data, type, row) {
@@ -335,7 +335,7 @@ function renderUpdateProjectBtn(data, type, row) {
             row.payment + ', \'' +
             row.requiredSkills +
             '\');"' +
-            ' title="Update Project"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+            ' title="' + i18n['common.update'] + '"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
     }
     return "";
 }
@@ -345,7 +345,7 @@ function showUpdateProjectModal(projectId, projectClientId, projectName, project
     if (authorizedUserRole === 'admin')
         $('#projectClientId').val(projectClientId);
 
-    $('#modalTitle').html('Update project');
+    $('#modalTitle').html(i18n['common.update']);
     $('#projectId').val(projectId);
     $('#projectName').val(projectName);
     $('#projectDescription').val(projectDescription);

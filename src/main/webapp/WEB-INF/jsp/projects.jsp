@@ -20,7 +20,7 @@
         <sec:authorize access="hasAnyRole('ROLE_CLIENT', 'ROLE_ADMIN')">
             <div class="row">
                 <div class="col-md-3 col-xs-6">
-                    <a class="btn btn-success" onclick="addProject('')">add project</a>
+                    <a class="btn btn-success" onclick="addProject('')"><fmt:message key="app.addProject"/></a>
                 </div>
             </div>
         </sec:authorize>
@@ -29,15 +29,14 @@
         <table class="project-table display" id="datatable">
             <thead>
             <tr class="order-table-head">
-                <%--<tr>--%>
-                <th>ID</th>
-                <th>Cl ID</th>
-                <th>P Name</th>
-                <th>Description</th>
-                <th>Payment</th>
-                <th>Cl last name</th>
-                <th>Status</th>
-                <th>Skills</th>
+                <th><fmt:message key="app.id"/></th>
+                <th><fmt:message key="app.clientId"/></th>
+                <th><fmt:message key="app.projectName"/></th>
+                <th><fmt:message key="app.description"/></th>
+                <th><fmt:message key="app.payment"/></th>
+                <th><fmt:message key="app.clientLastName"/></th>
+                <th><fmt:message key="app.status"/></th>
+                <th><fmt:message key="app.requiredSkills"/></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -56,19 +55,11 @@
             </div>
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
-
-                    <%--<div class="form-group">--%>
-                    <%--<label for="projectId" class="control-label col-xs-3">ID</label>--%>
-                    <%--<div class="col-xs-9">--%>
-                    <%--<input type="text" class="form-control" disabled="disabled" id="projectId" name="id">--%>
                     <input type="hidden" class="form-control" id="projectId" name="id">
-                    <%--</div>--%>
-                    <%--</div>--%>
-
 
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <div class="form-group">
-                            <label for="projectClientId" class="control-label col-xs-3">Client id</label>
+                            <label for="projectClientId" class="control-label col-xs-3"><fmt:message key="app.clientId"/></label>
 
                             <div class="col-xs-9">
                                 <input type="number" class="form-control" id="projectClientId" name="clientId"
@@ -78,7 +69,7 @@
                     </sec:authorize>
 
                     <div class="form-group">
-                        <label for="projectName" class="control-label col-xs-3">Project name</label>
+                        <label for="projectName" class="control-label col-xs-3"><fmt:message key="app.projectName"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="projectName" name="name"
@@ -87,7 +78,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="projectDescription" class="control-label col-xs-3">Description</label>
+                        <label for="projectDescription" class="control-label col-xs-3"><fmt:message key="app.description"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="projectDescription" name="description"
@@ -96,7 +87,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="projectPayment" class="control-label col-xs-3">Payment</label>
+                        <label for="projectPayment" class="control-label col-xs-3"><fmt:message key="app.payment"/></label>
 
                         <div class="col-xs-9">
                             <input type="number" class="form-control" id="projectPayment" name="payment"
@@ -105,7 +96,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="projectRequiredSkills" class="control-label col-xs-3">Required skills</label>
+                        <label for="projectRequiredSkills" class="control-label col-xs-3"><fmt:message key="app.requiredSkills"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="projectRequiredSkills" name="requiredSkills"
@@ -115,7 +106,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="save()">Submit</button>
+                            <button class="btn btn-primary" type="button" onclick="save()"><fmt:message key="common.submit"/></button>
                         </div>
                     </div>
                 </form:form>
@@ -140,7 +131,7 @@
 
 
                     <div class="form-group">
-                        <label for="commentText" class="control-label col-xs-3">Comment text</label>
+                        <label for="commentText" class="control-label col-xs-3"><fmt:message key="app.commentText"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="commentText" name="commentText">
@@ -149,7 +140,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="updateComment()">Submit</button>
+                            <button class="btn btn-primary" type="button" onclick="updateComment()"><fmt:message key="common.submit"/></button>
                         </div>
                     </div>
                 </form:form>
@@ -167,10 +158,9 @@
     <table class="applied-freelancer-table" data-project-id="{{= projectId }}">
         <thead>
         <tr>
-            <th><span class="order-head-lg">Freelancer full name</span></th>
-            <th><span class="order-head-lg">Skills</span></th>
-            <th>
-            </th>
+            <th><span class="order-head-lg"><fmt:message key="common.appliedFreelancer"/></span></th>
+            <th><span class="order-head-lg"><fmt:message key="common.freelancerSkills"/></span></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -195,7 +185,7 @@
     <table class="comment-table">
         <thead>
         <tr>
-            <th>Comments</th>
+            <th><fmt:message key="app.comments"/></th>
             <th></th>
             <th></th>
             <th></th>

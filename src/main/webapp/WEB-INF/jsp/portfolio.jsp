@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%--<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>--%>
 
 <html>
 <head>
@@ -17,17 +17,18 @@
 
 <div class="jumbotron">
     <div class="container">
-        Portfolio of ${freelancer.fullName}
+        <p><fmt:message key="app.portfolioOf"/> ${freelancer.fullName}
         <br>
-        ${freelancer.fullName}'s skills: ${freelancer.skills}
+        ${freelancer.fullName}'s <fmt:message key="app.skills"/>: ${freelancer.skills}
+        <p>
         <br><br>
 
         <c:if test="${not empty portfolioList}">
             <table>
-                <th>Project name</th>
-                <th>Project description</th>
-                <th>Client</th>
-                <th>Skills for project</th>
+                <th><fmt:message key="app.projectName"/></th>
+                <th><fmt:message key="app.projectDescription"/></th>
+                <th><fmt:message key="app.client"/></th>
+                <th><fmt:message key="app.requiredSkills"/></th>
                 <c:forEach var="project" items="${portfolioList}">
                     <tr>
                         <td>${project.name}</td>
@@ -40,7 +41,7 @@
         </c:if>
 
         <c:if test="${empty portfolioList}">
-            Sorry, but ${freelancer.fullName} doesn't have any finished projects yet.
+            <fmt:message key="app.sorryBut"/> ${freelancer.fullName} <fmt:message key="app.doesntHas any finished projects"/>
         </c:if>
     </div>
 </div>

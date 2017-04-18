@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <div class="jumbotron">
     <div class="container">
@@ -11,11 +12,11 @@
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>login</th>
-                        <th>email</th>
+                        <th><fmt:message key="app.id"/></th>
+                        <th><fmt:message key="app.firstName"/></th>
+                        <th><fmt:message key="app.lastName"/></th>
+                        <th><fmt:message key="app.userLogin"/></th>
+                        <th><fmt:message key="app.email"/></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -40,7 +41,7 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="firstName" class="control-label col-xs-3">First Name</label>
+                        <label for="firstName" class="control-label col-xs-3"><fmt:message key="app.firstName"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Ivan">
@@ -48,7 +49,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="lastName" class="control-label col-xs-3">Last Name</label>
+                        <label for="lastName" class="control-label col-xs-3"><fmt:message key="app.lastName"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Ivanov">
@@ -56,7 +57,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="login" class="control-label col-xs-3">Login</label>
+                        <label for="login" class="control-label col-xs-3"><fmt:message key="app.userLogin"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="login" name="login" placeholder="login">
@@ -64,7 +65,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="control-label col-xs-3">Password</label>
+                        <label for="password" class="control-label col-xs-3"><fmt:message key="app.password"/></label>
 
                         <div class="col-xs-9">
                             <input type="password" class="form-control" id="password" name="password">
@@ -72,7 +73,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="control-label col-xs-3">Email</label>
+                        <label for="email" class="control-label col-xs-3"><fmt:message key="app.email"/></label>
 
                         <div class="col-xs-9">
                             <input type="email" class="form-control" id="email" name="email" placeholder="ivanov@gmail.com">
@@ -81,7 +82,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="save()">save</button>
+                            <button class="btn btn-primary" type="button" onclick="save()"><fmt:message key="common.save"/></button>
                         </div>
                     </div>
                 </form:form>

@@ -21,9 +21,11 @@
             <input type="password" placeholder="Password" class="form-control" name='password'>
             <button type="submit" class="btn btn-success"><fmt:message key="app.login"/></button>
         </form:form>
-        <div class="login-register-text">Don't have an account?</div>
-        <a class="login-register btn btn-primary" role="button" href="register-client">Register as client</a>
-        <a class="login-register btn btn-primary" role="button" href="register-freelancer">Register as freelancer</a>
+        <div class="login-register-text"><fmt:message key="app.dontHavaAnAccount"/></div>
+        <a class="login-register btn btn-primary" role="button" href="register-client"><fmt:message
+                key="app.registerAsClient"/></a>
+        <a class="login-register btn btn-primary" role="button" href="register-freelancer"><fmt:message
+                key="app.registerAsFreelancer"/></a>
 
     </div>
 
@@ -32,7 +34,7 @@
     <div class="login-footer">
         <c:if test="${error}">
             <div class="error">
-                    <h2>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</h2>
+                <h2>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</h2>
             </div>
         </c:if>
         <c:if test="${not empty message}">
@@ -40,38 +42,32 @@
                 <h2><fmt:message key="${message}"/></h2>
             </div>
         </c:if>
-        <p>Developed by Yurii Malikov</p>
+        <p><fmt:message key="app.developerdByYuriiMalikov"/></p>
         <%--<p>Used technologies: <a href="http://projects.spring.io/spring-security/">Spring Security</a>,--%>
-            <%--<a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,--%>
-            <%--&lt;%&ndash;<a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,&ndash;%&gt;--%>
-            <%--<a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security--%>
-                <%--Test</a>,--%>
-            <%--<a href="http://hibernate.org/orm/">Hibernate ORM</a>,--%>
-            <%--<a href="http://hibernate.org/validator/">Hibernate Validator</a>,--%>
-            <%--<a href="http://www.slf4j.org/">SLF4J</a>,--%>
-            <%--<a href="https://github.com/FasterXML/jackson">Json Jackson</a>,--%>
-            <%--<a href="http://ru.wikipedia.org/wiki/JSP">JSP</a>,--%>
-            <%--<a href="http://en.wikipedia.org/wiki/JavaServer_Pages_Standard_Tag_Library">JSTL</a>,--%>
-            <%--<a href="http://tomcat.apache.org/">Apache Tomcat</a>,--%>
-            <%--<a href="http://www.webjars.org/">WebJars</a>,--%>
-            <%--<a href="http://datatables.net/">DataTables plugin</a>,--%>
-            <%--&lt;%&ndash;<a href="http://ehcache.org">Ehcache</a>,&ndash;%&gt;--%>
-            <%--<a href="http://www.postgresql.org/">PostgreSQL</a>,--%>
-            <%--<a href="http://junit.org/">JUnit</a>,--%>
-            <%--<a href="http://hamcrest.org/JavaHamcrest/">Hamcrest</a>,--%>
-            <%--<a href="http://jquery.com/">jQuery</a>,--%>
-            <%--<a href="http://ned.im/noty/">jQuery notification</a>,--%>
-            <%--<a href="http://getbootstrap.com/">Bootstrap</a>.--%>
+        <%--<a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,--%>
+        <%--&lt;%&ndash;<a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,&ndash;%&gt;--%>
+        <%--<a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security--%>
+        <%--Test</a>,--%>
+        <%--<a href="http://hibernate.org/orm/">Hibernate ORM</a>,--%>
+        <%--<a href="http://hibernate.org/validator/">Hibernate Validator</a>,--%>
+        <%--<a href="http://www.slf4j.org/">SLF4J</a>,--%>
+        <%--<a href="https://github.com/FasterXML/jackson">Json Jackson</a>,--%>
+        <%--<a href="http://ru.wikipedia.org/wiki/JSP">JSP</a>,--%>
+        <%--<a href="http://en.wikipedia.org/wiki/JavaServer_Pages_Standard_Tag_Library">JSTL</a>,--%>
+        <%--<a href="http://tomcat.apache.org/">Apache Tomcat</a>,--%>
+        <%--<a href="http://www.webjars.org/">WebJars</a>,--%>
+        <%--<a href="http://datatables.net/">DataTables plugin</a>,--%>
+        <%--&lt;%&ndash;<a href="http://ehcache.org">Ehcache</a>,&ndash;%&gt;--%>
+        <%--<a href="http://www.postgresql.org/">PostgreSQL</a>,--%>
+        <%--<a href="http://junit.org/">JUnit</a>,--%>
+        <%--<a href="http://hamcrest.org/JavaHamcrest/">Hamcrest</a>,--%>
+        <%--<a href="http://jquery.com/">jQuery</a>,--%>
+        <%--<a href="http://ned.im/noty/">jQuery notification</a>,--%>
+        <%--<a href="http://getbootstrap.com/">Bootstrap</a>.--%>
         <%--</p>--%>
         <div>
             <a href="https://github.com/malikov-yurii/java-developer-course-freelance-exchange">
-            Java Enterprise project</a> with registration/authorization and interface based on roles
-            (FREELANCER, ADMIN, CLIENT). <br>
-            Administrator has full rights to create, update, delete all entities (users, projects, skills, comments).<br>
-            Also administrator can block projects and project comments.<br>
-            Client can create project, update his own project and change statuses of their own projects.<br>
-            Freelancers can only apply for project.<br>
-            Interaction with system is implemented with UI (AJAX) and through REST interface with basic authorization.
+                <fmt:message key="app.descriptionTextOnLoginPage"/>
         </div>
     </div>
 </div>

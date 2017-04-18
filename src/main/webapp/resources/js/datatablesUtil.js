@@ -9,14 +9,14 @@ function renderUpdateUserBtn(data, type, row) {
 
     if (entityName === 'freelancer')
         result += row.skills;
-    result += '\')">update</a>';
+    result += '\')">'+ i18n['common.update'] + '</a>';
 
     console.log(result);
     return result;
 }
 
 function showUpdateUserModal(id, firstName, lastName, login, email, skills) {
-    $('#modalTitle').html('Update ' + entityName);
+    $('#modalTitle').html(i18n['common.update'] + entityName);
     $('#id').val(id);
     $('#firstName').val(firstName);
     $('#lastName').val(lastName);
@@ -38,7 +38,7 @@ function updateTableByData(data) {
 }
 
 function showAddUserModal() {
-    $('#modalTitle').html('Add new ' + entityName);
+    $('#modalTitle').html(i18n['common.addNew'] + entityName);
     $('#id').val(0);
     $('#firstName').val('');
     $('#lastName').val('');
@@ -51,16 +51,16 @@ function showAddUserModal() {
 
 function renderBlockUnblockBtn(data, type, row) {
     return row.blocked === false ?
-    '<a class="btn btn-xs btn-danger" onclick="block(' + row.id + ');">block</a>' :
-    '<a class="btn btn-xs btn-success" onclick="unblock(' + row.id + ');">unblock</a>';
+    '<a class="btn btn-xs btn-danger" onclick="block(' + row.id + ');">' + i18n['common.block'] + '</a>' :
+    '<a class="btn btn-xs btn-success" onclick="unblock(' + row.id + ');">' + i18n['common.unblock'] + '</a>';
 }
 
 function renderDeleteBtn(data, type, row) {
-    return '<a class="btn btn-xs btn-danger" onclick="deleteEntity(' + row.id + ');">delete</a>';
+    return '<a class="btn btn-xs btn-danger" onclick="deleteEntity(' + row.id + ');">' + i18n['common.delete'] + '</a>';
 }
 
 function deleteEntity(id) {
-    if (confirm('Are you sure you want to delete?')) {
+    if (confirm(i18n['common.areYouSureWantToDelete'])) {
         $.ajax({
             url: ajaxUrl + id,
             type: 'DELETE',

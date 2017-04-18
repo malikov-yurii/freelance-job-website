@@ -31,7 +31,7 @@
 
             </c:if>
             <c:if test="${not register}">
-                ${profileUserTo.firstName} ${profileUserTo.lastName} profile
+                ${profileUserTo.firstName} ${profileUserTo.lastName} <fmt:message key="app.profile"/>
                 <fmt:message key="common.update" var="saveButton"/>
             </c:if>
             <br><br>
@@ -50,39 +50,39 @@
                 </c:if>
 
                     <div class="table-row">
-                        <form:label path="firstName" class="control-label">First name</form:label>
+                        <form:label path="firstName" class="control-label"><fmt:message key="app.firstName"/></form:label>
                         <form:input path="firstName" type="text" class="form-control"/>
                     </div>
 
                     <div class="table-row">
-                        <form:label path="lastName" class="control-label">Last name</form:label>
+                        <form:label path="lastName" class="control-label"><fmt:message key="app.lastName"/></form:label>
                         <form:input path="lastName" type="text" class="form-control"/>
                     </div>
 
                     <div class="table-row">
-                        <form:label path="login" class="control-label">Login</form:label>
+                        <form:label path="login" class="control-label"><fmt:message key="app.userLogin"/></form:label>
                         <form:input path="login" type="text" class="form-control"/>
                     </div>
 
                     <div class="table-row">
-                        <form:label path="password" class="control-label">Password</form:label>
+                        <form:label path="password" class="control-label"><fmt:message key="app.password"/></form:label>
                         <form:input path="password" type="password" class="form-control"/>
                     </div>
 
                     <div class="table-row">
-                        <form:label path="email" class="control-label">Email</form:label>
+                        <form:label path="email" class="control-label"><fmt:message key="app.email"/></form:label>
                         <form:input path="email" type="email" class="form-control"/>
                     </div>
 
                     <c:if test="${profileUserTo.role == 'freelancer'}">
                         <div class="table-row">
-                            <form:label path="skills" class="control-label">Skills</form:label>
+                            <form:label path="skills" class="control-label"><fmt:message key="app.skills"/></form:label>
                             <form:input path="skills" type="text" class="form-control"/>
                         </div>
                     </c:if>
 
                     <div class="table-row">
-                        <button type="submit" class="profile-submit">Submit</button>
+                        <button type="submit" class="profile-submit"><fmt:message key="common.submit"/></button>
                     </div>
             </form:form>
 

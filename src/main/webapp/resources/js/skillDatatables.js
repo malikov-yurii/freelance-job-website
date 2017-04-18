@@ -38,11 +38,11 @@ function renderUpdateSkillBtn(data, type, row) {
     return '<a class="btn btn-xs btn-primary" onclick="showUpdateSkillModal(' +
         row.id + ', \'' +
         row.name +
-        '\')">update</a>';
+        '\')">' + i18n['common.update'] + '</a>';
 }
 
 function showUpdateSkillModal(id, name) {
-    $('#modalTitle').html('Update ' + entityName);
+    $('#modalTitle').html(i18n['common.update'] + entityName);
     $('#id').val(id);
     $('#name').val(name);
     $('#editRow').modal();
