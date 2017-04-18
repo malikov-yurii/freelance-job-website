@@ -1,6 +1,13 @@
 package com.malikov.freelance.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
+
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -9,20 +16,33 @@ import java.util.Objects;
 import java.util.Set;
 
 @MappedSuperclass
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class BaseUser extends BaseEntity {
 
+    @NotEmpty
+    @SafeHtml
     @Column(name = "login")
     private String login;
 
+    @NotEmpty
+    @SafeHtml
+    @Length(min = 4)
     @Column(name = "password")
     private String password;
 
+    @NotEmpty
+    @SafeHtml
     @Column(name = "first_name")
     private String firstName;
 
+    @NotEmpty
+    @SafeHtml
     @Column(name = "last_name")
     private String lastName;
 
+    @NotEmpty
+    @SafeHtml
+    @Email
     @Column(name = "email")
     private String email;
 
@@ -49,7 +69,7 @@ public class BaseUser extends BaseEntity {
         this.lastName = lastName;
         this.email = email;
         this.roles = roles;
-        this.blocked = Boolean.FALSE;
+        this.blocked = false;
     }
 
     public BaseUser(Integer id, String login, String password, String firstName, String lastName, String email, Set<Role> roles) {
@@ -60,7 +80,7 @@ public class BaseUser extends BaseEntity {
         this.lastName = lastName;
         this.email = email;
         this.roles = roles;
-        this.blocked = Boolean.FALSE;
+        this.blocked = false;
     }
 
     public BaseUser(BaseUser baseUser) {

@@ -4,6 +4,7 @@ import com.malikov.freelance.model.Comment;
 import com.malikov.freelance.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -15,12 +16,14 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment save(Comment comment) {
+        Assert.notNull(comment, "comment must not be null");
         return repository.save(comment);
     }
 
     @Override
-    public Comment update(Comment Comment) {
-        return repository.save(Comment);
+    public Comment update(Comment comment) {
+        Assert.notNull(comment, "comment must not be null");
+        return repository.save(comment);
     }
 
     @Override

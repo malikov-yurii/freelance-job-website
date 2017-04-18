@@ -15,7 +15,7 @@ public class ClientServiceTest extends AbstractServiceTest{
     @Test
     public void save() throws Exception {
         Client newClient = new Client("newClientLogin", "newClientPassword", "newClientFirstName", "newClientLastName",
-                "newClientEmail");
+                "newClientEmail@gmail.com");
         Client created = service.save(newClient);
         CLIENT_MATCHER.assertCollectionEquals(
                 Arrays.asList(

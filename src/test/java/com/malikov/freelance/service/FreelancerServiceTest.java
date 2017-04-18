@@ -20,7 +20,7 @@ public class FreelancerServiceTest extends AbstractServiceTest{
     @Test
     public void save() throws Exception {
         Freelancer newFreelancer = new Freelancer("newFreelancerLogin", "newFreelancerPassword", "newFreelancerFirstName", "newFreelancerLastName",
-                "newFreelancerEmail", new HashSet<Role>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)), new HashSet<>(Arrays.asList(JAVASCRIPT, HTML)));
+                "newFreelancerEmail@gmail.com", new HashSet<Role>(Arrays.asList(Role.ROLE_USER, Role.ROLE_FREELANCER)), new HashSet<>(Arrays.asList(JAVASCRIPT, HTML)));
         Freelancer created = service.save(newFreelancer);
         FREELANCER_MATCHER.assertCollectionEquals(
                 Arrays.asList(

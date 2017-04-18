@@ -5,6 +5,7 @@ import com.malikov.freelance.repository.FreelancerRepository;
 import com.malikov.freelance.util.BaseUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -16,11 +17,13 @@ public class FreeLancerServiceImpl implements FreelancerService {
 
     @Override
     public Freelancer save(Freelancer freelancer) {
+        Assert.notNull(freelancer, "freelancer must not be null");
         return repository.save((Freelancer) BaseUserUtil.prepareToSave(freelancer));
     }
 
     @Override
     public Freelancer update(Freelancer freelancer) {
+        Assert.notNull(freelancer, "freelancer must not be null");
         return repository.save((Freelancer) BaseUserUtil.prepareToSave(freelancer));
     }
 

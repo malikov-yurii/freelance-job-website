@@ -1,17 +1,35 @@
 package com.malikov.freelance.to;
 
 import com.malikov.freelance.model.BaseEntity;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
+
+import javax.validation.constraints.Size;
 
 public class BaseUserTo extends BaseEntity {
+    private static final long serialVersionUID = 1L;
 
+    @NotEmpty
+    @SafeHtml
     private String firstName;
 
+    @NotEmpty
+    @SafeHtml
     private String lastName;
 
+    @NotEmpty
+    @SafeHtml
     private String login;
 
+    @NotEmpty
+    @SafeHtml
+    @Size(min = 4, max = 64, message = " must between 4 and 64 characters")
     private String password;
 
+    @Email
+    @NotEmpty
+    @SafeHtml
     private String email;
 
     private Boolean blocked;

@@ -4,6 +4,7 @@ import com.malikov.freelance.model.Skill;
 import com.malikov.freelance.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -14,13 +15,15 @@ public class SkillServiceImpl implements SkillService {
     SkillRepository repository;
 
     @Override
-    public Skill save(Skill Skill) {
-        return repository.save(Skill);
+    public Skill save(Skill skill) {
+        Assert.notNull(skill, "skill must not be null");
+        return repository.save(skill);
     }
 
     @Override
-    public Skill update(Skill Skill) {
-        return repository.save(Skill);
+    public Skill update(Skill skill) {
+        Assert.notNull(skill, "skill must not be null");
+        return repository.save(skill);
     }
 
     @Override

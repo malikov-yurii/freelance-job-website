@@ -19,7 +19,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        User newUser = new User("newUserlogin", "newUserPassword", "newUserFirstName", "newUserLastName", "newUserEmail", new HashSet<Role>(Arrays.asList(Role.ROLE_USER)));
+        User newUser = new User("newUserlogin", "newUserPassword", "newUserFirstName", "newUserLastName", "newUserEmail@gmail.com", new HashSet<Role>(Arrays.asList(Role.ROLE_USER)));
         User created = service.save(newUser);
         USER_MATCHER.assertCollectionEquals(
                 Arrays.asList(

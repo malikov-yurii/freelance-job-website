@@ -5,6 +5,7 @@ import com.malikov.freelance.repository.ClientRepository;
 import com.malikov.freelance.util.BaseUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -15,13 +16,15 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository repository;
 
     @Override
-    public Client save(Client customer) {
-        return repository.save((Client) BaseUserUtil.prepareToSave(customer));
+    public Client save(Client client) {
+        Assert.notNull(client, "client must not be null");
+        return repository.save((Client) BaseUserUtil.prepareToSave(client));
     }
 
     @Override
-    public Client update(Client customer) {
-        return repository.save((Client) BaseUserUtil.prepareToSave(customer));
+    public Client update(Client client) {
+        Assert.notNull(client, "client must not be null");
+        return repository.save((Client) BaseUserUtil.prepareToSave(client));
     }
 
     @Override

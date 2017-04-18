@@ -3,6 +3,8 @@ package com.malikov.freelance.to;
 import com.malikov.freelance.model.*;
 import com.malikov.freelance.util.CommentUtil;
 import com.malikov.freelance.util.FreelancerUtil;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import java.math.BigDecimal;
 import java.util.Collections;

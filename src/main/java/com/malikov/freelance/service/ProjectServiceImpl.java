@@ -4,6 +4,7 @@ import com.malikov.freelance.model.Project;
 import com.malikov.freelance.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -14,13 +15,15 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectRepository repository;
 
     @Override
-    public Project save(Project Project) {
-        return repository.save(Project);
+    public Project save(Project project) {
+        Assert.notNull(project, "project must not be null");
+        return repository.save(project);
     }
 
     @Override
-    public Project update(Project Project) {
-        return repository.save(Project);
+    public Project update(Project project) {
+        Assert.notNull(project, "project must not be null");
+        return repository.save(project);
     }
 
     @Override

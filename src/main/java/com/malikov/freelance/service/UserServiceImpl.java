@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User save(User user) {
+        Assert.notNull(user, "user must not be null");
         user.setPassword(PasswordUtil.encode(user.getPassword()));
         return repository.save(user);
     }
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //    @Transactional
     @Override
     public User update(User user) {
+        Assert.notNull(user, "user must not be null");
         return repository.save(user);
     }
 

@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 public class BaseEntity implements Persistable<Integer> {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
