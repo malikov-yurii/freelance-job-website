@@ -41,22 +41,6 @@ public class RootController extends AbstractController {
         return "portfolio";
     }
 
-//    @GetMapping(value = "/ajax/portfolio/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<ProjectSmallTo> portfolio(@PathVariable("id") int freelancerId, ModelMap model) {
-//        return super.getPortfolio(freelancerId);
-//
-//    }
-
-/*//    @GetMapping(value = "/portfolio/{id}/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping(value = "/port", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @GetMapping()
-//    public List<ProjectSmallTo> getPortfolio(@PathVariable("id") int freelancerId) {
-    public List<ProjectSmallTo> getPortfolio() {
-//    public java.util.List<ProjectSmallTo> getPortfolio() {
-        return super.getPortfolio(1);
-    }*/
-
-
     @GetMapping("/projects")
     public String orders() {
         return "projects";

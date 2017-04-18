@@ -8,16 +8,16 @@ import java.util.stream.Collectors;
 public class SkillUtil {
 
     public static String skillCollectionToString(Collection<Skill> skills){
-        String result = "";
+        StringBuilder result = new StringBuilder();
         if (skills != null && skills.size() != 0) {
             Iterator<Skill> iterator = skills.iterator();
-            result = iterator.next().getName();
+            result = new StringBuilder(iterator.next().getName());
             while (iterator.hasNext()){
-                result += ", ";
-                result += iterator.next().getName();
+                result.append(", ");
+                result.append(iterator.next().getName());
             }
         }
-        return result;
+        return result.toString();
     }
 
     public static Set<Skill> getSkillSetFromString(String skillsString) {

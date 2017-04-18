@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.time.LocalDateTime;
 
 public class AbstractCommentController {
-//    private static final Logger LOG = LoggerFactory.getLogger(AbstractCommentController.class);
 
     @Autowired
     CommentService commentService;
@@ -19,18 +18,9 @@ public class AbstractCommentController {
     @Autowired
     UserService userService;
 
-
-//    public List<Comment> getAll() {
-//        return commentService.getAll();
-//    }
-
     public void delete(int id) {
         commentService.delete(id);
     }
-
-//    public void create(CommentTo commentTo) {
-//        commentService.save(CommentUtil.newFromTo(commentTo));
-//    }
 
     public void update(CommentTo commentTo) {
         Comment comment = commentService.get(commentTo.getId());

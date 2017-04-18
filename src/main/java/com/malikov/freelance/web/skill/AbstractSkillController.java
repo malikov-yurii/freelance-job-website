@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public abstract class AbstractSkillController {
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractSkillController.class);
 
     @Autowired
     SkillService skillService;

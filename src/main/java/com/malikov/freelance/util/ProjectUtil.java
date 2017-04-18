@@ -10,7 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
 public class ProjectUtil {
 
     public static ProjectSmallTo asSmallTo(Project project){
@@ -50,25 +49,4 @@ public class ProjectUtil {
         );
     }
 
-
-
-//
-//    public static Order updateFromTo(Order order, OrderTo orderTo) {
-//        order.setCustomerName(orderTo.getFirstName());
-//        order.setCustomerLastName(orderTo.getLastName());
-//        order.setCustomerPhoneNumber(orderTo.getPhoneNumber());
-//        order.setCustomerCity(orderTo.getCity());
-//        order.setCustomerPostOffice(orderTo.getPostOffice());
-//        order.setComment(orderTo.getComment());
-//        order.setTotalSum(orderTo.getTotalSum());
-//        return order;
-//    }
-//
-//    public static int calculateTotalSumOfTos(Collection<OrderItemTo> orderItemTos){
-//        return orderItemTos.stream().mapToInt(p -> (p.getPrice() * p.getQuantity())).sum();
-//    }
-//
-//    public static int calculateTotalSum(Collection<OrderItem> orderItems){
-//        return orderItems.stream().mapToInt(p -> (p.getProductPrice() * p.getProductQuantity())).sum();
-//    }
 }

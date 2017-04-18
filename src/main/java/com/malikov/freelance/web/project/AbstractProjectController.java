@@ -26,12 +26,6 @@ public abstract class AbstractProjectController extends AbstractController {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractProjectController.class);
 
     @Autowired
-    private MessageSource messageSource;
-    //
-//    @Autowired
-//    private FreelancerService orderService;
-//
-    @Autowired
     private ProjectService projectService;
 
     @Autowired
@@ -147,11 +141,6 @@ public abstract class AbstractProjectController extends AbstractController {
         projectService.save(project);
     }
 
-//    public void addComment(int projectId, String commentText) {
-//        User user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-//        commentService.save(new Comment(projectId, LocalDateTime.now(), user.getFirstName() + " " + user.getLastName(), commentText));
-//    }
-
     public void delete(int projectId) {
         projectService.delete(projectId);
     }
@@ -159,15 +148,12 @@ public abstract class AbstractProjectController extends AbstractController {
     public ResponseEntity<String> updateProjectStatus(int projectId, ProjectStatus status) {
         BaseUser user = userService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         Project project = projectService.get(projectId);
-        if (user.getRoles().contains(Role.ROLE_ADMIN) || (user.getRoles().contains(Role.ROLE_CLIENT) && user.getId() == project.getClient().getId())) {
+        if (user.getRoles().contains(Role.ROLE_ADMIN) || (user.getRoles().contains(Role.ROLE_CLIENT) && Objects.equals(user.getId(), project.getClient().getId()))) {
             project.setStatus(status);
             projectService.save(project);
-            return new ResponseEntity<String>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-//    public List<ProjectSmallTo> getPortfolio(int freelancerId) {
-//        return projectService.getPortfolio(freelancerId).stream().map(ProjectUtil::asSmallTo).collect(Collectors.toList());
-//    }
 }

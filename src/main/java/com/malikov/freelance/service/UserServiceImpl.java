@@ -21,10 +21,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public AuthorizedUser loadUserByUsername(String login) throws UsernameNotFoundException {
         User u = repository.getByLogin(login.toLowerCase());
         if (u == null) {
-            throw new UsernameNotFoundException("User with login=" + login + " is not found");
+            throw new UsernameNotFoundException("User with login=" + login + " has not found in DB");
         }
         if (u.getBlocked() != null && u.getBlocked()){
-            throw new UsernameNotFoundException("User with login=" + login + " is blocked by admin!");
+            throw new UsernameNotFoundException("User with login=" + login + " has been blocked by admin!");
         }
         return new AuthorizedUser(u);
     }
@@ -35,18 +35,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return repository.save(user);
     }
 
+//    @CacheEvict(value = "users", allEntries = true)
+//    @Transactional
     @Override
     public User update(User user) {
         return repository.save(user);
     }
-
-//    @CacheEvict(value = "users", allEntries = true)
-//    @Transactional
-//    @Override
-//    public void update(UserTo userTo) {
-//        User user = updateFromTo(get(userTo.getId()), userTo);
-//        repository.save(prepareToSave(user));
-//    }
 
     @Override
     public User get(int id) {

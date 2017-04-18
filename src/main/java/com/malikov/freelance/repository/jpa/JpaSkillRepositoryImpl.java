@@ -46,23 +46,4 @@ public class JpaSkillRepositoryImpl implements SkillRepository {
                 .getResultList();
     }
 
-    //    @Override
-//    public Collection<Skill> getByCategoryId(int categoryId) {
-//        return em.createNamedQuery(Skill.BY_CATEGORY_ID, Skill.class)
-//                .setParameter("categoryId", categoryId).getResultList();
-//    }
-//
-//    @Override
-//    public Collection<Skill> getAllQuantityLessThan(int quantity) {
-//        return em.createNamedQuery(Skill.QUANTITY_LESS_THAN, Skill.class)
-
-//                .setParameter("quantity" , quantity).getResultList();
-
-//    }
-
-//    @Override
-//    public List<Skill> getBySkillNameMask(String SkillNameMask) {
-//        return em.createNamedQuery(Skill.BY_Skill_NAME_MASK, Skill.class)
-//                .setParameter("SkillNameMask", "%" + SkillNameMask + "%").getResultList();
-//    }
 }

@@ -83,9 +83,8 @@ public abstract class AbstractController {
 
     }
 
-
-    // TODO: 4/17/2017 remove!
     public List<ProjectSmallTo> getPortfolio(int freelancerId) {
         return projectService.getPortfolio(freelancerId).stream().map(ProjectUtil::asSmallTo).collect(Collectors.toList());
     }
+
 }

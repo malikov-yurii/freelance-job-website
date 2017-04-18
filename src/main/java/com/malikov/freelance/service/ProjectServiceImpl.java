@@ -42,13 +42,5 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getPortfolio(int freelancerId) {
         return repository.getPortfolio(freelancerId);
     }
-    //    @Override
-//    public Collection<ProjectExtended> getByCustomerId(int customerId) {
-//        return repository.getByCustomerId(customerId);
-//    }
 
-//    @Override
-//    public Collection<ProjectExtended> getByProductId(int productId) {
-//        return repository.getByProductId(productId);
-//    }
 }

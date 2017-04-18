@@ -48,21 +48,4 @@ public class JpaFreelancerRepositoryImpl implements FreelancerRepository {
         return em.createNamedQuery(Freelancer.BY_LOGIN, Freelancer.class).setParameter("login", login).getSingleResult();
     }
 
-    //    @Override
-//    public Collection<Freelancer
-//Extended> getByCustomerId(int customerId) {
-//        return em.createNamedQuery(Freelancer
-//Extended.BY_CUSTOMER_ID, Freelancer
-//Extended.class)
-//                .setParameter("customerId", customerId).getResultList();
-//    }
-
-//    @Override
-//    public Collection<Freelancer
-//Extended> getByProductId(int productId) {
-//        return em.createNamedQuery(Freelancer
-//Extended.BY_PRODUCT_ID, Freelancer
-//Extended.class)
-//                .setParameter("productId", productId).getResultList();
-//    }
 }

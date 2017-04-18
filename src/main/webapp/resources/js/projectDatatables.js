@@ -20,29 +20,26 @@ $(function () {
         "paging": true,
         "info": true,
         "columns": [
-            {"data": "id", "orderable": false, "visible": true, "className": "project-id"},
-            {"data": "clientId", "orderable": false, "visible": true, "className": "project-client-id"},
-            {"data": "name", "orderable": false, "visible": true, "className": "project-name"},
+            {"data": "id", "orderable": false, "className": "project-id"},
+            {"data": "clientId", "orderable": false, "className": "project-client-id"},
+            {"data": "name", "orderable": false, "className": "project-name"},
             {"data": "description", "orderable": false, "className": "project-description"},
             {"data": "payment", "orderable": false, "className": "project-payment"},
             {"data": "clientLastName", "orderable": false, "className": "project-client-last-name"},
             {"data": "status", "orderable": false, "className": "project-status editable"},
             {"data": "requiredSkills", "orderable": false, "className": "project-required-skills"},
             {
-                "defaultContent": "",
                 "orderable": false,
-                "render": role === 'admin' ? renderBlockUnblockProjectBtn :
-                    (role === 'freelancer' ? renderApplyForProjectBtn : "")
+                "render": authorizedUserRole === 'admin' ? renderBlockUnblockProjectBtn :
+                    (authorizedUserRole === 'freelancer' ? renderApplyForProjectBtn : "")
             },
             {
-                "defaultContent": "",
                 "orderable": false,
                 "render": renderUpdateProjectBtn
             },
             {
-                "defaultContent": "",
                 "orderable": false,
-                "render": role === 'admin' ? renderDeleteProjectBtn : ""
+                "render": authorizedUserRole === 'admin' ? renderDeleteProjectBtn : ""
             }
         ],
         "createdRow": onCreatedParentRow,
@@ -66,7 +63,7 @@ $(function () {
         var tr = $this.closest('tr');
         var row = datatableApi.row(tr);
 
-        if (role === 'admin' || (role === 'client' && userId === row.data().clientId)) {
+        if (authorizedUserRole === 'admin' || (authorizedUserRole === 'client' && authorizedUserId === row.data().clientId)) {
 
             /**
              * Autocomplete of 'project-status'
@@ -124,7 +121,7 @@ function saveNewComment(projectId) {
 }
 
 function renderUpdateCommentBtn(commentId, commentText) {
-    return role === 'admin' ? '<a class="btn btn-xs btn-update-comment" title="Update comment" onclick="showUpdateCommentModal(' + commentId + ', \'' + commentText + '\')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>' : "";
+    return authorizedUserRole === 'admin' ? '<a class="btn btn-xs btn-update-comment" title="Update comment" onclick="showUpdateCommentModal(' + commentId + ', \'' + commentText + '\')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>' : "";
 }
 
 function showUpdateCommentModal(commentId, commentText) {
@@ -149,24 +146,25 @@ function updateComment() {
 }
 
 function renderDeleteCommentBtn(commentId) {
-    if (role === 'admin')
+    if (authorizedUserRole === 'admin')
         return '<a class="btn btn-xs btn-delete-comment" onclick="deleteComment(' + commentId + ')" title="Delete comment"><i class="fa fa-trash" aria-hidden="true"></i></a>';
 }
 
 function deleteComment(id) {
-    // debugger;
-    $.ajax({
-        url: 'ajax/profile/comments/' + id,
-        type: 'DELETE',
-        success: function (data) {
-            updateTable();
-            successNoty('common.deleted');
-        }
-    })
+    if (confirm('Are you sure you want to delete comment?')) {
+        $.ajax({
+            url: 'ajax/profile/comments/' + id,
+            type: 'DELETE',
+            success: function (data) {
+                updateTable();
+                successNoty('common.deleted');
+            }
+        })
+    }
 }
 
 function renderBlockUnblockCommentBtn(commentId, blocked) {
-    if (role === 'admin') {
+    if (authorizedUserRole === 'admin') {
         return blocked === false ?
         '<a class="btn btn-xs btn-block-comment" onclick="blockComment(' + commentId + ');" title="Block comment"><i class="fa fa-ban" aria-hidden="true"></i></a>' :
         '<a class="btn btn-xs btn-unblock-comment" onclick="unblockComment(' + commentId + ');" title="Unblock comment"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a>';
@@ -202,7 +200,6 @@ function showAppliedFreelancersAndComments() {
         var appliedFreelancerTos = row.data().appliedFreelancerTos;
         var commentTos = row.data().commentTos;
         var projectId = row.data().id;
-        // debugger;
         row.child(
             '<div class="child-content">' +
             buildAppliedFreelancerList(appliedFreelancerTos, projectId, row.data().clientId, row)
@@ -228,11 +225,10 @@ function buildAppliedFreelancerList(appliedFreelancerTos, projectId, projectClie
         });
     }
     return "";
-
 }
 
 function renderApproveFreelancerBtn(projectId, appliedFreelancerId, projectClientId) {
-    if (role === 'client' && userId === projectClientId) {
+    if (authorizedUserRole === 'client' && authorizedUserId === projectClientId) {
         return '<a class="btn btn-xs btn-success" onclick="approveAppliedFreelancer(' + projectId + ', ' + appliedFreelancerId + ');">Approve freelancer for project</a>';
     }
 }
@@ -254,13 +250,12 @@ function addProject() {
     $('#modalTitle').html('Add new project');
     $('#projectId').val(0);
 
-    if (role === 'admin')
+    if (authorizedUserRole === 'admin')
         $('#projectClientId').val('');
 
     $('#projectName').val('');
     $('#projectDescription').val('');
     $('#projectPayment').val('');
-    // $('#projectStatus').val(projectStatus);
     $('#projectRequiredSkills').val('');
 
     $('#editRow').modal();
@@ -331,8 +326,7 @@ function renderDeleteProjectBtn(data, type, row) {
 }
 
 function renderUpdateProjectBtn(data, type, row) {
-
-    if (role === 'admin' || (role === 'client' && userId === row.clientId)) {
+    if (authorizedUserRole === 'admin' || (authorizedUserRole === 'client' && authorizedUserId === row.clientId)) {
         return '<a class="btn btn-xs btn-primary btn-project" onclick="showUpdateProjectModal(' +
             row.id + ', ' +
             row.clientId + ', \'' +
@@ -348,16 +342,14 @@ function renderUpdateProjectBtn(data, type, row) {
 
 function showUpdateProjectModal(projectId, projectClientId, projectName, projectDescription, projectPayment, projectRequiredSkills) {
 
-    if (role === 'admin')
+    if (authorizedUserRole === 'admin')
         $('#projectClientId').val(projectClientId);
 
     $('#modalTitle').html('Update project');
-// todo get info from row by projectId
     $('#projectId').val(projectId);
     $('#projectName').val(projectName);
     $('#projectDescription').val(projectDescription);
     $('#projectPayment').val(projectPayment);
-    // $('#projectStatus').val(projectStatus);
     $('#projectRequiredSkills').val(projectRequiredSkills);
     $('#editRow').modal();
 }

@@ -13,23 +13,20 @@ $(function () {
         "paging": true,
         "info": true,
         "columns": [
-            {"data": "id", "orderable": false, "visible": true},
-            {"data": "firstName", "orderable": false, "visible": true},
-            {"data": "lastName", "orderable": false, "visible": true},
+            {"data": "id", "orderable": false},
+            {"data": "firstName", "orderable": false},
+            {"data": "lastName", "orderable": false},
             {"data": "login", "orderable": false},
             {"data": "email", "orderable": false},
             {
-                "defaultContent": "",
                 "orderable": false,
                 "render": renderBlockUnblockBtn
             },
             {
-                "defaultContent": "",
                 "orderable": false,
                 "render": renderUpdateUserBtn
             },
             {
-                "defaultContent": "",
                 "orderable": false,
                 "render": renderDeleteBtn
             }

@@ -9,8 +9,6 @@ import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery(name = Comment.DELETE, query = "DELETE FROM Comment c WHERE c.id=:id"),
-//        @NamedQuery(name = Skill.BY_CLIENT, query = "SELECT p FROM Skill p WHERE p.client.id=:clientId"),
-//        @NamedQuery(name = Skill.BY_FREELANCER, query = "SELECT p FROM Skill p WHERE p.freelancer.id=:freelancerId"),
         @NamedQuery(name = Comment.ALL_SORTED, query = "SELECT c FROM Comment c ORDER BY c.datePlaced ASC"),
 })
 @Entity

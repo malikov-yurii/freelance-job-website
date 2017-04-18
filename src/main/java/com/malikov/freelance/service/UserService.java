@@ -10,5 +10,4 @@ public interface UserService extends Service<User> {
 
     List<User> getAllAdmins();
 
-//    void update(UserTo userTo);
 }

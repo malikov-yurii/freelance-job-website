@@ -11,18 +11,10 @@ $(function () {
         "paging": true,
         "info": true,
         "columns": [
-            {"data": "id", "orderable": false, "visible": true, "className": ""},
-            {"data": "name", "orderable": false, "visible": true, "className": ""},
-            {
-                "defaultContent": "",
-                "orderable": false,
-                "render": renderUpdateSkillBtn
-            },
-            {
-                "defaultContent": "",
-                "orderable": false,
-                "render": renderDeleteBtn
-            }
+            {"data": "id", "orderable": false},
+            {"data": "name", "orderable": false},
+            {"orderable": false, "render": renderUpdateSkillBtn},
+            {"orderable": false, "render": renderDeleteBtn}
         ],
         "initComplete": onProjectTableReady,
         "order": [

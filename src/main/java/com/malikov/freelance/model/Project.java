@@ -16,10 +16,7 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Project.DELETE, query = "DELETE FROM Project p WHERE p.id=:id"),
-//        @NamedQuery(name = Project.BY_CLIENT, query = "SELECT p FROM Project p WHERE p.client.id=:clientId"),
-//        @NamedQuery(name = Project.BY_FREELANCER, query = "SELECT p FROM Project p WHERE p.freelancer.id=:freelancerId"),
         @NamedQuery(name = Project.ALL_SORTED, query = "SELECT p FROM Project p ORDER BY p.id DESC"),
-//        @NamedQuery(name = Project.GET_PORTFOLIO, query = "SELECT p FROM Project p JOIN Freelancer f WHERE p.freelancer.id = f.id AND p.freelancer.id = :freelancerId AND p.status = 'FINISHIED' ORDER BY p.id DESC"),
         @NamedQuery(name = Project.GET_PORTFOLIO, query = "SELECT p FROM Project p WHERE p.freelancer.id = :freelancerId AND p.status = 'FINISHED' ORDER BY p.id DESC"),
 })
 @Entity
@@ -29,8 +26,6 @@ public class Project extends BaseEntity {
     public static final String DELETE = "Project.delete";
     public static final String ALL_SORTED = "Project.getAllSorted";
     public static final String GET_PORTFOLIO = "Project.getPortfolio";
-//        public static final String BY_CLIENT= "Project.getByClient";
-//    public static final String BY_FREELANCER = "Project.getByFreelancer";
 
 
     @Column(name = "name")

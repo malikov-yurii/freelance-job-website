@@ -1,5 +1,4 @@
 function renderUpdateUserBtn(data, type, row) {
-    // debugger;
     var result = '<a class="btn btn-xs btn-primary" onclick="showUpdateUserModal(' +
         row.id + ', \'' +
         row.firstName + '\', \'' +
@@ -61,15 +60,16 @@ function renderDeleteBtn(data, type, row) {
 }
 
 function deleteEntity(id) {
-    // debugger;
-    $.ajax({
-        url: ajaxUrl + id,
-        type: 'DELETE',
-        success: function (data) {
-            updateTable();
-            successNoty('common.deleted');
-        }
-    })
+    if (confirm('Are you sure you want to delete?')) {
+        $.ajax({
+            url: ajaxUrl + id,
+            type: 'DELETE',
+            success: function (data) {
+                updateTable();
+                successNoty('common.deleted');
+            }
+        })
+    }
 }
 
 function block(id) {
