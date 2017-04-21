@@ -41,10 +41,7 @@ public class ProjectServiceTest extends AbstractServiceTest{
 
     @Test
     public void getAll() throws Exception {
-        PROJECT_MATCHER.assertCollectionEquals(
-                Arrays.asList(PROJECT_9_SLIDER , PROJECT_8_SIMPLE_WEBSITE, PROJECT_7_ONE_PAGE , PROJECT_6_VISIT_CARD, PROJECT_5_CRM,
-                        PROJECT_4_FILTER, PROJECT_3_SHOPPING_CARD, PROJECT_2_NEW_GOOGLE, PROJECT_1_ADULT_SHOP),
-                service.getAll());
+        PROJECT_MATCHER.assertCollectionEquals(PROJECTS, service.getAll());
     }
 
     @Test

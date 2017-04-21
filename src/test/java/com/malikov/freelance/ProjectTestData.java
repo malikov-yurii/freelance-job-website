@@ -41,6 +41,9 @@ public class ProjectTestData {
     public static final Project PROJECT_9_SLIDER = new Project(9, "Photo-slider", ProjectStatus.FINISHED,
             "Photo-slider module for simple website", new BigDecimal(55).setScale(2), CLIENT_3_ISAAK, FREELANCER_1_YURII, Collections.emptyList(), new HashSet<>(Arrays.asList(HTML, CSS, JAVASCRIPT)), Collections.emptyList());
 
+    public static final List<Project> PROJECTS = Arrays.asList(PROJECT_9_SLIDER , PROJECT_8_SIMPLE_WEBSITE, PROJECT_7_ONE_PAGE , PROJECT_6_VISIT_CARD, PROJECT_5_CRM,
+    PROJECT_4_FILTER, PROJECT_3_SHOPPING_CARD, PROJECT_2_NEW_GOOGLE, PROJECT_1_ADULT_SHOP);
+
     public static final ModelMatcher<Project> PROJECT_MATCHER = ModelMatcher.of(Project.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getId(), actual.getId())
