@@ -5,5 +5,5 @@ public class Profiles {
             POSTGRES = "postgres",
             HEROKU = "heroku";
 
-    public static final String ACTIVE_DB = POSTGRES;
+    public static final String ACTIVE_DB = HEROKU;
 }

@@ -19,53 +19,59 @@
     <!--</jdbc:initialize-database>-->
 
     <!-- Choose profile from (heroku, postgres)-->
-    <beans profile="postgres">
-        <tx:annotation-driven/>
-        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+    <tx:annotation-driven/>
 
-        <bean id="dataSource"
-              class="org.apache.tomcat.jdbc.pool.DataSource"
-              p:driverClassName="${jdbc.driver.class}"
-              p:url="${database.url}"
-              p:username="${database.username}"
-              p:password="${database.password}"
-              p:removeAbandoned="true"
-              p:maxWait="20000"
-              p:testWhileIdle="true"
-              p:validationQuery="SELECT 1 FROM users"
-              p:testOnBorrow="true"
-              p:maxActive="10"
-              p:minIdle="2"
-              p:maxIdle="5"
-              p:initialSize="2"
-              p:testOnConnect="true"
-        />
-    </beans>
+    <!--<beans profile="postgres">-->
+    <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+
+    <!--<bean id="dataSource"-->
+    <!--class="org.apache.tomcat.jdbc.pool.DataSource"-->
+    <!--p:driverClassName="${jdbc.driver.class}"-->
+    <!--p:url="${database.url}"-->
+    <!--p:username="${database.username}"-->
+    <!--p:password="${database.password}"-->
+    <!--p:removeAbandoned="true"-->
+    <!--p:maxWait="20000"-->
+    <!--p:testWhileIdle="true"-->
+    <!--p:validationQuery="SELECT 1 FROM users"-->
+    <!--p:testOnBorrow="true"-->
+    <!--p:maxActive="10"-->
+    <!--p:minIdle="2"-->
+    <!--p:maxIdle="5"-->
+    <!--p:initialSize="2"-->
+    <!--p:testOnConnect="true"-->
+    <!--/>-->
+    <!--</beans>-->
 
 
-    <beans profile="heroku">
-        <context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>
+    <!--<beans profile="heroku">-->
+    <!--<context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>-->
 
-        <bean class="java.net.URI" id="dbUrl">
-            <constructor-arg value="${DATABASE_URL}"/>
-        </bean>
-        <bean id="dataSource"
-              class="org.apache.tomcat.jdbc.pool.DataSource"
-              p:url="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"
-              p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"
-              p:password="#{ @dbUrl.getUserInfo().split(':')[1] }"
-              p:driverClassName="org.postgresql.Driver"
-              p:validationQuery="SELECT 1 FROM users"
-              p:maxActive="10"
-              p:minIdle="2"
-              p:maxWait="20000"
-              p:initialSize="2"
-              p:maxIdle="5"
-              p:testOnBorrow="true"
-              p:removeAbandoned="true"
-              p:testOnConnect="true"
-              p:testWhileIdle="true"/>
-    </beans>
+    <bean class="java.net.URI" id="dbUrl">
+        <constructor-arg
+                value="postgres://wsrdibarnbpcyk:c600abf4d304b31f4deced2e6a4323f7d90d3c0f342900fc9d1a723f58b6ac2a@ec2-46-137-97-169.eu-west-1.compute.amazonaws.com:5432/df026aa04r0n8u"/>
+        <!--<constructor-arg value="${DATABASE_URL}"/>-->
+    </bean>
+    <bean id="dataSource"
+          class="org.apache.tomcat.jdbc.pool.DataSource"
+          p:url="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"
+          p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"
+          p:password="#{ @dbUrl.getUserInfo().split(':')[1] }"
+          p:driverClassName="org.postgresql.Driver"
+          p:validationQuery="SELECT 1 FROM users"
+          p:maxActive="10"
+          p:minIdle="2"
+          p:maxWait="20000"
+          p:initialSize="2"
+          p:maxIdle="5"
+          p:testOnBorrow="true"
+          p:removeAbandoned="true"
+          p:testOnConnect="true"
+          p:testWhileIdle="true"
+          p:connectionProperties="ssl=true;sslfactory=org.postgresql.ssl.NonValidatingFactory;"
+    />
+
+    <!--</beans>-->
 
     <!--<beans profile="tomcat">-->
     <!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/shopsystem"/>-->
