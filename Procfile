@@ -1,1 +1,1 @@
-web:    java $JAVA_OPTS -DFREELANCE_ROOT="." -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
+web: target/dependency/webapp-runner.jar --port $PORT target/*.war
