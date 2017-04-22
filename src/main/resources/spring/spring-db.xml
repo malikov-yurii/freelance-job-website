@@ -39,6 +39,7 @@
           p:maxIdle="5"
           p:initialSize="2"
           p:testOnConnect="true"
+          p:connectionProperties="ssl=true;sslfactory=org.postgresql.ssl.NonValidatingFactory;"
     />
 
 
